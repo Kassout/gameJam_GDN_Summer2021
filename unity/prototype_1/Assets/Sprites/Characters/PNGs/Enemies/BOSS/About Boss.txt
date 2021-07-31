@@ -1,0 +1,5 @@
+Hi!
+-I had to separate the Boss' animations because the grid sizes where different, sorry for the inconvenience.
+-You can use "Tongue_Attack_Divided_32x32" to make the attack as large as you want.
+-----Tip-----
+You can repeat the last frame of the death animation to make it stay longer on the floor.
