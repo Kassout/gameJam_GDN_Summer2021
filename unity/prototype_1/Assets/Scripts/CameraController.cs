@@ -34,7 +34,7 @@ public class CameraController : MonoBehaviour
         }
     }
     
-    private void LateUpdate()
+    private void FixedUpdate()
     {
         if (cameraStyle.Equals(CameraStyle.SmoothFollowing))
         {

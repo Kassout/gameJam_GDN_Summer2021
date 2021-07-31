@@ -1,7 +1,11 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Numerics;
 using UnityEngine;
+using UnityEngine.Tilemaps;
+using Vector2 = UnityEngine.Vector2;
+using Vector3 = UnityEngine.Vector3;
 
 public class PlayerController : MonoBehaviour
 {
@@ -13,10 +17,19 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private MovementStyle moveStyle;
 
-    private Vector2 movement;
-
     [SerializeField]
     private float timeToMove = 0.2f;
+
+    [SerializeField]
+    private Tilemap groundTileMap;
+
+    [SerializeField]
+    private Tilemap colisionTileMap;
+
+    [SerializeField]
+    private Tilemap interactionTileMap;
+
+    private Vector2 movement;
 
     private bool isMoving = false;
 
@@ -74,7 +87,11 @@ public class PlayerController : MonoBehaviour
 
     private void MovePlayer()
     {
-        rigidBody.MovePosition(rigidBody.position + movement * moveSpeed * Time.fixedDeltaTime);
+        Vector2 direction = rigidBody.position + movement * moveSpeed * Time.fixedDeltaTime;
+        if (CanMove(direction))
+        {
+            rigidBody.MovePosition(direction);
+        }
     }
 
     private IEnumerator MovePlayerOnGrid(Vector3 direction)
@@ -96,17 +113,22 @@ public class PlayerController : MonoBehaviour
         isMoving = false;
     }
 
-    /*private void MovePlayerOnGrid()
-    {
-        // TODO : grid-pinned movement
-        // transform.position = Vector3.MoveTowards(transform.position, movePoi);
-    }*/
-
     private void Interact()
     {
         if (Input.GetKeyDown(KeyCode.E))
         {
             // TODO : Do things on interact
         }
+    }
+
+    private bool CanMove(Vector3 direction)
+    {
+        Vector3Int gridPosition = groundTileMap.WorldToCell(direction);
+        if (!groundTileMap.HasTile(gridPosition) || colisionTileMap.HasTile(gridPosition))
+        {
+            return false;
+        }
+
+        return true;
     }
 }
