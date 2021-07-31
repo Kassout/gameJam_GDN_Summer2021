@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -6,6 +7,23 @@ using UnityEngine.Tilemaps;
 /// </summary>
 public class PlayerController : MonoBehaviour
 {
+    /// <summary>
+    /// Instance variable <c>characterSprite</c> represents the player's character sprite.
+    /// </summary>
+    [SerializeField]
+    private SpriteRenderer characterSprite;
+
+    /// <summary>
+    /// Instance variable <c>walkSprite</c> represents the player's character walking sprite.
+    /// </summary>
+    [SerializeField]
+    private Sprite walkSprite;
+    
+    /// <summary>
+    /// Instance variable <c>walkSprite</c> represents the player's character walking sprite.
+    /// </summary>
+    private Sprite idleSprite;
+    
     /// <summary>
     /// Instance variable <c>rigidBody</c> represents the player's rigidbody.
     /// </summary>
@@ -41,13 +59,32 @@ public class PlayerController : MonoBehaviour
     private Vector2 _movement;
 
     /// <summary>
+    /// This method is called on the frame when a script is enabled
+    /// </summary>
+    private void Start()
+    {
+        idleSprite = characterSprite.sprite;
+    }
+
+    /// <summary>
     /// This method is called once per frame
     /// </summary>
-    void Update()
+    private void Update()
     {
         // Input
         _movement.x = Input.GetAxisRaw("Horizontal");
         _movement.y = Input.GetAxisRaw("Vertical");
+
+        characterSprite.flipX = _movement.x < 0;
+        
+        if (_movement.x != 0 || _movement.y != 0)
+        {
+            characterSprite.sprite = walkSprite;
+        }
+        else
+        {
+            characterSprite.sprite = idleSprite;
+        }
     }
 
     /// <summary>
