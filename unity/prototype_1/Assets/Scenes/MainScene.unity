@@ -2756,7 +2756,7 @@ MonoBehaviour:
   rigidBody: {fileID: 2020417259}
   moveSpeed: 5
   moveStyle: 1
-  timeToMove: 0.1
+  timeToMove: 0.2
 --- !u!50 &2020417259
 Rigidbody2D:
   serializedVersion: 4
