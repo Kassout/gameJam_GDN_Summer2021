@@ -48,12 +48,6 @@ public class PlayerController : MonoBehaviour
     private Tilemap collisionTileMap;
 
     /// <summary>
-    /// Instance variable <c>interactionTileMap</c> represents the tile map containing the different object the player could interact with.
-    /// </summary>
-    [SerializeField]
-    private Tilemap interactionTileMap;
-
-    /// <summary>
     /// Instance variable <c>movement</c> represents the player's movement.
     /// </summary>
     private Vector2 _movement;
