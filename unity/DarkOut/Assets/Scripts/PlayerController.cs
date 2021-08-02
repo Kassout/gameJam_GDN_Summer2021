@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -7,6 +8,9 @@ using UnityEngine.Tilemaps;
 /// </summary>
 public class PlayerController : MonoBehaviour
 {
+    // TODO : comment
+    public static PlayerController Instance { get; private set; }
+    
     /// <summary>
     /// Instance variable <c>characterSprite</c> represents the player's character sprite.
     /// </summary>
@@ -51,6 +55,20 @@ public class PlayerController : MonoBehaviour
     /// Instance variable <c>movement</c> represents the player's movement.
     /// </summary>
     private Vector2 _movement;
+
+    // TODO : comments
+    private void Awake()
+    {
+        // Singleton
+        if (null == Instance)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Debug.Log("Warning: multiple " + this + " in scene!");
+        }
+    }
 
     /// <summary>
     /// This method is called on the frame when a script is enabled
@@ -125,5 +143,20 @@ public class PlayerController : MonoBehaviour
         {
             // TODO : do things on interact
         }
+    }
+
+    public void TakeDamage()
+    {
+        StartCoroutine(GetHurt());
+    }
+
+    private IEnumerator GetHurt()
+    {
+        GetComponentInChildren<Animator>().SetTrigger("triggerDamage");
+        rigidBody.constraints = RigidbodyConstraints2D.FreezeAll;
+        
+        yield return new WaitForSeconds(0.3f);
+        
+        rigidBody.constraints = RigidbodyConstraints2D.FreezeRotation;
     }
 }
