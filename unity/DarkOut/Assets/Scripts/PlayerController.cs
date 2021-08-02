@@ -101,7 +101,7 @@ public class PlayerController : MonoBehaviour
     /// </summary>
     private void MovePlayer()
     {
-        Vector2 direction = rigidBody.position + _movement * (moveSpeed * Time.fixedDeltaTime);
+        Vector2 direction = rigidBody.position + _movement.normalized * (moveSpeed * Time.fixedDeltaTime);
         if (CanMove(direction))
         {
             rigidBody.MovePosition(direction);
