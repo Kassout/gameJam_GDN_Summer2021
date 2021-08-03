@@ -91,7 +91,7 @@ Animator:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4170179780837705353}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: a12a756bd7c0e1649810e0c4478f94e5, type: 2}
   m_CullingMode: 0
@@ -152,7 +152,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 0
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 0
@@ -172,7 +172,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   characterSprite: {fileID: 4170179780837705355}
   walkSprite: {fileID: 21300000, guid: 806f5d73b91ed754696339ce0ca0d6b0, type: 3}
-  rigidBody: {fileID: 4170179781896407327}
   moveSpeed: 2.5
   immobilizationTime: 0.3
   groundTileMap: {fileID: 0}
