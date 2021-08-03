@@ -253,6 +253,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1889385035}
     m_Modifications:
+    - target: {fileID: 5980138186004710468, guid: 385cbb0ce9a7e654ca9d2c4a33d82fdd, type: 3}
+      propertyPath: actionableStyle
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5980138186004710488, guid: 385cbb0ce9a7e654ca9d2c4a33d82fdd, type: 3}
       propertyPath: m_Name
       value: Arrow_launcher
@@ -336,6 +340,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7170386317477074725, guid: 73c3734e77dd08843a7a947827187388, type: 3}
+      propertyPath: actionableObjects.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7170386317477074725, guid: 73c3734e77dd08843a7a947827187388, type: 3}
       propertyPath: actionableObjects.Array.data[0]
       value: 
       objectReference: {fileID: 862014203}
@@ -399,37 +407,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5980138186004710490, guid: 385cbb0ce9a7e654ca9d2c4a33d82fdd, type: 3}
   m_PrefabInstance: {fileID: 5980138185721127668}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &454788632 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7170386317477074729, guid: 73c3734e77dd08843a7a947827187388, type: 3}
-  m_PrefabInstance: {fileID: 666142662}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &454788633 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7170386317477074731, guid: 73c3734e77dd08843a7a947827187388, type: 3}
   m_PrefabInstance: {fileID: 666142662}
   m_PrefabAsset: {fileID: 0}
---- !u!50 &454788634
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 454788632}
-  m_BodyType: 2
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 1
-  m_Material: {fileID: 0}
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 0
 --- !u!1 &624176942
 GameObject:
   m_ObjectHideFlags: 0
@@ -3005,10 +2987,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1889385035}
     m_Modifications:
-    - target: {fileID: 5980138186004710468, guid: 385cbb0ce9a7e654ca9d2c4a33d82fdd, type: 3}
-      propertyPath: actionableStyle
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 5980138186004710488, guid: 385cbb0ce9a7e654ca9d2c4a33d82fdd, type: 3}
       propertyPath: m_Name
       value: Arrow_launcher
@@ -3066,6 +3044,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1889385035}
     m_Modifications:
+    - target: {fileID: 7170386317477074725, guid: 73c3734e77dd08843a7a947827187388, type: 3}
+      propertyPath: buttonType
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7170386317477074725, guid: 73c3734e77dd08843a7a947827187388, type: 3}
+      propertyPath: actionableObjects.Array.size
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7170386317477074725, guid: 73c3734e77dd08843a7a947827187388, type: 3}
       propertyPath: actionableObjects.Array.data[0]
       value: 
