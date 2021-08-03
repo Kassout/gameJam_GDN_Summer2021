@@ -7,7 +7,7 @@ using UnityEngine;
 public class TimeLoopManager : MonoBehaviour
 {
     /// <summary>
-    /// Static variable <c>TimeLoopManager</c> represents the instance of the class. 
+    /// Static variable <c>Instance</c> represents the instance of the class. 
     /// </summary>
     public static TimeLoopManager Instance { get; private set; }
     

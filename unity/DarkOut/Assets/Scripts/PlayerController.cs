@@ -8,7 +8,9 @@ using UnityEngine.Tilemaps;
 /// </summary>
 public class PlayerController : MonoBehaviour
 {
-    // TODO : comment
+    /// <summary>
+    /// Static variable <c>Instance</c> representing the instance of the class. 
+    /// </summary>
     public static PlayerController Instance { get; private set; }
     
     /// <summary>
@@ -40,6 +42,12 @@ public class PlayerController : MonoBehaviour
     private float moveSpeed = 5f;
 
     /// <summary>
+    /// Instance variable <c>immobilizationTime</c> represents the player's time of immobilization when getting hurt.
+    /// </summary>
+    [SerializeField] 
+    private float immobilizationTime = 0.3f;
+
+    /// <summary>
     /// Instance variable <c>groundTileMap</c> represents the ground tile map on which player will walk on.
     /// </summary>
     [SerializeField]
@@ -56,7 +64,14 @@ public class PlayerController : MonoBehaviour
     /// </summary>
     private Vector2 _movement;
 
-    // TODO : comments
+    /// <summary>
+    /// Static variable <c>TriggerDamage</c> represents the string message of the animator trigger variable "triggerDamage".
+    /// </summary>
+    private static readonly int TriggerDamage = Animator.StringToHash("triggerDamage");
+
+    /// <summary>
+    /// This method is called when the script instance is being loaded.
+    /// </summary>
     private void Awake()
     {
         // Singleton
@@ -145,17 +160,25 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// This method is called when the player get in collision with a hurting game object.
+    /// </summary>
     public void TakeDamage()
     {
         StartCoroutine(GetHurt());
     }
 
+    // ReSharper disable Unity.PerformanceAnalysis
+    /// <summary>
+    /// This method is called when the player get hurt.
+    /// </summary>
+    /// <returns>A <c>IEnumerator</c> object representing a list of controls.</returns>
     private IEnumerator GetHurt()
     {
-        GetComponentInChildren<Animator>().SetTrigger("triggerDamage");
+        GetComponentInChildren<Animator>().SetTrigger(TriggerDamage);
         rigidBody.constraints = RigidbodyConstraints2D.FreezeAll;
         
-        yield return new WaitForSeconds(0.3f);
+        yield return new WaitForSeconds(immobilizationTime);
         
         rigidBody.constraints = RigidbodyConstraints2D.FreezeRotation;
     }

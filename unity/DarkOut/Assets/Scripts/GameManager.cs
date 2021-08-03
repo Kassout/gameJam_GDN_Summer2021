@@ -7,12 +7,12 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     /// <summary>
-    /// Static variable <c>GameManager</c> representing the instance of the class. 
+    /// Static variable <c>Instance</c> represents the instance of the class. 
     /// </summary>
     public static GameManager Instance { get; private set; }
 
     /// <summary>
-    /// Static variable <c>MAIN_MENU_SCENE</c> representing the scene index of the main menu scene.
+    /// Static variable <c>MAIN_MENU_SCENE</c> represents the scene index of the main menu scene.
     /// </summary>
     private static int MAIN_MENU_SCENE = 1;
     
