@@ -2,7 +2,7 @@ using System.Collections;
 using UnityEngine;
 
 /// <summary>
-/// Class <c>ButtonController</c> is a Unity component script used to manage button triggered object behaviour.
+/// Class <c>ButtonController</c> is a Unity component script used to manage button trigger object behaviour.
 /// </summary>
 public class ButtonController : TriggeringObject
 {
@@ -85,13 +85,16 @@ public class ButtonController : TriggeringObject
     /// This method is used to trigger actions from pushing button event.
     /// </summary>
     /// <returns>A <c>IEnumerator</c> object representing a list of controls.</returns>
-    public override IEnumerator PushSequence()
+    public override IEnumerator PushSequenceOnInteraction()
     {
-        OnActivate();
+        if (activationType.Equals(ActivationType.Interaction))
+        {
+            OnActivate();
 
-        yield return new WaitForSeconds(0.15f);
+            yield return new WaitForSeconds(0.15f);
         
-        OnDeactivate();
+            OnDeactivate();
+        }
     }
 
     /// <summary>

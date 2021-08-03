@@ -78,6 +78,6 @@ public abstract class TriggeringObject : MonoBehaviour, ITriggeringObject
     /// This method is used to trigger actions from pushing event.
     /// </summary>
     /// <returns>A <c>IEnumerator</c> object representing a list of controls.</returns>
-    public abstract IEnumerator PushSequence();
+    public abstract IEnumerator PushSequenceOnInteraction();
 
 }

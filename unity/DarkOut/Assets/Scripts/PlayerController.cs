@@ -160,9 +160,9 @@ public class PlayerController : MonoBehaviour
     /// </summary>
     private void Interact()
     {
-        if (Input.GetKeyDown(KeyCode.E) && _currentInteractionObj)
+        if (Input.GetKeyDown(KeyCode.E) && _currentInteractionObj && _currentInteractionObj.GetComponent<TriggeringObject>())
         {
-            StartCoroutine(_currentInteractionObj.GetComponent<TriggeringObject>().PushSequence());
+            StartCoroutine(_currentInteractionObj.GetComponent<TriggeringObject>().PushSequenceOnInteraction());
         }
     }
 
