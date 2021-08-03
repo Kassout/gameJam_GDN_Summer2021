@@ -8,11 +8,6 @@ using UnityEngine.Tilemaps;
 public class PlayerController : MonoBehaviour
 {
     /// <summary>
-    /// Static variable <c>Instance</c> representing the instance of the class. 
-    /// </summary>
-    public static PlayerController Instance { get; private set; }
-    
-    /// <summary>
     /// Instance variable <c>characterSprite</c> represents the player's character sprite.
     /// </summary>
     [SerializeField]
@@ -32,13 +27,18 @@ public class PlayerController : MonoBehaviour
     /// <summary>
     /// Instance variable <c>rigidBody</c> represents the player's rigidbody.
     /// </summary>
-    public Rigidbody2D rigidBody;
+    private Rigidbody2D _rigidBody;
     
     /// <summary>
     /// Instance variable <c>moveSpeed</c> represents the player's movement speed.
     /// </summary>
     [SerializeField]
     private float moveSpeed = 5f;
+
+    /// <summary>
+    /// Instance variable <c>isDisabled</c> represents the state of player control inputs.
+    /// </summary>
+    private bool _isDisabled = false;
 
     /// <summary>
     /// Instance variable <c>immobilizationTime</c> represents the player's time of immobilization when getting hurt.
@@ -63,35 +63,23 @@ public class PlayerController : MonoBehaviour
     /// </summary>
     private Vector2 _movement;
 
+    /// <summary>
+    /// Instance variable <c>currentInteractionObj</c> represents the triggering game object the player is in the range of activation.
+    /// </summary>
     private GameObject _currentInteractionObj;
 
     /// <summary>
     /// Static variable <c>TriggerDamage</c> represents the string message of the animator trigger variable "triggerDamage".
     /// </summary>
     private static readonly int TriggerDamage = Animator.StringToHash("triggerDamage");
-
-    /// <summary>
-    /// This method is called when the script instance is being loaded.
-    /// </summary>
-    private void Awake()
-    {
-        // Singleton
-        if (null == Instance)
-        {
-            Instance = this;
-        }
-        else
-        {
-            Debug.Log("Warning: multiple " + this + " in scene!");
-        }
-    }
-
+    
     /// <summary>
     /// This method is called on the frame when a script is enabled
     /// </summary>
     private void Start()
     {
         _idleSprite = characterSprite.sprite;
+        _rigidBody = gameObject.GetComponent<Rigidbody2D>();
     }
 
     /// <summary>
@@ -100,22 +88,25 @@ public class PlayerController : MonoBehaviour
     private void Update()
     {
         // Input
-        _movement.x = Input.GetAxisRaw("Horizontal");
-        _movement.y = Input.GetAxisRaw("Vertical");
+        if (!_isDisabled)
+        {
+            _movement.x = Input.GetAxisRaw("Horizontal");
+            _movement.y = Input.GetAxisRaw("Vertical");
 
-        characterSprite.flipX = _movement.x < 0;
+            characterSprite.flipX = _movement.x < 0;
         
-        if (_movement.x != 0 || _movement.y != 0)
-        {
-            characterSprite.sprite = walkSprite;
+            if (_movement.x != 0 || _movement.y != 0)
+            {
+                characterSprite.sprite = walkSprite;
+            }
+            else
+            {
+                characterSprite.sprite = _idleSprite;
+            }
+            
+            // Interact
+            Interact();
         }
-        else
-        {
-            characterSprite.sprite = _idleSprite;
-        }
-        
-        // Interact
-        Interact();
     }
 
     /// <summary>
@@ -124,7 +115,11 @@ public class PlayerController : MonoBehaviour
     private void FixedUpdate()
     {
         // Move
-        MovePlayer();
+        if (!_isDisabled)
+        {
+            MovePlayer();
+        }
+
     }
     
     /// <summary>
@@ -132,11 +127,27 @@ public class PlayerController : MonoBehaviour
     /// </summary>
     private void MovePlayer()
     {
-        Vector2 direction = rigidBody.position + _movement.normalized * (moveSpeed * Time.fixedDeltaTime);
+        Vector2 direction = _rigidBody.position + _movement.normalized * (moveSpeed * Time.fixedDeltaTime);
         if (CanMove(direction))
         {
-            rigidBody.MovePosition(direction);
+            _rigidBody.MovePosition(direction);
         }
+    }
+
+    /// <summary>
+    /// This method is used to disable player control inputs.
+    /// </summary>
+    public void DisableInputs()
+    {
+        _isDisabled = true;
+    }
+
+    /// <summary>
+    /// This method is used to enable player control inputs.
+    /// </summary>
+    public void EnableInputs()
+    {
+        _isDisabled = false;
     }
 
     /// <summary>
@@ -208,10 +219,10 @@ public class PlayerController : MonoBehaviour
     private IEnumerator GetHurt()
     {
         GetComponentInChildren<Animator>().SetTrigger(TriggerDamage);
-        rigidBody.constraints = RigidbodyConstraints2D.FreezeAll;
+        _rigidBody.constraints = RigidbodyConstraints2D.FreezeAll;
         
         yield return new WaitForSeconds(immobilizationTime);
         
-        rigidBody.constraints = RigidbodyConstraints2D.FreezeRotation;
+        _rigidBody.constraints = RigidbodyConstraints2D.FreezeRotation;
     }
 }
