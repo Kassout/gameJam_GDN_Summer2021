@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Tilemaps;
@@ -28,7 +27,7 @@ public class PlayerController : MonoBehaviour
     /// <summary>
     /// Instance variable <c>walkSprite</c> represents the player's character walking sprite.
     /// </summary>
-    private Sprite idleSprite;
+    private Sprite _idleSprite;
     
     /// <summary>
     /// Instance variable <c>rigidBody</c> represents the player's rigidbody.
@@ -64,6 +63,8 @@ public class PlayerController : MonoBehaviour
     /// </summary>
     private Vector2 _movement;
 
+    private GameObject _currentInteractionObj;
+
     /// <summary>
     /// Static variable <c>TriggerDamage</c> represents the string message of the animator trigger variable "triggerDamage".
     /// </summary>
@@ -90,7 +91,7 @@ public class PlayerController : MonoBehaviour
     /// </summary>
     private void Start()
     {
-        idleSprite = characterSprite.sprite;
+        _idleSprite = characterSprite.sprite;
     }
 
     /// <summary>
@@ -110,8 +111,11 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
-            characterSprite.sprite = idleSprite;
+            characterSprite.sprite = _idleSprite;
         }
+        
+        // Interact
+        Interact();
     }
 
     /// <summary>
@@ -151,12 +155,40 @@ public class PlayerController : MonoBehaviour
         return true;
     }
     
-    // TODO : comments
+    /// <summary>
+    /// This method is used to interact with game object of <c>TriggeringObject</c> class.
+    /// </summary>
     private void Interact()
     {
-        if (Input.GetKeyDown(KeyCode.E))
+        if (Input.GetKeyDown(KeyCode.E) && _currentInteractionObj)
         {
-            // TODO : do things on interact
+            StartCoroutine(_currentInteractionObj.GetComponent<TriggeringObject>().PushSequence());
+        }
+    }
+
+    /// <summary>
+    /// This method is called when another object enters a trigger collider attached to this object.
+    /// </summary>
+    /// <param name="other">A <c>Collider2D</c> Unity component representing the collider of the object that it collides with.</param>
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.gameObject.CompareTag("InteractionObject"))
+        {
+            Debug.Log(other.gameObject.name);
+            _currentInteractionObj = other.gameObject;
+        }
+    }
+    
+    /// <summary>
+    /// This method is called when another object leaves a trigger collider attached to this object.
+    /// </summary>
+    /// <param name="other">A <c>Collider2D</c> Unity component representing the collider of the object that it collides with.</param>
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        if (other.gameObject.CompareTag("InteractionObject"))
+        {
+            Debug.Log(other.gameObject.name);
+            _currentInteractionObj = null;
         }
     }
 

@@ -71,7 +71,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 3
+  m_SortingOrder: 4
   m_Sprite: {fileID: 21300000, guid: abb20d3aef2b550449ce48491ee9cecb, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -174,6 +174,7 @@ MonoBehaviour:
   walkSprite: {fileID: 21300000, guid: 806f5d73b91ed754696339ce0ca0d6b0, type: 3}
   rigidBody: {fileID: 4170179781896407327}
   moveSpeed: 2.5
+  immobilizationTime: 0.3
   groundTileMap: {fileID: 0}
   collisionTileMap: {fileID: 0}
 --- !u!70 &4170179781896407312
@@ -262,7 +263,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 2
   m_Sprite: {fileID: 21300000, guid: 6d5e796e1544bd04f9fec36e7e465115, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 0.5882353}
   m_FlipX: 0

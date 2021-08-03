@@ -24,7 +24,12 @@ public abstract class ActionableObject : MonoBehaviour, IActionableObject
     /// <summary>
     /// Instance variable <c>IsActive</c> represents the state of activity of the actionable object.
     /// </summary>
-    public bool IsActive { get; set; }
+    protected bool IsActive { get; set; }
+
+    /// <summary>
+    /// Instance variable <c>IsTriggeredFromInteraction</c> represents the state of interaction triggered source of the actionable object.
+    /// </summary>
+    public bool isTriggeredFromInteraction;
 
     /// <summary>
     /// Instance variable <c>actionableStyle</c> represents the triggering style of the actionable object.

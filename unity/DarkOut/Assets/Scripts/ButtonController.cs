@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 /// <summary>
@@ -6,7 +7,7 @@ using UnityEngine;
 public class ButtonController : TriggeringObject
 {
     /// <summary>
-    /// Instance variable <c>colliderSizeOnPosition</c> represents the collider size value when activation on pressure.
+    /// Instance variable <c>colliderSizeOnPressure</c> represents the collider size value when activation on pressure.
     /// </summary>
     private float colliderSizeOnPressure = 0.2f;
 
@@ -40,18 +41,6 @@ public class ButtonController : TriggeringObject
         else if (activationType.Equals(ActivationType.Interaction))
         {
             boxCollider.size = new Vector2(colliderSizeOnInteraction, colliderSizeOnInteraction);
-        }
-    }
-    
-    /// <summary>
-    /// This method is called when another object enters a trigger collider attached to this object.
-    /// </summary>
-    /// <param name="other">A <c>Collider2D</c> Unity component representing the collider of the object that it collides with.</param>
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-        if (activationType.Equals(ActivationType.Interaction) && !IsActivated)
-        {
-            OnActivate();
         }
     }
 
@@ -90,6 +79,19 @@ public class ButtonController : TriggeringObject
         {
             actionableObject.TriggerActionEvent();
         }
+    }
+
+    /// <summary>
+    /// This method is used to trigger actions from pushing button event.
+    /// </summary>
+    /// <returns>A <c>IEnumerator</c> object representing a list of controls.</returns>
+    public override IEnumerator PushSequence()
+    {
+        OnActivate();
+
+        yield return new WaitForSeconds(0.15f);
+        
+        OnDeactivate();
     }
 
     /// <summary>

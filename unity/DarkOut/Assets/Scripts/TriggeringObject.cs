@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -72,4 +73,11 @@ public abstract class TriggeringObject : MonoBehaviour, ITriggeringObject
     /// This method is used when the triggering object get deactivated.
     /// </summary>
     public abstract void OnDeactivate();
+    
+    /// <summary>
+    /// This method is used to trigger actions from pushing event.
+    /// </summary>
+    /// <returns>A <c>IEnumerator</c> object representing a list of controls.</returns>
+    public abstract IEnumerator PushSequence();
+
 }

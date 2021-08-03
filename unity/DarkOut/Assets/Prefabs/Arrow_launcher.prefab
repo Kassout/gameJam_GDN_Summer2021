@@ -142,5 +142,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 12efebabd1a9ddc4dad408a1108a68e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  actionableTriggeringStyle: 2
+  actionableStyle: 1
   arrow: {fileID: 2225063180354033275, guid: cf7a6049a8aa1df48bb5739494132f2d, type: 3}

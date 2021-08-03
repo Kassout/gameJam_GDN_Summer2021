@@ -75,10 +75,6 @@ public class SpikesController : ActionableObject
             _animator.SetTrigger(ActionTrigger);
             IsActive = true;
         }
-        else if (actionableStyle.Equals(ActionableStyle.Triggered))
-        {
-            _animator.SetTrigger(ActionTrigger);
-        }
     }
 
     /// <summary>
