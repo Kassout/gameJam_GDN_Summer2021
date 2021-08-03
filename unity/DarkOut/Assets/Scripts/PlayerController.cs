@@ -41,6 +41,11 @@ public class PlayerController : MonoBehaviour
     private float moveSpeed = 5f;
 
     /// <summary>
+    /// TODO : comments
+    /// </summary>
+    private bool isDisabled = false;
+
+    /// <summary>
     /// Instance variable <c>immobilizationTime</c> represents the player's time of immobilization when getting hurt.
     /// </summary>
     [SerializeField] 
@@ -63,6 +68,9 @@ public class PlayerController : MonoBehaviour
     /// </summary>
     private Vector2 _movement;
 
+    /// <summary>
+    /// TODO : comments
+    /// </summary>
     private GameObject _currentInteractionObj;
 
     /// <summary>
@@ -100,22 +108,25 @@ public class PlayerController : MonoBehaviour
     private void Update()
     {
         // Input
-        _movement.x = Input.GetAxisRaw("Horizontal");
-        _movement.y = Input.GetAxisRaw("Vertical");
+        if (!isDisabled)
+        {
+            _movement.x = Input.GetAxisRaw("Horizontal");
+            _movement.y = Input.GetAxisRaw("Vertical");
 
-        characterSprite.flipX = _movement.x < 0;
+            characterSprite.flipX = _movement.x < 0;
         
-        if (_movement.x != 0 || _movement.y != 0)
-        {
-            characterSprite.sprite = walkSprite;
+            if (_movement.x != 0 || _movement.y != 0)
+            {
+                characterSprite.sprite = walkSprite;
+            }
+            else
+            {
+                characterSprite.sprite = _idleSprite;
+            }
+            
+            // Interact
+            Interact();
         }
-        else
-        {
-            characterSprite.sprite = _idleSprite;
-        }
-        
-        // Interact
-        Interact();
     }
 
     /// <summary>
@@ -124,7 +135,10 @@ public class PlayerController : MonoBehaviour
     private void FixedUpdate()
     {
         // Move
-        MovePlayer();
+        if (!isDisabled)
+        {
+            MovePlayer();
+        }
     }
     
     /// <summary>
@@ -137,6 +151,18 @@ public class PlayerController : MonoBehaviour
         {
             rigidBody.MovePosition(direction);
         }
+    }
+
+    // TODO : comments
+    public void DisableInputs()
+    {
+        isDisabled = true;
+    }
+
+    // TODO : comments
+    public void EnableInputs()
+    {
+        isDisabled = false;
     }
 
     /// <summary>
