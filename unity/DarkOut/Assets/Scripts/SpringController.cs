@@ -67,8 +67,7 @@ public class SpringController : MonoBehaviour
     /// <param name="other">A <c>Collision2D</c> Unity component representing the collision of the object that it collided with.</param>
     private void OnTriggerEnter2D(Collider2D other)
     {
-        Debug.Log(other.gameObject.name);
-        if (other.CompareTag("Player"))
+            if (other.CompareTag("Player"))
         {
             other.GetComponent<PlayerController>().TriggerBounce(direction * forceAmplitude, timeToWait);
         }

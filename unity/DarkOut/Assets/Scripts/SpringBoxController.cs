@@ -43,16 +43,27 @@ public class SpringBoxController : MonoBehaviour
     /// <summary>
     /// This method is called to execute a spring box rotation.
     /// </summary>
-    public void Rotate()
+    public void Rotate(bool clockwise)
     {
         transform.GetChild(_indexCurrentOrientation).gameObject.SetActive(false);
-        if (_indexCurrentOrientation < transform.childCount - 1)
-        {
-            _indexCurrentOrientation++;
-        }
-        else
-        {
-            _indexCurrentOrientation = 0;
+        if (clockwise) {
+            if (_indexCurrentOrientation < transform.childCount - 1)
+            {
+                _indexCurrentOrientation++;
+            }
+            else
+            {
+                _indexCurrentOrientation = 0;
+            }
+        } else {
+            if (_indexCurrentOrientation > 0)
+            {
+                _indexCurrentOrientation--;
+            }
+            else
+            {
+                _indexCurrentOrientation = transform.childCount - 1;
+            }
         }
         transform.GetChild(_indexCurrentOrientation).gameObject.SetActive(true);
     }
