@@ -67,9 +67,13 @@ public class SpringController : MonoBehaviour
     /// <param name="other">A <c>Collision2D</c> Unity component representing the collision of the object that it collided with.</param>
     private void OnTriggerEnter2D(Collider2D other)
     {
-            if (other.CompareTag("Player"))
+        if (other.CompareTag("Player"))
         {
             other.GetComponent<PlayerController>().TriggerBounce(direction * forceAmplitude, timeToWait);
+        }
+        else if (other.CompareTag("Arrow"))
+        {
+
         }
         else if (other.attachedRigidbody)
         {
@@ -77,5 +81,8 @@ public class SpringController : MonoBehaviour
         }
     }
 
+    public Vector2 GetDirection() {
+        return direction;
+    }
 
 }

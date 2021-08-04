@@ -11,6 +11,8 @@ public class ArrowController : MonoBehaviour
     [SerializeField]
     private float moveSpeed = 10.0f;
 
+    private Vector2 direction;
+
     /// <summary>
     /// This method is called once per frame
     /// </summary>
@@ -19,12 +21,17 @@ public class ArrowController : MonoBehaviour
         MoveForward();
     }
 
+    public void SetDirection(Vector2 dir) {
+        direction = dir;
+        Rotate();
+    }
+
     /// <summary>
     /// This method is called to move the arrow.
     /// </summary>
     private void MoveForward()
     {
-        transform.Translate(Vector3.left * moveSpeed * Time.deltaTime);
+        transform.Translate(direction * moveSpeed * Time.deltaTime, Space.World);
     }
 
     /// <summary>
@@ -33,11 +40,42 @@ public class ArrowController : MonoBehaviour
     /// <param name="other">A <c>Collider2D</c> Unity component representing the collider of the object that it collides with.</param>
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("Spring"))
+        {
+            Debug.Log("Change Direction");
+            direction = other.GetComponent<SpringController>().GetDirection();
+            Rotate();
+        } else if (other.CompareTag("InteractionObject"))
+        {
+            LeverController lever = other.GetComponent<LeverController>();
+            if(lever != null) {
+                lever.OnActivate();
+            }
+        }
+    }
+
+    private void OnCollisionEnter2D(Collision2D other)
+    {
+        if (other.gameObject.CompareTag("Player"))
         {
             Debug.Log("Kill player.");
-            other.GetComponent<PlayerController>().TakeDamage();
+            other.gameObject.GetComponent<PlayerController>().TakeDamage();
         }
-        Destroy(gameObject);
+        if(!other.gameObject.CompareTag("Spring") || !other.gameObject.CompareTag("InteractionObject")) {
+            Destroy(gameObject);
+            Debug.Log(other.gameObject);
+        }
+    }
+    
+    private void Rotate() {
+        if(direction == Vector2.up) {
+            transform.rotation = Quaternion.Euler(0, 0, 90);
+        } else if (direction == Vector2.down) {
+            transform.rotation = Quaternion.Euler(0, 0, 270);
+        } else if (direction == Vector2.left) {
+            transform.rotation = Quaternion.Euler(0, 0, 0);
+        } else {
+            transform.rotation = Quaternion.Euler(0, 180, 0);
+        }
     }
 }

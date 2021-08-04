@@ -6,9 +6,28 @@ using UnityEngine;
 public class ArrowLauncherController : ActionableObject
 {
     /// <summary>
+    /// Instance variable <c>bouncingDirection</c> represents the bouncing direction type of the spring.
+    /// </summary>
+    [SerializeField]
+    private ShootDirection shootDirection;
+    
+    /// <summary>
+    /// Instance variable <c>BouncingDirection</c> represents an enumeration of bouncing direction type for the spring object.
+    /// </summary>
+    private enum ShootDirection
+    {
+        Up,
+        Right,
+        Down,
+        Left
+    }
+
+    private Vector2 vectorDirection;
+
+    /// <summary>
     /// Instance variable <c>arrow</c> represents the arrow game object launcher by the trap.
     /// </summary>
-    [SerializeField] 
+    [SerializeField]
     private GameObject arrow;
 
     /// <summary>
@@ -49,6 +68,21 @@ public class ArrowLauncherController : ActionableObject
         {
             _animator.SetBool(IsEventRepeated, true);
         }
+
+        switch (shootDirection) {
+            case ShootDirection.Up:
+                vectorDirection = Vector2.up;
+                break;
+            case ShootDirection.Down:
+                vectorDirection = Vector2.down;
+                break;
+            case ShootDirection.Left:
+                vectorDirection = Vector2.left;
+                break;
+            case ShootDirection.Right:
+                vectorDirection = Vector2.right;
+                break;
+        }
     }
 
     /// <summary>
@@ -56,7 +90,8 @@ public class ArrowLauncherController : ActionableObject
     /// </summary>
     public void ArrowLauncherEvent()
     {
-        Instantiate(arrow, transform.position, transform.rotation);
+        GameObject instantiatedArrow = Instantiate(arrow, GetComponent<Rigidbody2D>().position + (vectorDirection * 0.6f), transform.rotation);
+        instantiatedArrow.GetComponent<ArrowController>().SetDirection(vectorDirection);
     }
 
     /// <summary>
