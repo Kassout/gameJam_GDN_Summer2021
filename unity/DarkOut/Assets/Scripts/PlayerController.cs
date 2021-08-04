@@ -72,6 +72,8 @@ public class PlayerController : MonoBehaviour
     /// Static variable <c>TriggerDamage</c> represents the string message of the animator trigger variable "triggerDamage".
     /// </summary>
     private static readonly int TriggerDamage = Animator.StringToHash("triggerDamage");
+
+    Vector2 move;
     
     /// <summary>
     /// This method is called on the frame when a script is enabled
@@ -121,31 +123,35 @@ public class PlayerController : MonoBehaviour
         }
 
     }
+
+    public Vector2 GetMovement() {
+        return move;
+    }
     
     /// <summary>
     /// This method is used to move the player.
     /// </summary>
     private void MovePlayer()
     {
-        Vector2 direction = _rigidBody.position + _movement.normalized * (moveSpeed * Time.fixedDeltaTime);
-        if (CanMove(direction))
+        move = _rigidBody.position + _movement.normalized * (moveSpeed * Time.fixedDeltaTime);
+        if (CanMove(move))
         {
-            _rigidBody.MovePosition(direction);
+            _rigidBody.MovePosition(move);
         }
     }
 
     /// <summary>
-    /// This method is used to disable player control inputs.
+    /// This method is used to disable player control inputs when being pushed by a spring.
     /// </summary>
-    public void DisableInputs()
+    public void StartSpring()
     {
         _isDisabled = true;
     }
 
     /// <summary>
-    /// This method is used to enable player control inputs.
+    /// This method is used to enable player control inputs after being pushed by a spring.
     /// </summary>
-    public void EnableInputs()
+    public void StopSpring()
     {
         _isDisabled = false;
     }

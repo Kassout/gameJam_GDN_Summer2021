@@ -66,7 +66,7 @@ public class SpringController : MonoBehaviour
     /// This method is called when an incoming collider makes contact with this object's collider
     /// </summary>
     /// <param name="other">A <c>Collision2D</c> Unity component representing the collision of the object that it collided with.</param>
-    private void OnCollisionEnter2D(Collision2D other)
+    private void OnTriggerEnter2D(Collider2D other)
     {
         Debug.Log(other.gameObject.name);
         StartCoroutine(GetBounced(other.gameObject));
@@ -79,12 +79,12 @@ public class SpringController : MonoBehaviour
     /// <returns>A <c>IEnumerator</c> object representing a list of controls.</returns>
     private IEnumerator GetBounced(GameObject gameObject)
     {
-        gameObject.GetComponent<PlayerController>().DisableInputs();
+        gameObject.GetComponent<PlayerController>().StartSpring();
         gameObject.GetComponent<Rigidbody2D>().AddForce(direction * forceAmplitude, ForceMode2D.Impulse);
 
         yield return new WaitForSeconds(timeToWait);
         
-        gameObject.GetComponent<PlayerController>().EnableInputs();
+        gameObject.GetComponent<PlayerController>().StopSpring();
         gameObject.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
     }
 }
