@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Tilemaps;
@@ -28,6 +29,11 @@ public class PlayerController : MonoBehaviour
     /// Instance variable <c>rigidBody</c> represents the player's rigidbody.
     /// </summary>
     private Rigidbody2D _rigidBody;
+
+    /// <summary>
+    /// TODO: comments
+    /// </summary>
+    private Animator _animator;
     
     /// <summary>
     /// Instance variable <c>moveSpeed</c> represents the player's movement speed.
@@ -73,15 +79,19 @@ public class PlayerController : MonoBehaviour
     /// </summary>
     private static readonly int TriggerDamage = Animator.StringToHash("triggerDamage");
 
+    /// <summary>
+    /// TODO : comments
+    /// </summary>
     Vector2 move;
     
     /// <summary>
-    /// This method is called on the frame when a script is enabled
+    /// TODO: comments
     /// </summary>
-    private void Start()
+    private void Awake()
     {
         _idleSprite = characterSprite.sprite;
         _rigidBody = gameObject.GetComponent<Rigidbody2D>();
+        _animator = gameObject.GetComponent<Animator>();
     }
 
     /// <summary>
@@ -154,6 +164,7 @@ public class PlayerController : MonoBehaviour
     public void StopSpring()
     {
         _isDisabled = false;
+        _rigidBody.velocity = Vector2.zero;
     }
 
     /// <summary>
@@ -230,5 +241,17 @@ public class PlayerController : MonoBehaviour
         yield return new WaitForSeconds(immobilizationTime);
         
         _rigidBody.constraints = RigidbodyConstraints2D.FreezeRotation;
+    }
+
+    /// <summary>
+    /// TODO: comments
+    /// </summary>
+    /// <param name="springForce"></param>
+    /// <param name="airTime"></param>
+    public void TriggerBounce(Vector2 springForce, float airTime)
+    {
+        _animator.SetFloat("airTime", airTime);
+        _animator.SetTrigger("triggerBump");
+        _rigidBody.AddForce(springForce, ForceMode2D.Impulse);
     }
 }

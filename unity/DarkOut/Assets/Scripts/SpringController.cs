@@ -20,8 +20,7 @@ public class SpringController : MonoBehaviour
     /// <summary>
     /// Instance variable <c>bouncingDirection</c> represents the bouncing direction type of the spring.
     /// </summary>
-    [SerializeField]
-    private BouncingDirection bouncingDirection;
+    public BouncingDirection bouncingDirection;
 
     /// <summary>
     /// Instance variable <c>timeToWait</c> represents the bouncing time of the objects which collides with the spring.
@@ -32,7 +31,7 @@ public class SpringController : MonoBehaviour
     /// <summary>
     /// Instance variable <c>BouncingDirection</c> represents an enumeration of bouncing direction type for the spring object.
     /// </summary>
-    private enum BouncingDirection
+    public enum BouncingDirection
     {
         Up,
         Bottom,
@@ -69,22 +68,15 @@ public class SpringController : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other)
     {
         Debug.Log(other.gameObject.name);
-        StartCoroutine(GetBounced(other.gameObject));
+        if (other.CompareTag("Player"))
+        {
+            other.GetComponent<PlayerController>().TriggerBounce(direction * forceAmplitude, timeToWait);
+        }
+        else if (other.attachedRigidbody)
+        {
+            other.GetComponent<Rigidbody2D>().AddForce(direction * forceAmplitude * 100, ForceMode2D.Impulse);
+        }
     }
 
-    /// <summary>
-    /// This method is used to bounce and trigger action on the collided object.
-    /// </summary>
-    /// <param name="gameObject">A Unity <c>GameObject</c> object that collided with the spring.</param>
-    /// <returns>A <c>IEnumerator</c> object representing a list of controls.</returns>
-    private IEnumerator GetBounced(GameObject gameObject)
-    {
-        gameObject.GetComponent<PlayerController>().StartSpring();
-        gameObject.GetComponent<Rigidbody2D>().AddForce(direction * forceAmplitude, ForceMode2D.Impulse);
 
-        yield return new WaitForSeconds(timeToWait);
-        
-        gameObject.GetComponent<PlayerController>().StopSpring();
-        gameObject.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
-    }
 }
