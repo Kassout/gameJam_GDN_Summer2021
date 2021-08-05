@@ -145,6 +145,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   activationType: 0
   buttonType: 0
+  holdTime: 0.15
   actionableObjects: []
 --- !u!50 &5954210537180904765
 Rigidbody2D:

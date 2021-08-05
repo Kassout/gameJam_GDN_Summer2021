@@ -7,6 +7,12 @@ using UnityEngine;
 public class LeverController : TriggeringObject
 {
     /// <summary>
+    /// Instance variable <c>holdTime</c> represents the time to hold a button when on the PushButton mode.
+    /// </summary>
+    [SerializeField] 
+    protected float holdTime = 0.15f;
+
+    /// <summary>
     /// Instance variable <c>colliderSizeOnPressure</c> represents the collider size value when activation on pressure.
     /// </summary>
     private float colliderSizeOnPressure = 0.2f;
@@ -91,7 +97,7 @@ public class LeverController : TriggeringObject
         {
             OnActivate();
 
-            yield return new WaitForSeconds(0.15f);
+            yield return new WaitForSeconds(holdTime);
         
             OnDeactivate();
         }
@@ -102,6 +108,7 @@ public class LeverController : TriggeringObject
     /// </summary>
     public override void OnDeactivate()
     {
+        Debug.Log("deactivate " + gameObject);
         IsActivated = false;
         _leverAnimator.SetBool(Pushed, IsActivated);
         foreach (var actionableObject in actionableObjects)

@@ -45,7 +45,8 @@ public abstract class ActionableObject : MonoBehaviour, IActionableObject
     {
         Auto,
         Triggered,
-        TriggeredRepeat
+        TriggeredRepeat,
+        AutoWhenTriggered
     }
 
     /// <summary>

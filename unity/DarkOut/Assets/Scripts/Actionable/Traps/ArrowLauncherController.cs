@@ -59,7 +59,8 @@ public class ArrowLauncherController : ActionableObject
         _animator = GetComponent<Animator>();
         _animator.SetBool("isFromInteraction", isTriggeredFromInteraction);
         if (actionableStyle.Equals(ActionableStyle.Triggered) ||
-            actionableStyle.Equals(ActionableStyle.TriggeredRepeat))
+            actionableStyle.Equals(ActionableStyle.TriggeredRepeat) ||
+            actionableStyle.Equals(ActionableStyle.AutoWhenTriggered))
         {
             _animator.SetBool(IsEventTriggered, true);
             _animator.SetBool(IsEventRepeated, actionableStyle.Equals(ActionableStyle.TriggeredRepeat));
@@ -99,6 +100,7 @@ public class ArrowLauncherController : ActionableObject
     /// </summary>
     public override void TriggerActionEvent()
     {
+        Debug.Log("Trigger " + gameObject);
         if (actionableStyle.Equals(ActionableStyle.TriggeredRepeat) && !IsActive)
         {
             _animator.SetTrigger(ActionTrigger);
@@ -108,6 +110,12 @@ public class ArrowLauncherController : ActionableObject
         {
             _animator.SetTrigger(ActionTrigger);
         }
+        else if (actionableStyle.Equals(ActionableStyle.AutoWhenTriggered) && !IsActive)
+        {
+            _animator.SetTrigger(ActionTrigger);
+            _animator.SetBool(IsEventRepeated, true);
+            IsActive = true;
+        }
     }
 
     /// <summary>
@@ -115,6 +123,11 @@ public class ArrowLauncherController : ActionableObject
     /// </summary>
     public override void KillTriggers()
     {
+        Debug.Log("Kill " + gameObject);
         _animator.ResetTrigger(ActionTrigger);
+        if(actionableStyle.Equals(ActionableStyle.AutoWhenTriggered) && IsActive) {
+            IsActive = false;
+            _animator.SetBool(IsEventRepeated, false);
+        }
     }
 }

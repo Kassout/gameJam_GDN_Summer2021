@@ -49,7 +49,7 @@ public class ArrowController : MonoBehaviour
         {
             LeverController lever = other.GetComponent<LeverController>();
             if(lever != null) {
-                lever.OnActivate();
+                StartCoroutine(lever.PushSequenceOnInteraction());
             }
         }
     }
