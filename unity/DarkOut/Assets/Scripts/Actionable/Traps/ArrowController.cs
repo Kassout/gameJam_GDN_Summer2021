@@ -43,13 +43,15 @@ public class ArrowController : MonoBehaviour
         if (other.CompareTag("Spring"))
         {
             Debug.Log("Change Direction");
+            transform.position = other.transform.position;
             direction = other.GetComponent<SpringController>().GetDirection();
             Rotate();
+            transform.Translate(direction * 0.8f, Space.World);
         } else if (other.CompareTag("InteractionObject"))
         {
             LeverController lever = other.GetComponent<LeverController>();
             if(lever != null) {
-                StartCoroutine(lever.PushSequenceOnInteraction());
+                lever.StartCoroutine(lever.PushSequenceOnInteraction());
             }
         }
     }
@@ -66,7 +68,7 @@ public class ArrowController : MonoBehaviour
             Debug.Log(other.gameObject);
         }
     }
-    
+       
     private void Rotate() {
         if(direction == Vector2.up) {
             transform.rotation = Quaternion.Euler(0, 0, 90);
