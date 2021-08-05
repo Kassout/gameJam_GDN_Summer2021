@@ -4551,10 +4551,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3781476572855293773, guid: 0e98af626d57e544b81d4411dfd565b4, type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 3781476572855293778, guid: 0e98af626d57e544b81d4411dfd565b4, type: 3}
       propertyPath: m_Name
       value: Spikes

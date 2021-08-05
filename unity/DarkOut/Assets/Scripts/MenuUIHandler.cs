@@ -11,11 +11,16 @@ using UnityEngine.SceneManagement;
 public class MenuUIHandler : MonoBehaviour
 {
     /// <summary>
+    /// Static variable <c>MAIN_GAME_SCENE</c> represents the scene index of the main game scene.
+    /// </summary>
+    private static int MAIN_GAME_SCENE = 2;
+    
+    /// <summary>
     /// This method is used to start the game from the main menu.
     /// </summary>
     public void StartGame()
     {
-        SceneManager.LoadScene(2);
+        SceneManager.LoadScene(MAIN_GAME_SCENE);
     }
     
     /// <summary>
