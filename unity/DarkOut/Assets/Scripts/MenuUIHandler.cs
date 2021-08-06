@@ -2,7 +2,6 @@
 using UnityEditor;
 #endif
 
-using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
