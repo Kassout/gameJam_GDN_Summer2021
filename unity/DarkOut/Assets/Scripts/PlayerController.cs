@@ -85,7 +85,7 @@ public class PlayerController : MonoBehaviour
     Vector2 move;
     
     /// <summary>
-    /// TODO: comments
+    /// This method is called when the script instance is being loaded.
     /// </summary>
     private void Awake()
     {

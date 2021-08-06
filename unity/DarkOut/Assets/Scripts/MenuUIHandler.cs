@@ -2,6 +2,7 @@
 using UnityEditor;
 #endif
 
+using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -11,15 +12,30 @@ using UnityEngine.SceneManagement;
 public class MenuUIHandler : MonoBehaviour
 {
     /// <summary>
+    /// Instance variable <c>mainMenuTheme</c> represents the audio clip of the main menu scene.
+    /// </summary>
+    [SerializeField]
+    private AudioSource mainMenuTheme;
+    
+    /// <summary>
     /// Static variable <c>MAIN_GAME_SCENE</c> represents the scene index of the main game scene.
     /// </summary>
     private static int MAIN_GAME_SCENE = 2;
-    
+
+    /// <summary>
+    /// This method is called when the script instance is being loaded.
+    /// </summary>
+    private void Awake()
+    {
+        PlayMainMenuTheme();
+    }
+
     /// <summary>
     /// This method is used to start the game from the main menu.
     /// </summary>
     public void StartGame()
     {
+        StopMainMenuTheme();
         SceneManager.LoadScene(MAIN_GAME_SCENE);
     }
     
@@ -35,5 +51,21 @@ public class MenuUIHandler : MonoBehaviour
 #else
         Application.Quit();
 #endif
+    }
+
+    /// <summary>
+    /// This method is called to start playing the main menu theme.
+    /// </summary>
+    private void PlayMainMenuTheme()
+    {
+        mainMenuTheme.Play();
+    }
+
+    /// <summary>
+    /// This method is called to stop playing the main menu theme.
+    /// </summary>
+    private void StopMainMenuTheme()
+    {
+        mainMenuTheme.Stop();
     }
 }
