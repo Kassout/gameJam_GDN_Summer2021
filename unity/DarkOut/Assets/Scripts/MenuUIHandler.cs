@@ -1,9 +1,6 @@
-#if UNITY_EDITOR
 using UnityEditor;
-#endif
-
 using UnityEngine;
-using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 // Sets the script to be executed later than all default scripts
 // This is helpful for UI, since other things may need to be initialized before setting the UI
@@ -11,37 +8,78 @@ using UnityEngine.SceneManagement;
 public class MenuUIHandler : MonoBehaviour
 {
     /// <summary>
-    /// Instance variable <c>mainMenuTheme</c> represents the audio clip of the main menu scene.
+    /// Instance variable <c>pauseMenu</c> represents the pause UI menu of the main game scene.
     /// </summary>
     [SerializeField]
-    private AudioSource mainMenuTheme;
+    private GameObject pauseMenu;
+
+    /// <summary>
+    /// Instance variable <c>settingsMenu</c> represents the settings UI menu of the main game scene.
+    /// </summary>
+    [SerializeField]
+    private GameObject settingsMenu;
     
     /// <summary>
-    /// Static variable <c>MAIN_GAME_SCENE</c> represents the scene index of the main game scene.
+    /// Instance variable <c>volumeSlider</c> represents a <c>Slider</c> Unity UI component used to change the global volume of the game.
     /// </summary>
-    private static int MAIN_GAME_SCENE = 2;
-
+    [SerializeField]
+    private Slider volumeSlider;
+    
+    /// <summary>
+    /// Instance variable <c>isPaused</c> represents the state of the game pause.
+    /// </summary>
+    private bool _isPaused = false;
+    
     /// <summary>
     /// This method is called when the script instance is being loaded.
     /// </summary>
     private void Awake()
     {
-        PlayMainMenuTheme();
+        pauseMenu.SetActive(false);
+        settingsMenu.SetActive(false);
+        volumeSlider.value = PlayerPrefs.GetFloat("volume");
     }
 
     /// <summary>
-    /// This method is used to start the game from the main menu.
+    /// This method is called once per frame
     /// </summary>
-    public void StartGame()
+    private void Update()
     {
-        StopMainMenuTheme();
-        SceneManager.LoadScene(MAIN_GAME_SCENE);
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            if (!settingsMenu.activeSelf)
+            {
+                _isPaused = !_isPaused;
+                if (_isPaused)
+                {
+                    OpenPauseMenu();
+                }
+                else
+                {
+                    ResumeGame();
+                }
+            }
+            else
+            {
+                CloseSettings();
+            }
+
+        }
+        Time.timeScale = 1 * (_isPaused ? 0 : 1);
     }
-    
+
+    /// <summary>
+    /// This method is called to open the pause UI menu.
+    /// </summary>
+    private void OpenPauseMenu()
+    {
+        pauseMenu.SetActive(true);
+    }
+
     /// <summary>
     /// This method is used to stop and close the game.
     /// </summary>
-    public void Exit()
+    public void QuitGame()
     {
         // pre-compilation tasks, if in unity editor compile code to exit play mode,
         // else compile to quit the application.
@@ -51,20 +89,41 @@ public class MenuUIHandler : MonoBehaviour
         Application.Quit();
 #endif
     }
-
+    
     /// <summary>
-    /// This method is called to start playing the main menu theme.
+    /// This method is called to open the settings UI menu.
     /// </summary>
-    private void PlayMainMenuTheme()
+    public void OpenSettings()
     {
-        mainMenuTheme.Play();
+        pauseMenu.SetActive(false);
+        settingsMenu.SetActive(true);
     }
 
     /// <summary>
-    /// This method is called to stop playing the main menu theme.
+    /// This method is called to resume the game.
     /// </summary>
-    private void StopMainMenuTheme()
+    public void ResumeGame()
     {
-        mainMenuTheme.Stop();
+        settingsMenu.SetActive(false);
+        pauseMenu.SetActive(false);
+        _isPaused = false;
+    }
+    
+    /// <summary>
+    /// This method is called to change the volume global parameters of the game.
+    /// </summary>
+    public void ChangeVolume()
+    {
+        PlayerPrefs.SetFloat("volume", volumeSlider.value);
+        AudioListener.volume = volumeSlider.value;
+    }
+    
+    /// <summary>
+    /// This method is called to close the settings UI menu.
+    /// </summary>
+    public void CloseSettings()
+    {
+        settingsMenu.SetActive(false);
+        pauseMenu.SetActive(true);
     }
 }

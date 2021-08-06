@@ -22,11 +22,6 @@ public class GameManager : MonoBehaviour
     private static int PRELOAD_SCENE = 0;
 
     /// <summary>
-    /// Instance variable <c>isPaused</c> represents the state of the game pause.
-    /// </summary>
-    private bool _isPaused = false;
-    
-    /// <summary>
     /// This method is called when the script instance is being loaded.
     /// </summary>
     private void Awake()
@@ -52,24 +47,13 @@ public class GameManager : MonoBehaviour
     }
 
     /// <summary>
-    /// This method is called once per frame
-    /// </summary>
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            _isPaused = !_isPaused;
-            Time.timeScale = 1 * (_isPaused ? 0 : 1);
-        }
-    }
-
-    /// <summary>
     /// This method is used to load a scene.
     /// </summary>
     /// <param name="sceneIndex">An integer value representing the index of the scene to load.</param>
     public void LoadScene(int sceneIndex)
     {
         SceneManager.LoadScene(sceneIndex);
+        AudioListener.volume = PlayerPrefs.GetFloat("volume");
         if (!sceneIndex.Equals(MAIN_MENU_SCENE) && !sceneIndex.Equals(PRELOAD_SCENE))
         {
             SaveLevelData();
