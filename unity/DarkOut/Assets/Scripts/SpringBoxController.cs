@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 /// <summary>
@@ -28,6 +29,12 @@ public class SpringBoxController : MonoBehaviour
         Left = 3
     }
 
+    private void Awake()
+    {
+        _indexCurrentOrientation = (int)bouncingDirection;
+    }
+
+#if UNITY_EDITOR
     /// <summary>
     /// This method is called when the script is loaded or a value is changed in the Inspector.
     /// </summary>
@@ -39,6 +46,7 @@ public class SpringBoxController : MonoBehaviour
         
         transform.GetChild(_indexCurrentOrientation).gameObject.SetActive(true);
     }
+#endif
 
     /// <summary>
     /// This method is called to execute a spring box rotation.
@@ -66,5 +74,6 @@ public class SpringBoxController : MonoBehaviour
             }
         }
         transform.GetChild(_indexCurrentOrientation).gameObject.SetActive(true);
+        bouncingDirection = (BouncingDirection)_indexCurrentOrientation;
     }
 }

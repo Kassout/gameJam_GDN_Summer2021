@@ -7379,5 +7379,77 @@ PrefabInstance:
       propertyPath: m_Name
       value: Rotation_plateform
       objectReference: {fileID: 0}
+    - target: {fileID: 9118610789717276021, guid: ec5d8e2ac1324d24ba3c7f3a850f284e, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9118610789717276021, guid: ec5d8e2ac1324d24ba3c7f3a850f284e, type: 3}
+      propertyPath: m_CompositePaths.m_Paths.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 9118610789717276021, guid: ec5d8e2ac1324d24ba3c7f3a850f284e, type: 3}
+      propertyPath: m_CompositePaths.m_Paths.Array.data[0].Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 9118610789717276021, guid: ec5d8e2ac1324d24ba3c7f3a850f284e, type: 3}
+      propertyPath: m_CompositePaths.m_Paths.Array.data[0].Array.data[1].y
+      value: -1.15
+      objectReference: {fileID: 0}
+    - target: {fileID: 9118610789717276021, guid: ec5d8e2ac1324d24ba3c7f3a850f284e, type: 3}
+      propertyPath: m_CompositePaths.m_Paths.Array.data[0].Array.data[2].x
+      value: 1.15
+      objectReference: {fileID: 0}
+    - target: {fileID: 9118610789717276021, guid: ec5d8e2ac1324d24ba3c7f3a850f284e, type: 3}
+      propertyPath: m_CompositePaths.m_Paths.Array.data[0].Array.data[2].y
+      value: -1.15
+      objectReference: {fileID: 0}
+    - target: {fileID: 9118610789717276021, guid: ec5d8e2ac1324d24ba3c7f3a850f284e, type: 3}
+      propertyPath: m_CompositePaths.m_Paths.Array.data[0].Array.data[3].x
+      value: 1.15
+      objectReference: {fileID: 0}
+    - target: {fileID: 9118610789717276021, guid: ec5d8e2ac1324d24ba3c7f3a850f284e, type: 3}
+      propertyPath: m_CompositePaths.m_Paths.Array.data[0].Array.data[3].y
+      value: 1.35
+      objectReference: {fileID: 0}
+    - target: {fileID: 9118610789717276021, guid: ec5d8e2ac1324d24ba3c7f3a850f284e, type: 3}
+      propertyPath: m_CompositePaths.m_Paths.Array.data[0].Array.data[4].x
+      value: -1.15
+      objectReference: {fileID: 0}
+    - target: {fileID: 9118610789717276021, guid: ec5d8e2ac1324d24ba3c7f3a850f284e, type: 3}
+      propertyPath: m_CompositePaths.m_Paths.Array.data[0].Array.data[4].y
+      value: -0.65000004
+      objectReference: {fileID: 0}
+    - target: {fileID: 9118610789717276021, guid: ec5d8e2ac1324d24ba3c7f3a850f284e, type: 3}
+      propertyPath: m_CompositePaths.m_Paths.Array.data[0].Array.data[5].x
+      value: -1.15
+      objectReference: {fileID: 0}
+    - target: {fileID: 9118610789717276021, guid: ec5d8e2ac1324d24ba3c7f3a850f284e, type: 3}
+      propertyPath: m_CompositePaths.m_Paths.Array.data[0].Array.data[5].y
+      value: -1.15
+      objectReference: {fileID: 0}
+    - target: {fileID: 9118610789717276021, guid: ec5d8e2ac1324d24ba3c7f3a850f284e, type: 3}
+      propertyPath: m_CompositePaths.m_Paths.Array.data[0].Array.data[6].x
+      value: 1.15
+      objectReference: {fileID: 0}
+    - target: {fileID: 9118610789717276021, guid: ec5d8e2ac1324d24ba3c7f3a850f284e, type: 3}
+      propertyPath: m_CompositePaths.m_Paths.Array.data[0].Array.data[6].y
+      value: -1.15
+      objectReference: {fileID: 0}
+    - target: {fileID: 9118610789717276021, guid: ec5d8e2ac1324d24ba3c7f3a850f284e, type: 3}
+      propertyPath: m_CompositePaths.m_Paths.Array.data[0].Array.data[7].x
+      value: 1.15
+      objectReference: {fileID: 0}
+    - target: {fileID: 9118610789717276021, guid: ec5d8e2ac1324d24ba3c7f3a850f284e, type: 3}
+      propertyPath: m_CompositePaths.m_Paths.Array.data[0].Array.data[7].y
+      value: 1.35
+      objectReference: {fileID: 0}
+    - target: {fileID: 9118610789717276021, guid: ec5d8e2ac1324d24ba3c7f3a850f284e, type: 3}
+      propertyPath: m_ColliderPaths.Array.data[3].m_ColliderPaths.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9118610789717276026, guid: ec5d8e2ac1324d24ba3c7f3a850f284e, type: 3}
+      propertyPath: m_Size.x
+      value: 0.5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ec5d8e2ac1324d24ba3c7f3a850f284e, type: 3}
