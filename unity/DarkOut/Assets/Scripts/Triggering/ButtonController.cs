@@ -103,7 +103,7 @@ public class ButtonController : TriggeringObject
         }
         IsActivated = true;
         _buttonAnimator.SetBool(Pushed, IsActivated);
-        if(actionableObjects.size() > 0) {
+        if(actionableObjects.Count > 0) {
             foreach (var actionableObject in actionableObjects)
             {
                 actionableObject.TriggerActionEvent();
@@ -134,7 +134,7 @@ public class ButtonController : TriggeringObject
     {
         IsActivated = false;
         _buttonAnimator.SetBool(Pushed, IsActivated);
-        if(actionableObjects.size() > 0) {
+        if(actionableObjects.Count > 0) {
             foreach (var actionableObject in actionableObjects)
             {
                 actionableObject.KillTriggers();

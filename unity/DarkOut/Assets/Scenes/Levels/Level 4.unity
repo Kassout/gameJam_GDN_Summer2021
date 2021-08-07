@@ -180,7 +180,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5954210537180904764, guid: 59795be87b3c5cf41abca58336133dfb, type: 3}
       propertyPath: holdTime
-      value: 2
+      value: 2.5
       objectReference: {fileID: 0}
     - target: {fileID: 5954210537180904764, guid: 59795be87b3c5cf41abca58336133dfb, type: 3}
       propertyPath: buttonType
