@@ -77,7 +77,7 @@ public class SpringController : MonoBehaviour
         }
         else if (other.attachedRigidbody)
         {
-            other.GetComponent<Rigidbody2D>().AddForce(direction * forceAmplitude * 100, ForceMode2D.Impulse);
+            other.GetComponent<Rigidbody2D>().AddForce(direction * forceAmplitude * 10, ForceMode2D.Impulse);
         }
     }
 

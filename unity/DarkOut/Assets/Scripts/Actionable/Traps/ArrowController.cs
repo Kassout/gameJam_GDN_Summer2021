@@ -42,7 +42,6 @@ public class ArrowController : MonoBehaviour
     {
         if (other.CompareTag("Spring"))
         {
-            Debug.Log("Change Direction");
             transform.position = other.transform.position;
             direction = other.GetComponent<SpringController>().GetDirection();
             Rotate();
@@ -60,12 +59,10 @@ public class ArrowController : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            Debug.Log("Kill player.");
             other.gameObject.GetComponent<PlayerController>().TakeDamage();
         }
         if(!other.gameObject.CompareTag("Spring") || !other.gameObject.CompareTag("InteractionObject")) {
             Destroy(gameObject);
-            Debug.Log(other.gameObject);
         }
     }
        

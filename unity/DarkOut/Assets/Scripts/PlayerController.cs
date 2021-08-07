@@ -228,7 +228,6 @@ public class PlayerController : MonoBehaviour
     {
         if (other.gameObject.CompareTag("InteractionObject") || other.gameObject.CompareTag("Spring"))
         {
-            Debug.Log(other.gameObject.name);
             _currentInteractionObj = other.gameObject;
         }
     }
@@ -241,7 +240,6 @@ public class PlayerController : MonoBehaviour
     {
         if (other.gameObject.CompareTag("InteractionObject"))
         {
-            Debug.Log(other.gameObject.name);
             _currentInteractionObj = null;
         }
     }
