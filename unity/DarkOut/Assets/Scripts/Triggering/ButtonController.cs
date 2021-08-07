@@ -22,6 +22,12 @@ public class ButtonController : TriggeringObject
     private Animator _buttonAnimator;
     
     /// <summary>
+    /// Instance variable <c>buttonPushedSound</c> represents the <c>AudioSource</c> Unity component triggering button pushed sound.
+    /// </summary>
+    [SerializeField]
+    private AudioSource buttonPushedSound;
+    
+    /// <summary>
     /// Static variable <c>Pushed</c> represents the string message to send to the game object animator to change the state of the "isPushed" variable.
     /// </summary>
     private static readonly int Pushed = Animator.StringToHash("isPushed");
@@ -41,6 +47,18 @@ public class ButtonController : TriggeringObject
         else if (activationType.Equals(ActivationType.Interaction))
         {
             boxCollider.size = new Vector2(colliderSizeOnInteraction, colliderSizeOnInteraction);
+        }
+    }
+
+    /// <summary>
+    /// This method is called when another object enters a trigger collider attached to this object.
+    /// </summary>
+    /// <param name="other">A <c>Collider2D</c> Unity component representing the collider of the object that it collides with.</param>
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (activationType.Equals(ActivationType.Pressure))
+        {
+            buttonPushedSound.Play();
         }
     }
 
@@ -73,6 +91,10 @@ public class ButtonController : TriggeringObject
     /// </summary>
     public override void OnActivate()
     {
+        if (!activationType.Equals(ActivationType.Pressure))
+        {
+            buttonPushedSound.Play();
+        }
         IsActivated = true;
         _buttonAnimator.SetBool(Pushed, IsActivated);
         foreach (var actionableObject in actionableObjects)

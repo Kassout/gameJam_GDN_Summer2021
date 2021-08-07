@@ -8,9 +8,9 @@ using UnityEngine.Tilemaps;
 public class PlayerController : MonoBehaviour
 {
     /// <summary>
-    /// Instance variable <c>startingPoint</c> represents the 3D coordinate value of the starting point of the game object.
+    /// Instance variable <c>_startingPosition</c> represents the 3D coordinate value of the starting point of the game object.
     /// </summary>
-    private Vector3 _startingPoint;
+    private Vector3 _startingPosition;
 
     /// <summary>
     /// Instance variable <c>characterSprite</c> represents the player's character sprite.
@@ -110,6 +110,18 @@ public class PlayerController : MonoBehaviour
     private static readonly int TriggerFall = Animator.StringToHash("triggerFall");
 
     /// <summary>
+    /// Instance variable <c>walkingSound</c> represents the <c>AudioSource</c> Unity component triggering player walking sound.
+    /// </summary>
+    [SerializeField]
+    private AudioSource walkingSound;
+
+    /// <summary>
+    /// Instance variable <c>deathSound</c> represents the <c>AudioSource</c> Unity component triggering player death sound.
+    /// </summary>
+    [SerializeField] 
+    private AudioSource deathSound;
+
+    /// <summary>
     /// This method is called when the script instance is being loaded.
     /// </summary>
     private void Awake()
@@ -117,7 +129,7 @@ public class PlayerController : MonoBehaviour
         _idleSprite = characterSprite.sprite;
         _rigidBody = gameObject.GetComponent<Rigidbody2D>();
         _animator = gameObject.GetComponent<Animator>();
-        _startingPoint = transform.position;
+        _startingPosition = transform.position;
     }
 
     /// <summary>
@@ -136,10 +148,18 @@ public class PlayerController : MonoBehaviour
             if (_movement.x != 0 || _movement.y != 0)
             {
                 characterSprite.sprite = walkSprite;
+                if (!walkingSound.isPlaying)
+                {
+                    walkingSound.Play();
+                }
             }
             else
             {
                 characterSprite.sprite = _idleSprite;
+                if (walkingSound.isPlaying)
+                {
+                    walkingSound.Pause();
+                }
             }
             
             // Interact
@@ -159,10 +179,6 @@ public class PlayerController : MonoBehaviour
         }
 
     }
-
-    public Vector2 GetMovement() {
-        return _move;
-    }
     
     /// <summary>
     /// This method is used to move the player.
@@ -174,25 +190,12 @@ public class PlayerController : MonoBehaviour
         {
             _rigidBody.MovePosition(_move);
         }
+        if (walkingSound.isPlaying) 
+        {
+            //walkingSound.Stop();
+        }
     }
-
-    /// <summary>
-    /// This method is used to disable player control inputs when being pushed by a spring.
-    /// </summary>
-    public void StartSpring()
-    {
-        _isDisabled = true;
-    }
-
-    /// <summary>
-    /// This method is used to enable player control inputs after being pushed by a spring.
-    /// </summary>
-    public void StopSpring()
-    {
-        _isDisabled = false;
-        _rigidBody.velocity = Vector2.zero;
-    }
-
+    
     /// <summary>
     /// This method is used to check if whether or not a player can move in the targeted direction considerate eventual obstacles.
     /// </summary>
@@ -278,6 +281,27 @@ public class PlayerController : MonoBehaviour
         _animator.SetTrigger(TriggerBump);
         _rigidBody.AddForce(springForce, ForceMode2D.Impulse);
     }
+    
+    /// <summary>
+    /// This method is used to disable player control inputs when being pushed by a spring.
+    /// </summary>
+    public void StartSpring()
+    {
+        _isDisabled = true;
+        if (walkingSound.isPlaying)
+        {
+            walkingSound.Stop();
+        }
+    }
+
+    /// <summary>
+    /// This method is used to enable player control inputs after being pushed by a spring.
+    /// </summary>
+    public void StopSpring()
+    {
+        _isDisabled = false;
+        _rigidBody.velocity = Vector2.zero;
+    }
 
     /// <summary>
     /// This method is used to restart the player to the game beginning position.
@@ -285,10 +309,19 @@ public class PlayerController : MonoBehaviour
     public void RestartPosition()
     {
         _animator.ResetTrigger(TriggerFall);
-        transform.position = _startingPoint;
+        deathSound.Stop();
+        transform.position = _startingPosition;
         if (_currentInteractionObj.CompareTag("Spring"))
         {
             _currentInteractionObj.transform.parent.GetComponent<SpringBoxController>().RestartPosition();
         }
+    }
+
+    /// <summary>
+    /// This method is called when the player fall into a pit.
+    /// </summary>
+    public void PlayerFall()
+    {
+        deathSound.Play();
     }
 }

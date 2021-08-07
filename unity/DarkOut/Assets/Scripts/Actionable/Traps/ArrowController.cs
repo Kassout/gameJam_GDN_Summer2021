@@ -55,6 +55,10 @@ public class ArrowController : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// TODO: comments
+    /// </summary>
+    /// <param name="other"></param>
     private void OnCollisionEnter2D(Collision2D other)
     {
         if (other.gameObject.CompareTag("Player"))

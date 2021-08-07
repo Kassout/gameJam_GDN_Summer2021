@@ -12,6 +12,12 @@ public class ArrowLauncherController : ActionableObject
     private ShootDirection shootDirection;
     
     /// <summary>
+    /// TODO: comments
+    /// </summary>
+    [SerializeField]
+    private AudioSource arrowLaunchSound;
+    
+    /// <summary>
     /// Instance variable <c>BouncingDirection</c> represents an enumeration of bouncing direction type for the spring object.
     /// </summary>
     private enum ShootDirection
@@ -91,6 +97,7 @@ public class ArrowLauncherController : ActionableObject
     /// </summary>
     public void ArrowLauncherEvent()
     {
+        arrowLaunchSound.Play();
         GameObject instantiatedArrow = Instantiate(arrow, GetComponent<Rigidbody2D>().position + (vectorDirection * 0.6f), transform.rotation);
         instantiatedArrow.GetComponent<ArrowController>().SetDirection(vectorDirection);
     }

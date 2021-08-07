@@ -28,6 +28,12 @@ public class LeverController : TriggeringObject
     private Animator _leverAnimator;
     
     /// <summary>
+    /// Instance variable <c>leverPushedSound</c> represents the <c>AudioSource</c> Unity component triggering lever pushed sound.
+    /// </summary>
+    [SerializeField]
+    private AudioSource leverPushedSound;
+    
+    /// <summary>
     /// Static variable <c>Pushed</c> represents the string message to send to the game object animator to change the state of the "isPushed" variable.
     /// </summary>
     private static readonly int Pushed = Animator.StringToHash("isPushed");
@@ -51,6 +57,18 @@ public class LeverController : TriggeringObject
     }
     
     /// <summary>
+    /// This method is called when another object enters a trigger collider attached to this object.
+    /// </summary>
+    /// <param name="other">A <c>Collider2D</c> Unity component representing the collider of the object that it collides with.</param>
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (activationType.Equals(ActivationType.Pressure))
+        {
+            leverPushedSound.Play();
+        }
+    }
+
+    /// <summary>
     /// This method is called each frame where another object is within a trigger collider attached to this object
     /// </summary>
     /// <param name="other">A <c>Collider2D</c> Unity component representing the collider of the object that it collides with.</param>
@@ -61,7 +79,7 @@ public class LeverController : TriggeringObject
             OnActivate();
         }
     }
-    
+
     /// <summary>
     /// This method is called when another object leaves a trigger collider attached to this object.
     /// </summary>
@@ -79,6 +97,10 @@ public class LeverController : TriggeringObject
     /// </summary>
     public override void OnActivate()
     {
+        if (!activationType.Equals(ActivationType.Pressure))
+        {
+            leverPushedSound.Play();
+        }
         IsActivated = true;
         _leverAnimator.SetBool(Pushed, IsActivated);
         foreach (var actionableObject in actionableObjects)

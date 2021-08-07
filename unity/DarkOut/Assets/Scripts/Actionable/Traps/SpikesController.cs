@@ -11,6 +11,12 @@ public class SpikesController : ActionableObject
     private Animator _animator;
     
     /// <summary>
+    /// TODO: comments
+    /// </summary>
+    [SerializeField]
+    private AudioSource spikesUpSound;
+    
+    /// <summary>
     /// Static variable <c>Pushed</c> represents the string message to send to the game object animator to change the state of the "isEventTriggered" variable.
     /// </summary>
     private static readonly int IsEventTriggered = Animator.StringToHash("isEventTriggered");
@@ -49,6 +55,11 @@ public class SpikesController : ActionableObject
     /// </summary>
     public void SpikeEvent()
     {
+        if (!spikesUpSound.isPlaying)
+        {
+            spikesUpSound.Play();
+        }
+        
         gameObject.GetComponent<BoxCollider2D>().enabled = !gameObject.GetComponent<BoxCollider2D>().enabled;
     }
 

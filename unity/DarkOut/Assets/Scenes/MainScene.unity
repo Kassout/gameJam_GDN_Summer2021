@@ -2077,18 +2077,6 @@ PrefabInstance:
     m_TransformParent: {fileID: 1889385035}
     m_Modifications:
     - target: {fileID: 7170386317477074725, guid: 73c3734e77dd08843a7a947827187388, type: 3}
-      propertyPath: holdTime
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7170386317477074725, guid: 73c3734e77dd08843a7a947827187388, type: 3}
-      propertyPath: buttonType
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7170386317477074725, guid: 73c3734e77dd08843a7a947827187388, type: 3}
-      propertyPath: actionableObjects.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7170386317477074725, guid: 73c3734e77dd08843a7a947827187388, type: 3}
       propertyPath: actionableObjects.Array.data[0]
       value: 
       objectReference: {fileID: 862014203}
@@ -2417,26 +2405,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7170386317477074731, guid: 73c3734e77dd08843a7a947827187388, type: 3}
   m_PrefabInstance: {fileID: 666142662}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &482932008 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6946633870335174767, guid: 1cf3997a30d17464cbcd09b193dd7ffb, type: 3}
-  m_PrefabInstance: {fileID: 6946633870119829666}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &482932009
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 482932008}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ce59f19bb449aa648a943f87b7683e70, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  groundTileMap: {fileID: 1800631885}
-  collisionTileMap: {fileID: 183146626}
-  pitfallTileMap: {fileID: 1087441702}
 --- !u!1 &515503752
 GameObject:
   m_ObjectHideFlags: 0
@@ -2758,7 +2726,6 @@ GameObject:
   m_Component:
   - component: {fileID: 624176945}
   - component: {fileID: 624176944}
-  - component: {fileID: 624176943}
   - component: {fileID: 624176946}
   - component: {fileID: 624176947}
   m_Layer: 0
@@ -2768,14 +2735,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!81 &624176943
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 624176942}
-  m_Enabled: 1
 --- !u!20 &624176944
 Camera:
   m_ObjectHideFlags: 0
@@ -4681,18 +4640,6 @@ PrefabInstance:
       value: Lever
       objectReference: {fileID: 0}
     - target: {fileID: 5954210537180904764, guid: 59795be87b3c5cf41abca58336133dfb, type: 3}
-      propertyPath: holdTime
-      value: 8
-      objectReference: {fileID: 0}
-    - target: {fileID: 5954210537180904764, guid: 59795be87b3c5cf41abca58336133dfb, type: 3}
-      propertyPath: activationType
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5954210537180904764, guid: 59795be87b3c5cf41abca58336133dfb, type: 3}
-      propertyPath: actionableObjects.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5954210537180904764, guid: 59795be87b3c5cf41abca58336133dfb, type: 3}
       propertyPath: actionableObjects.Array.data[0]
       value: 
       objectReference: {fileID: 538233712}
@@ -4890,6 +4837,7 @@ MonoBehaviour:
   groundTileMap: {fileID: 1800631885}
   collisionTileMap: {fileID: 183146626}
   pitfallTileMap: {fileID: 1087441702}
+  boxPushedSound: {fileID: 0}
 --- !u!1 &1800631882
 GameObject:
   m_ObjectHideFlags: 0
@@ -8880,6 +8828,19 @@ PrefabInstance:
       objectReference: {fileID: 183146626}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 774d1a3a050cd2d468e9cfa5c5c3820b, type: 3}
+--- !u!1 &4170179781198387417 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4170179781896407324, guid: 774d1a3a050cd2d468e9cfa5c5c3820b, type: 3}
+  m_PrefabInstance: {fileID: 4170179781198387416}
+  m_PrefabAsset: {fileID: 0}
+--- !u!81 &4170179781198387418
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4170179781198387417}
+  m_Enabled: 1
 --- !u!1001 &4472427960419423366
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9006,10 +8967,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1889385035}
     m_Modifications:
-    - target: {fileID: 5980138186004710468, guid: 385cbb0ce9a7e654ca9d2c4a33d82fdd, type: 3}
-      propertyPath: shootDirection
-      value: 3
-      objectReference: {fileID: 0}
     - target: {fileID: 5980138186004710488, guid: 385cbb0ce9a7e654ca9d2c4a33d82fdd, type: 3}
       propertyPath: m_Name
       value: Arrow_launcher
@@ -9067,18 +9024,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1889385035}
     m_Modifications:
-    - target: {fileID: 1477872289468783173, guid: 1cf3997a30d17464cbcd09b193dd7ffb, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2118122466503333750, guid: 1cf3997a30d17464cbcd09b193dd7ffb, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4695044084311965972, guid: 1cf3997a30d17464cbcd09b193dd7ffb, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
+    - target: {fileID: 482932009, guid: 1cf3997a30d17464cbcd09b193dd7ffb, type: 3}
+      propertyPath: groundTileMap
+      value: 
+      objectReference: {fileID: 1800631885}
+    - target: {fileID: 482932009, guid: 1cf3997a30d17464cbcd09b193dd7ffb, type: 3}
+      propertyPath: pitfallTileMap
+      value: 
+      objectReference: {fileID: 1087441702}
+    - target: {fileID: 482932009, guid: 1cf3997a30d17464cbcd09b193dd7ffb, type: 3}
+      propertyPath: collisionTileMap
+      value: 
+      objectReference: {fileID: 183146626}
     - target: {fileID: 6946633870335174764, guid: 1cf3997a30d17464cbcd09b193dd7ffb, type: 3}
       propertyPath: m_RootOrder
       value: 17
@@ -9123,10 +9080,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6946633870335174765, guid: 1cf3997a30d17464cbcd09b193dd7ffb, type: 3}
-      propertyPath: bouncingDirection
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 6946633870335174767, guid: 1cf3997a30d17464cbcd09b193dd7ffb, type: 3}
       propertyPath: m_Name
       value: Spring_box
@@ -9140,14 +9093,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1889385035}
     m_Modifications:
-    - target: {fileID: 7170386317477074725, guid: 73c3734e77dd08843a7a947827187388, type: 3}
-      propertyPath: buttonType
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7170386317477074725, guid: 73c3734e77dd08843a7a947827187388, type: 3}
-      propertyPath: actionableObjects.Array.size
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 7170386317477074725, guid: 73c3734e77dd08843a7a947827187388, type: 3}
       propertyPath: actionableObjects.Array.data[0]
       value: 

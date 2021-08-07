@@ -1,4 +1,3 @@
-using System.Collections;
 using UnityEngine;
 
 /// <summary>
@@ -9,7 +8,7 @@ public class SpringController : MonoBehaviour
     /// <summary>
     /// Instance variable <c>direction</c> represents the bouncing direction vector of the spring.
     /// </summary>
-    private Vector2 direction;
+    private Vector2 _direction;
 
     /// <summary>
     /// Instance variable <c>forceAmplitude</c> represents the bouncing force amplitude value of the spring.
@@ -38,6 +37,13 @@ public class SpringController : MonoBehaviour
         Left,
         Right
     }
+    
+    /// <summary>
+    /// Instance variable <c>springTriggerSound</c> represents the <c>AudioSource</c> Unity component triggering spring bounce sound.
+    /// </summary>
+    [SerializeField]
+    private AudioSource springTriggerSound;
+    
 
     /// <summary>
     /// This method is called when the script instance is being loaded.
@@ -47,16 +53,16 @@ public class SpringController : MonoBehaviour
         switch (bouncingDirection)
         {
             case BouncingDirection.Up:
-                direction = Vector2.up;
+                _direction = Vector2.up;
                 break;
             case BouncingDirection.Bottom:
-                direction = Vector2.down;
+                _direction = Vector2.down;
                 break;
             case BouncingDirection.Left:
-                direction = Vector2.left;
+                _direction = Vector2.left;
                 break;
             case BouncingDirection.Right:
-                direction = Vector2.right;
+                _direction = Vector2.right;
                 break;
         }
     }
@@ -64,12 +70,12 @@ public class SpringController : MonoBehaviour
     /// <summary>
     /// This method is called when an incoming collider makes contact with this object's collider
     /// </summary>
-    /// <param name="other">A <c>Collision2D</c> Unity component representing the collision of the object that it collided with.</param>
+    /// <param name="other">A <c>Collider2D</c> Unity component representing the collision of the object that it collided with.</param>
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Player"))
         {
-            other.GetComponent<PlayerController>().TriggerBounce(direction * forceAmplitude, timeToWait);
+            other.GetComponent<PlayerController>().TriggerBounce(_direction * forceAmplitude, timeToWait);
         }
         else if (other.CompareTag("Arrow"))
         {
@@ -77,12 +83,17 @@ public class SpringController : MonoBehaviour
         }
         else if (other.attachedRigidbody)
         {
-            other.GetComponent<Rigidbody2D>().AddForce(direction * forceAmplitude * 10, ForceMode2D.Impulse);
+            other.GetComponent<Rigidbody2D>().AddForce(_direction * forceAmplitude * 10, ForceMode2D.Impulse);
         }
+        springTriggerSound.Play();
     }
 
+    /// <summary>
+    /// This method is called to get the spring bouncing direction.
+    /// </summary>
+    /// <returns>A <c>Vector2</c> Unity component representing the bouncing direction vector.</returns>
     public Vector2 GetDirection() {
-        return direction;
+        return _direction;
     }
 
 }
