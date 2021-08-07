@@ -102,7 +102,7 @@ public class ArrowLauncherController : ActionableObject
                 _vectorDirection = Vector2.left;
                 break;
             case ShootDirection.Right:
-                transform.rotation = Quaternion.Euler(0, 0, 180);
+                transform.rotation = Quaternion.Euler(0, 0, 0);
                 spriteRenderer.flipX = true;
                 _vectorDirection = Vector2.right;
                 break;
@@ -120,18 +120,22 @@ public class ArrowLauncherController : ActionableObject
             case ShootDirection.Up:
                 transform.rotation = Quaternion.Euler(0, 0, -90);
                 GetComponent<SpriteRenderer>().flipX = false;
+                _vectorDirection = Vector2.up;
                 break;
             case ShootDirection.Down:
                 transform.rotation = Quaternion.Euler(0, 0, 90);
                 GetComponent<SpriteRenderer>().flipX = false;
+                _vectorDirection = Vector2.down;
                 break;
             case ShootDirection.Left:
                 transform.rotation = Quaternion.Euler(0, 0, 0);
                 GetComponent<SpriteRenderer>().flipX = false;
+                _vectorDirection = Vector2.left;
                 break;
             case ShootDirection.Right:
                 transform.rotation = Quaternion.Euler(0, 0, 0);
                 GetComponent<SpriteRenderer>().flipX = true;
+                _vectorDirection = Vector2.right;
                 break;
         }
     }
