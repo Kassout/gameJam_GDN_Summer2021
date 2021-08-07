@@ -6,16 +6,16 @@ using UnityEngine;
 public class ArrowLauncherController : ActionableObject
 {
     /// <summary>
+    /// Instance variable <c>arrowLaunchSound</c> represents the <c>AudioSource</c> Unity component triggering arrow launching sound.
+    /// </summary>
+    [SerializeField]
+    private AudioSource arrowLaunchSound;
+ 
+    /// <summary>
     /// Instance variable <c>bouncingDirection</c> represents the bouncing direction type of the spring.
     /// </summary>
     [SerializeField]
     private ShootDirection shootDirection;
-    
-    /// <summary>
-    /// TODO: comments
-    /// </summary>
-    [SerializeField]
-    private AudioSource arrowLaunchSound;
     
     /// <summary>
     /// Instance variable <c>BouncingDirection</c> represents an enumeration of bouncing direction type for the spring object.
@@ -28,7 +28,10 @@ public class ArrowLauncherController : ActionableObject
         Left
     }
 
-    private Vector2 vectorDirection;
+    /// <summary>
+    /// Instance variable <c>vectorDirection</c> represents a <c>Vector2</c> Unity component of the arrow launching direction.
+    /// </summary>
+    private Vector2 _vectorDirection;
 
     /// <summary>
     /// Instance variable <c>arrow</c> represents the arrow game object launcher by the trap.
@@ -57,13 +60,19 @@ public class ArrowLauncherController : ActionableObject
     private static readonly int ActionTrigger = Animator.StringToHash("actionTrigger");
 
     /// <summary>
+    /// Static variable <c>IsFromInteraction</c> represents the string message to send to the game object animator to change the state of the "isFromInteraction" variable.
+    /// </summary>
+    private static readonly int IsFromInteraction = Animator.StringToHash("isFromInteraction");
+
+    /// <summary>
     /// This method is called on the frame when a script is enabled
     /// </summary>
     private void Start()
     {
         IsActive = false;
         _animator = GetComponent<Animator>();
-        _animator.SetBool("isFromInteraction", isTriggeredFromInteraction);
+        _animator.SetBool(IsFromInteraction, isTriggeredFromInteraction);
+        SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
         if (actionableStyle.Equals(ActionableStyle.Triggered) ||
             actionableStyle.Equals(ActionableStyle.TriggeredRepeat) ||
             actionableStyle.Equals(ActionableStyle.AutoWhenTriggered))
@@ -78,19 +87,55 @@ public class ArrowLauncherController : ActionableObject
 
         switch (shootDirection) {
             case ShootDirection.Up:
-                vectorDirection = Vector2.up;
+                transform.rotation = Quaternion.Euler(0, 0, -90);
+                spriteRenderer.flipX = false;
+                _vectorDirection = Vector2.up;
                 break;
             case ShootDirection.Down:
-                vectorDirection = Vector2.down;
+                transform.rotation = Quaternion.Euler(0, 0, 90);
+                spriteRenderer.flipX = false;
+                _vectorDirection = Vector2.down;
                 break;
             case ShootDirection.Left:
-                vectorDirection = Vector2.left;
+                transform.rotation = Quaternion.Euler(0, 0, 0);
+                spriteRenderer.flipX = false;
+                _vectorDirection = Vector2.left;
                 break;
             case ShootDirection.Right:
-                vectorDirection = Vector2.right;
+                transform.rotation = Quaternion.Euler(0, 0, 180);
+                spriteRenderer.flipX = true;
+                _vectorDirection = Vector2.right;
                 break;
         }
     }
+    
+#if UNITY_EDITOR
+    /// <summary>
+    /// This method is called when the script is loaded or a value is changed in the Inspector.
+    /// </summary>
+    void OnValidate()
+    {
+        switch (shootDirection)
+        {
+            case ShootDirection.Up:
+                transform.rotation = Quaternion.Euler(0, 0, -90);
+                GetComponent<SpriteRenderer>().flipX = false;
+                break;
+            case ShootDirection.Down:
+                transform.rotation = Quaternion.Euler(0, 0, 90);
+                GetComponent<SpriteRenderer>().flipX = false;
+                break;
+            case ShootDirection.Left:
+                transform.rotation = Quaternion.Euler(0, 0, 0);
+                GetComponent<SpriteRenderer>().flipX = false;
+                break;
+            case ShootDirection.Right:
+                transform.rotation = Quaternion.Euler(0, 0, 0);
+                GetComponent<SpriteRenderer>().flipX = true;
+                break;
+        }
+    }
+#endif
 
     /// <summary>
     /// This method is called to instantiate and launch an arrow projectile on animation launching frame.
@@ -98,8 +143,8 @@ public class ArrowLauncherController : ActionableObject
     public void ArrowLauncherEvent()
     {
         arrowLaunchSound.Play();
-        GameObject instantiatedArrow = Instantiate(arrow, GetComponent<Rigidbody2D>().position + (vectorDirection * 0.6f), transform.rotation);
-        instantiatedArrow.GetComponent<ArrowController>().SetDirection(vectorDirection);
+        GameObject instantiatedArrow = Instantiate(arrow, GetComponent<Rigidbody2D>().position + (_vectorDirection * 0.6f), transform.rotation);
+        instantiatedArrow.GetComponent<ArrowController>().SetDirection(_vectorDirection);
     }
 
     /// <summary>
