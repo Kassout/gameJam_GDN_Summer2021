@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 5980138186004710491}
   - component: {fileID: 5980138186004710468}
   - component: {fileID: 238341274}
+  - component: {fileID: -568656317297373726}
   m_Layer: 0
   m_Name: Arrow_launcher
   m_TagString: Untagged
@@ -167,8 +168,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isTriggeredFromInteraction: 0
   actionableStyle: 0
-  shootDirection: 3
   arrowLaunchSound: {fileID: 238341274}
+  shootDirection: 3
   arrow: {fileID: 2225063180354033275, guid: cf7a6049a8aa1df48bb5739494132f2d, type: 3}
 --- !u!82 &238341274
 AudioSource:
@@ -266,3 +267,15 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &-568656317297373726
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5980138186004710488}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 72b4c6113fcb1624f99f4d18295c940d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

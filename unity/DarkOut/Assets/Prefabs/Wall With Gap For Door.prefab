@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 8988773504293151848}
   - component: {fileID: 8988773504293151853}
   - component: {fileID: 8988773504293151850}
+  - component: {fileID: -352653962641269522}
   m_Layer: 0
   m_Name: Wall With Gap For Door
   m_TagString: Untagged
@@ -136,3 +137,15 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.8125, y: 2}
   m_EdgeRadius: 0
+--- !u!114 &-352653962641269522
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8988773504293151849}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 72b4c6113fcb1624f99f4d18295c940d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

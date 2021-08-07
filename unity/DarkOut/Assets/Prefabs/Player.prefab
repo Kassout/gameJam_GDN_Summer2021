@@ -97,6 +97,7 @@ GameObject:
   - component: {fileID: 1991693033}
   - component: {fileID: 4170179781198387419}
   - component: {fileID: 4170179781198387418}
+  - component: {fileID: 8982003362653764403}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -163,6 +164,7 @@ MonoBehaviour:
   TilemapCollisionPoint: {fileID: 4170179782733741507}
   walkingSound: {fileID: 4170179781198387418}
   deathSound: {fileID: 4170179781198387419}
+  isBouncing: 0
 --- !u!70 &4170179781896407312
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -390,6 +392,18 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &8982003362653764403
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4170179781896407324}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 72b4c6113fcb1624f99f4d18295c940d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4170179782733741507
 GameObject:
   m_ObjectHideFlags: 0

@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 834166823788280833}
   - component: {fileID: 834166823788280838}
   - component: {fileID: 834166823788280839}
+  - component: {fileID: -4094184349908122755}
   m_Layer: 0
   m_Name: Rock_2
   m_TagString: Untagged
@@ -132,3 +133,15 @@ EdgeCollider2D:
   m_AdjacentEndPoint: {x: 0, y: 0}
   m_UseAdjacentStartPoint: 0
   m_UseAdjacentEndPoint: 0
+--- !u!114 &-4094184349908122755
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 834166823788280837}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 72b4c6113fcb1624f99f4d18295c940d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 2400210842652187128}
   - component: {fileID: 114939723207535051}
   - component: {fileID: 7200650384434352451}
+  - component: {fileID: 3723269655449352758}
   m_Layer: 0
   m_Name: Spring_box_down
   m_TagString: Untagged
@@ -132,6 +133,18 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.8, y: 0.914}
   m_EdgeRadius: 0
+--- !u!114 &3723269655449352758
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2400210842652187135}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 72b4c6113fcb1624f99f4d18295c940d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6527223518718194672
 GameObject:
   m_ObjectHideFlags: 0
@@ -205,3 +218,4 @@ MonoBehaviour:
   forceAmplitude: 5
   bouncingDirection: 1
   timeToWait: 0.5
+  springTriggerSound: {fileID: 0}

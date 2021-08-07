@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 1477872289468783179}
   - component: {fileID: 1477872289468783178}
   - component: {fileID: 480830328}
+  - component: {fileID: 7340387415442990597}
   m_Layer: 0
   m_Name: Spring_box_right
   m_TagString: Spring
@@ -223,6 +224,18 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &7340387415442990597
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1477872289468783173}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 72b4c6113fcb1624f99f4d18295c940d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2118122466503333750
 GameObject:
   m_ObjectHideFlags: 0
@@ -236,6 +249,7 @@ GameObject:
   - component: {fileID: 2118122466503333748}
   - component: {fileID: 2118122466503333751}
   - component: {fileID: 1014390369}
+  - component: {fileID: 6263037799510474509}
   m_Layer: 0
   m_Name: Spring_box_up
   m_TagString: Spring
@@ -446,6 +460,18 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &6263037799510474509
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2118122466503333750}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 72b4c6113fcb1624f99f4d18295c940d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4695044084311965972
 GameObject:
   m_ObjectHideFlags: 0
@@ -459,6 +485,7 @@ GameObject:
   - component: {fileID: 4695044084311965978}
   - component: {fileID: 4695044084311965973}
   - component: {fileID: 1849706650}
+  - component: {fileID: 4701036279002133198}
   m_Layer: 0
   m_Name: Spring_box_down
   m_TagString: Spring
@@ -669,6 +696,18 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &4701036279002133198
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4695044084311965972}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 72b4c6113fcb1624f99f4d18295c940d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5713713170290423357
 GameObject:
   m_ObjectHideFlags: 0
@@ -682,6 +721,7 @@ GameObject:
   - component: {fileID: 5713713170290423299}
   - component: {fileID: 5713713170290423298}
   - component: {fileID: 1935789606}
+  - component: {fileID: 2446391550269703004}
   m_Layer: 0
   m_Name: Spring_box_left
   m_TagString: Spring
@@ -892,6 +932,18 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &2446391550269703004
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5713713170290423357}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 72b4c6113fcb1624f99f4d18295c940d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6946633870335174767
 GameObject:
   m_ObjectHideFlags: 0

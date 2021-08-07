@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: -6671722896084980528}
   - component: {fileID: 2225063180354033278}
   - component: {fileID: 2225063180354033279}
+  - component: {fileID: -5990748548356185961}
   m_Layer: 0
   m_Name: Arrow
   m_TagString: Arrow
@@ -135,3 +136,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 15
+--- !u!114 &-5990748548356185961
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2225063180354033275}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 72b4c6113fcb1624f99f4d18295c940d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
