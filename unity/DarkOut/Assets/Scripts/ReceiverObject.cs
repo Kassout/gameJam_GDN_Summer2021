@@ -53,25 +53,36 @@ public abstract class ReceiverObject : MonoBehaviour
     /// </summary>
     private void UpdateReceiverStatus()
     {
-        if (_triggerCount.Equals(triggeringObjects.Count))
+        foreach (var triggeringObject in triggeringObjects)
         {
-            OnReceiverTriggersActivated();
-        }
-        else
-        {
-            foreach (var triggeringObject in triggeringObjects)
+            if (!_activatedTriggeringObjects.Contains(triggeringObject))
             {
-                if (!_activatedTriggeringObjects.Contains(triggeringObject) && triggeringObject.IsActivated)
-                {
+                if(triggeringObject.IsActivated) {
                     _activatedTriggeringObjects.Add(triggeringObject);
                     _triggerCount++;
+                    if (_triggerCount.Equals(triggeringObjects.Count))
+                    {
+                        OnReceiverTriggersActivated();
+                    }
+                }
+            } else {
+                if(!triggeringObject.IsActivated) {
+                    if (_triggerCount.Equals(triggeringObjects.Count))
+                    {
+                        OnReceiverTriggersDeactivated();
+                    }
+                    _activatedTriggeringObjects.Remove(triggeringObject);
+                    _triggerCount--;
                 }
             }
         }
+        
     }
 
     /// <summary>
     /// TODO: comments
     /// </summary>
     protected abstract void OnReceiverTriggersActivated();
+
+    protected abstract void OnReceiverTriggersDeactivated();
 }
