@@ -109,6 +109,9 @@ public class PlayerController : MonoBehaviour
     /// </summary>
     private static readonly int TriggerFall = Animator.StringToHash("triggerFall");
 
+    [SerializeField]
+    private GameObject TilemapCollisionPoint;
+
     /// <summary>
     /// Instance variable <c>walkingSound</c> represents the <c>AudioSource</c> Unity component triggering player walking sound.
     /// </summary>
@@ -186,7 +189,7 @@ public class PlayerController : MonoBehaviour
     private void MovePlayer()
     {
         _move = _rigidBody.position + _movement.normalized * (moveSpeed * Time.fixedDeltaTime);
-        if (CanMove(_move))
+        if (CanMove(_move - _rigidBody.position))
         {
             _rigidBody.MovePosition(_move);
         }
@@ -203,7 +206,8 @@ public class PlayerController : MonoBehaviour
     /// <returns>A boolean value representing the state of movement allowance.</returns>
     private bool CanMove(Vector3 direction)
     {
-        Vector3Int gridPosition = groundTileMap.WorldToCell(direction * 1.05f);
+        Vector3Int gridPosition = groundTileMap.WorldToCell(TilemapCollisionPoint.transform.position + direction * 1.05f);
+        Debug.Log(gridPosition);
         if (!groundTileMap.HasTile(gridPosition) || collisionTileMap.HasTile(gridPosition) || pitfallTileMap.HasTile(gridPosition))
         {
             return false;
@@ -311,9 +315,11 @@ public class PlayerController : MonoBehaviour
         _animator.ResetTrigger(TriggerFall);
         deathSound.Stop();
         transform.position = _startingPosition;
-        if (_currentInteractionObj.CompareTag("Spring"))
-        {
-            _currentInteractionObj.transform.parent.GetComponent<SpringBoxController>().RestartPosition();
+        if(_currentInteractionObj != null) {
+            if (_currentInteractionObj.CompareTag("Spring"))
+            {
+                _currentInteractionObj.transform.parent.GetComponent<SpringBoxController>().RestartPosition();
+            }
         }
     }
 

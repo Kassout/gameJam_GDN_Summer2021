@@ -160,6 +160,7 @@ MonoBehaviour:
   groundTileMap: {fileID: 0}
   collisionTileMap: {fileID: 0}
   pitfallTileMap: {fileID: 0}
+  TilemapCollisionPoint: {fileID: 4170179782733741507}
   walkingSound: {fileID: 4170179781198387418}
   deathSound: {fileID: 4170179781198387419}
 --- !u!70 &4170179781896407312

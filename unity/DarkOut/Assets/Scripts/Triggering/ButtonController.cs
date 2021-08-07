@@ -56,9 +56,11 @@ public class ButtonController : TriggeringObject
     /// <param name="other">A <c>Collider2D</c> Unity component representing the collider of the object that it collides with.</param>
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (activationType.Equals(ActivationType.Pressure))
-        {
-            buttonPushedSound.Play();
+        if(!other.CompareTag("Arrow")) {
+            if (activationType.Equals(ActivationType.Pressure))
+            {
+                buttonPushedSound.Play();
+            }
         }
     }
 
@@ -68,9 +70,11 @@ public class ButtonController : TriggeringObject
     /// <param name="other">A <c>Collider2D</c> Unity component representing the collider of the object that it collides with.</param>
     private void OnTriggerStay2D(Collider2D other)
     {
-        if (activationType.Equals(ActivationType.Pressure))
-        {
-            OnActivate();
+        if(!other.CompareTag("Arrow")) {
+            if (activationType.Equals(ActivationType.Pressure))
+            {
+                OnActivate();
+            }
         }
     }
 
@@ -80,9 +84,11 @@ public class ButtonController : TriggeringObject
     /// <param name="other">A <c>Collider2D</c> Unity component representing the collider of the object that it collides with.</param>
     private void OnTriggerExit2D(Collider2D other)
     {
-        if (activationType.Equals(ActivationType.Pressure) && buttonType.Equals(ButtonType.PushButton))
-        {
-            OnDeactivate();
+        if(!other.CompareTag("Arrow")) {
+            if (activationType.Equals(ActivationType.Pressure) && buttonType.Equals(ButtonType.PushButton))
+            {
+                OnDeactivate();
+            }
         }
     }
 
@@ -97,9 +103,11 @@ public class ButtonController : TriggeringObject
         }
         IsActivated = true;
         _buttonAnimator.SetBool(Pushed, IsActivated);
-        foreach (var actionableObject in actionableObjects)
-        {
-            actionableObject.TriggerActionEvent();
+        if(actionableObjects.size() > 0) {
+            foreach (var actionableObject in actionableObjects)
+            {
+                actionableObject.TriggerActionEvent();
+            }
         }
     }
 
@@ -126,9 +134,11 @@ public class ButtonController : TriggeringObject
     {
         IsActivated = false;
         _buttonAnimator.SetBool(Pushed, IsActivated);
-        foreach (var actionableObject in actionableObjects)
-        {
-            actionableObject.KillTriggers();
+        if(actionableObjects.size() > 0) {
+            foreach (var actionableObject in actionableObjects)
+            {
+                actionableObject.KillTriggers();
+            }
         }
     }
 }
