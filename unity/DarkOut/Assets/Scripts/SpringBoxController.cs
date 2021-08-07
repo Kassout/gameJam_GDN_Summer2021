@@ -8,6 +8,11 @@ using UnityEngine;
 public class SpringBoxController : MonoBehaviour
 {
     /// <summary>
+    /// Instance variable <c>startingPoint</c> represents the 3D coordinate value of the starting point of the game object.
+    /// </summary>
+    private Vector3 _startingPoint;
+    
+    /// <summary>
     /// Instance variable <c>bouncingDirection</c> represents the bouncing direction type of the spring.
     /// </summary>
     [SerializeField]
@@ -32,6 +37,7 @@ public class SpringBoxController : MonoBehaviour
     private void Awake()
     {
         _indexCurrentOrientation = (int)bouncingDirection;
+        _startingPoint = transform.position;
     }
 
 #if UNITY_EDITOR
@@ -75,5 +81,10 @@ public class SpringBoxController : MonoBehaviour
         }
         transform.GetChild(_indexCurrentOrientation).gameObject.SetActive(true);
         bouncingDirection = (BouncingDirection)_indexCurrentOrientation;
+    }
+
+    public void RestartPosition()
+    {
+        transform.position = _startingPoint;
     }
 }

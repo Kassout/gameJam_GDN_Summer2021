@@ -157,6 +157,7 @@ MonoBehaviour:
   immobilizationTime: 0.3
   groundTileMap: {fileID: 0}
   collisionTileMap: {fileID: 0}
+  pitfallTileMap: {fileID: 0}
 --- !u!70 &4170179781896407312
 CapsuleCollider2D:
   m_ObjectHideFlags: 0

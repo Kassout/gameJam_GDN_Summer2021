@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Tilemaps;
@@ -8,6 +7,11 @@ using UnityEngine.Tilemaps;
 /// </summary>
 public class PlayerController : MonoBehaviour
 {
+    /// <summary>
+    /// Instance variable <c>startingPoint</c> represents the 3D coordinate value of the starting point of the game object.
+    /// </summary>
+    private Vector3 _startingPoint;
+
     /// <summary>
     /// Instance variable <c>characterSprite</c> represents the player's character sprite.
     /// </summary>
@@ -31,7 +35,7 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D _rigidBody;
 
     /// <summary>
-    /// TODO: comments
+    /// Instance variable <c>_animator</c> represents the player's animator controller.
     /// </summary>
     private Animator _animator;
     
@@ -63,6 +67,12 @@ public class PlayerController : MonoBehaviour
     /// </summary>
     [SerializeField]
     private Tilemap collisionTileMap;
+    
+    /// <summary>
+    /// Instance variable <c>pitfallTileMap</c> represents the tile map containing the different pit tiles the player could fall into.
+    /// </summary>
+    [SerializeField]
+    private Tilemap pitfallTileMap;
 
     /// <summary>
     /// Instance variable <c>movement</c> represents the player's movement.
@@ -80,10 +90,25 @@ public class PlayerController : MonoBehaviour
     private static readonly int TriggerDamage = Animator.StringToHash("triggerDamage");
 
     /// <summary>
-    /// TODO : comments
+    /// Instance variable <c>move</c> represents movement vector of the player.
     /// </summary>
-    Vector2 move;
+    private Vector2 _move;
+
+    /// <summary>
+    /// Static variable <c>AirTime</c> represents the string message to send to the game object animator to change the state of the "airTime" variable.
+    /// </summary>
+    private static readonly int AirTime = Animator.StringToHash("airTime");
     
+    /// <summary>
+    /// Static variable <c>TriggerBump</c> represents the string message to send to the game object animator to change the state of the "triggerBump" variable.
+    /// </summary>
+    private static readonly int TriggerBump = Animator.StringToHash("triggerBump");
+    
+    /// <summary>
+    /// Static variable <c>TriggerFall</c> represents the string message to send to the game object animator to change the state of the "triggerFall" variable.
+    /// </summary>
+    private static readonly int TriggerFall = Animator.StringToHash("triggerFall");
+
     /// <summary>
     /// This method is called when the script instance is being loaded.
     /// </summary>
@@ -92,6 +117,7 @@ public class PlayerController : MonoBehaviour
         _idleSprite = characterSprite.sprite;
         _rigidBody = gameObject.GetComponent<Rigidbody2D>();
         _animator = gameObject.GetComponent<Animator>();
+        _startingPoint = transform.position;
     }
 
     /// <summary>
@@ -135,7 +161,7 @@ public class PlayerController : MonoBehaviour
     }
 
     public Vector2 GetMovement() {
-        return move;
+        return _move;
     }
     
     /// <summary>
@@ -143,10 +169,10 @@ public class PlayerController : MonoBehaviour
     /// </summary>
     private void MovePlayer()
     {
-        move = _rigidBody.position + _movement.normalized * (moveSpeed * Time.fixedDeltaTime);
-        if (CanMove(move))
+        _move = _rigidBody.position + _movement.normalized * (moveSpeed * Time.fixedDeltaTime);
+        if (CanMove(_move))
         {
-            _rigidBody.MovePosition(move);
+            _rigidBody.MovePosition(_move);
         }
     }
 
@@ -174,8 +200,8 @@ public class PlayerController : MonoBehaviour
     /// <returns>A boolean value representing the state of movement allowance.</returns>
     private bool CanMove(Vector3 direction)
     {
-        Vector3Int gridPosition = groundTileMap.WorldToCell(direction);
-        if (!groundTileMap.HasTile(gridPosition) || collisionTileMap.HasTile(gridPosition))
+        Vector3Int gridPosition = groundTileMap.WorldToCell(direction * 1.05f);
+        if (!groundTileMap.HasTile(gridPosition) || collisionTileMap.HasTile(gridPosition) || pitfallTileMap.HasTile(gridPosition))
         {
             return false;
         }
@@ -200,7 +226,7 @@ public class PlayerController : MonoBehaviour
     /// <param name="other">A <c>Collider2D</c> Unity component representing the collider of the object that it collides with.</param>
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.gameObject.CompareTag("InteractionObject"))
+        if (other.gameObject.CompareTag("InteractionObject") || other.gameObject.CompareTag("Spring"))
         {
             Debug.Log(other.gameObject.name);
             _currentInteractionObj = other.gameObject;
@@ -244,14 +270,27 @@ public class PlayerController : MonoBehaviour
     }
 
     /// <summary>
-    /// TODO: comments
+    /// This method is called when the player trigger a bouncing mechanism.
     /// </summary>
-    /// <param name="springForce"></param>
-    /// <param name="airTime"></param>
+    /// <param name="springForce">A <c>Vector2</c> Unity component representing the spring force value of the bounce.</param>
+    /// <param name="airTime">A float value representing the time the player will be in the air while bounced.</param>
     public void TriggerBounce(Vector2 springForce, float airTime)
     {
-        _animator.SetFloat("airTime", airTime);
-        _animator.SetTrigger("triggerBump");
+        _animator.SetFloat(AirTime, airTime);
+        _animator.SetTrigger(TriggerBump);
         _rigidBody.AddForce(springForce, ForceMode2D.Impulse);
+    }
+
+    /// <summary>
+    /// This method is used to restart the player to the game beginning position.
+    /// </summary>
+    public void RestartPosition()
+    {
+        _animator.ResetTrigger(TriggerFall);
+        transform.position = _startingPoint;
+        if (_currentInteractionObj.CompareTag("Spring"))
+        {
+            _currentInteractionObj.transform.parent.GetComponent<SpringBoxController>().RestartPosition();
+        }
     }
 }

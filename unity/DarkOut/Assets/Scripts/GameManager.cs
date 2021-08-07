@@ -74,7 +74,9 @@ public class GameManager : MonoBehaviour
         SceneManager.sceneLoaded -= OnSceneLoaded; 
     }
 
-    // TODO : comments
+    /// <summary>
+    /// This method is used to save the level data before time-looping or game exit.
+    /// </summary>
     private void SaveLevelData()
     {
         // TODO : save player progress before loading next scene
