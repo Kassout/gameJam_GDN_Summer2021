@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 13312, guid: 0000000000000000e000000000000000, type: 0}
-  m_Name: Wall With Gap For Door
+  m_Name: Arch_cave_8
   m_EditorClassIdentifier: 
-  m_Sprite: {fileID: 21300000, guid: b90e74a5a3f52ed48bdd2e6bee1a609c, type: 3}
+  m_Sprite: {fileID: -3048045288764656644, guid: 7380c2470d657f143a3b94d5be2d9bb7, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Transform:
     e00: 1
