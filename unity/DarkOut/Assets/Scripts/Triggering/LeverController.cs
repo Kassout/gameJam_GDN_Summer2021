@@ -38,6 +38,8 @@ public class LeverController : TriggeringObject
     /// </summary>
     private static readonly int Pushed = Animator.StringToHash("isPushed");
 
+    private IEnumerator activatedCoroutine;
+
     /// <summary>
     /// This method is called when the script instance is being loaded.
     /// </summary>
@@ -117,8 +119,6 @@ public class LeverController : TriggeringObject
     {
         if (activationType.Equals(ActivationType.Interaction))
         {
-            OnActivate();
-
             yield return new WaitForSeconds(holdTime);
         
             OnDeactivate();
@@ -130,12 +130,21 @@ public class LeverController : TriggeringObject
     /// </summary>
     public override void OnDeactivate()
     {
-        Debug.Log("deactivate " + gameObject);
         IsActivated = false;
         _leverAnimator.SetBool(Pushed, IsActivated);
         foreach (var actionableObject in actionableObjects)
         {
             actionableObject.KillTriggers();
         }
+        activatedCoroutine = null;
+    }
+
+    public void PassCoroutineRef(IEnumerator coroutine) {
+        if (activatedCoroutine != null) {
+            StopCoroutine(activatedCoroutine);
+        } else {
+            OnActivate();
+        }
+        activatedCoroutine = coroutine;
     }
 }

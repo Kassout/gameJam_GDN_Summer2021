@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 /// <summary>
@@ -50,7 +51,7 @@ public class ArrowController : MonoBehaviour
         {
             LeverController lever = other.GetComponent<LeverController>();
             if(lever != null) {
-                lever.StartCoroutine(lever.PushSequenceOnInteraction());
+                
             }
         }
     }
