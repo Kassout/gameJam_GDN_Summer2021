@@ -12,7 +12,7 @@ public class PitFallController : MonoBehaviour
     private Tilemap pitfallTileMap;
 
     [SerializeField]
-    private GameObject Player;
+    private GameObject CheckLocation;
 
     void Awake() {
         pitfallTileMap = GetComponent<Tilemap>();
@@ -24,10 +24,13 @@ public class PitFallController : MonoBehaviour
     /// <param name="other">A <c>Collider2D</c> Unity component representing the collider of the object that it collides with.</param>
     private void OnTriggerStay2D(Collider2D other)
     {
-        if(!other.CompareTag("Arrow")) {
-            if (pitfallTileMap.HasTile(pitfallTileMap.WorldToCell(Player.transform.position)))
-            {
-                other.GetComponent<Animator>().SetTrigger("triggerFall");
+        Debug.Log("bruh");
+        if(other.CompareTag("Player")) {
+            if(!other.GetComponent<PlayerController>().isBouncing) {
+                if (pitfallTileMap.HasTile(pitfallTileMap.WorldToCell(CheckLocation.transform.position)))
+                {
+                    other.GetComponent<Animator>().SetTrigger("triggerFall");
+                }
             }
         }
     }

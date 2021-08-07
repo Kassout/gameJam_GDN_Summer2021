@@ -3129,7 +3129,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a3cd8395e1a90e49bef8f7279656db7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Player: {fileID: 1760407806}
+  CheckLocation: {fileID: 1760407806}
 --- !u!4 &1192994246 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5980138186004710490, guid: 385cbb0ce9a7e654ca9d2c4a33d82fdd, type: 3}

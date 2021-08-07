@@ -124,6 +124,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] 
     private AudioSource deathSound;
 
+    public bool isBouncing;
+
     /// <summary>
     /// This method is called when the script instance is being loaded.
     /// </summary>
@@ -300,6 +302,7 @@ public class PlayerController : MonoBehaviour
         {
             walkingSound.Stop();
         }
+        isBouncing = true;
     }
 
     /// <summary>
@@ -307,8 +310,10 @@ public class PlayerController : MonoBehaviour
     /// </summary>
     public void StopSpring()
     {
+        Debug.Log("bruh");
         _isDisabled = false;
         _rigidBody.velocity = Vector2.zero;
+        isBouncing = false;
     }
 
     /// <summary>
