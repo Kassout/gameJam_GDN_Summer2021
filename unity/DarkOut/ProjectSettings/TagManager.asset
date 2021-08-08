@@ -8,6 +8,7 @@ TagManager:
   - SpringBox
   - Spring
   - Arrow
+  - Ghost
   layers:
   - Default
   - TransparentFX

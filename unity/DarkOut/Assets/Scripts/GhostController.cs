@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 public class GhostController : MonoBehaviour
 {
@@ -28,22 +29,58 @@ public class GhostController : MonoBehaviour
     /// <summary>
     /// TODO: comments
     /// </summary>
-    private Rigidbody2D _rigidbody2D;
+    private Rigidbody2D _rigidBody;
 
     /// <summary>
     /// TODO: comments
     /// </summary>
     private GameObject _currentInteractionObj;
 
+    /// <summary>
+    /// Instance variable <c>_animator</c> represents the player's animator controller.
+    /// </summary>
+    private Animator _animator;
+
     private int frameCount;
+
+    [SerializeField]
+    public GameObject TilemapCollisionPoint;
+
+    /// <summary>
+    /// Instance variable <c>StartingPosition</c> represents the 3D coordinate value of the starting point of the game object.
+    /// </summary>
+    public static Vector3 StartingPosition;
+
+    /// <summary>
+    /// Static variable <c>AirTime</c> represents the string message to send to the game object animator to change the state of the "airTime" variable.
+    /// </summary>
+    private static readonly int AirTime = Animator.StringToHash("airTime");
+
+    /// <summary>
+    /// Static variable <c>TriggerBump</c> represents the string message to send to the game object animator to change the state of the "triggerBump" variable.
+    /// </summary>
+    private static readonly int TriggerBump = Animator.StringToHash("triggerBump");
+
+    /// <summary>
+    /// Static variable <c>TriggerFall</c> represents the string message to send to the game object animator to change the state of the "triggerFall" variable.
+    /// </summary>
+    private static readonly int TriggerFall = Animator.StringToHash("triggerFall");
+
+    private bool _isDisabled;
+    public bool isBouncing;
 
     private void Awake()
     {
-        _rigidbody2D = GetComponent<Rigidbody2D>();
+        _rigidBody = GetComponent<Rigidbody2D>();
         _ghostStartingPosition = transform.position;
+        _animator = gameObject.GetComponent<Animator>();
         s_playerOldCommands = new List<Command>(GameManager.OldCommands);
         s_playerOldDirections = new List<Vector2>(GameManager.OldDirections);
         frameCount = 0;
+        _isDisabled = false;
+        isBouncing = false;
+        StartingPosition = transform.position;
+
     }
 
     private void Start()
@@ -57,15 +94,7 @@ public class GhostController : MonoBehaviour
         if (s_playerOldCommands.Count > 0)
         {
             frameCount = 0;
-            _rigidbody2D.position = _ghostStartingPosition;
-            /*//Stop the coroutine so it starts from the beginning
-            if (_replayCoroutine != null)
-            {
-                StopCoroutine(_replayCoroutine);
-            }
-
-            //Start the replay
-            _replayCoroutine = StartCoroutine(ReplayCommands());*/
+            _rigidBody.position = _ghostStartingPosition;
         }
     }
 
@@ -77,7 +106,7 @@ public class GhostController : MonoBehaviour
     {
         if (frameCount < s_playerOldCommands.Count) {
             //Move the box with the current command
-            s_playerOldCommands[frameCount].Move(_rigidbody2D, s_playerOldDirections[frameCount]);
+            s_playerOldCommands[frameCount].Move(_rigidBody, s_playerOldDirections[frameCount]);
 
             if (s_playerOldCommands[frameCount].GetType() == typeof(PlayerInteract))
             {
@@ -86,26 +115,6 @@ public class GhostController : MonoBehaviour
             frameCount += 1;
         }
     }
-    
-    /*//The replay coroutine
-    IEnumerator ReplayCommands()
-    {
-        //Move the box to the start position
-        _rigidbody2D.position = _ghostStartingPosition;
-
-        for (int i = 0; i < s_playerOldCommands.Count; i++)
-        {
-            //Move the box with the current command
-            s_playerOldCommands[i].Move(_rigidbody2D, s_playerOldDirections[i]);
-
-            if (s_playerOldCommands[i].GetType() == typeof(PlayerInteract))
-            {
-                Interact();
-            }
-
-            yield return null; //new WaitForSeconds(0.3f);
-        }
-    }*/
 
     private void Interact()
     {
@@ -141,6 +150,49 @@ public class GhostController : MonoBehaviour
         if (other.gameObject.CompareTag("InteractionObject"))
         {
             _currentInteractionObj = null;
+        }
+    }
+
+    /// <summary>
+    /// This method is used to disable player control inputs when being pushed by a spring.
+    /// </summary>
+    public void StartSpring()
+    {
+        _isDisabled = true;
+        isBouncing = true;
+    }
+
+    /// <summary>
+    /// This method is used to enable player control inputs after being pushed by a spring.
+    /// </summary>
+    public void StopSpring()
+    {
+        _isDisabled = false;
+        _rigidBody.velocity = Vector2.zero;
+        isBouncing = false;
+    }
+
+    /// <summary>
+    /// This method is called when the player trigger a bouncing mechanism.
+    /// </summary>
+    /// <param name="springForce">A <c>Vector2</c> Unity component representing the spring force value of the bounce.</param>
+    /// <param name="airTime">A float value representing the time the player will be in the air while bounced.</param>
+    public void TriggerBounce(Vector2 springForce, float airTime)
+    {
+        _animator.SetFloat(AirTime, airTime);
+        _animator.SetTrigger(TriggerBump);
+        _rigidBody.AddForce(springForce, ForceMode2D.Impulse);
+    }
+
+    public void RestartPosition()
+    {
+        _animator.ResetTrigger(TriggerFall);
+        transform.position = StartingPosition;
+        if(_currentInteractionObj != null) {
+            if (_currentInteractionObj.CompareTag("Spring"))
+            {
+                _currentInteractionObj.transform.parent.GetComponent<SpringBoxController>().RestartPosition();
+            }
         }
     }
 }

@@ -25,8 +25,17 @@ public class PitFallController : MonoBehaviour
     private void OnTriggerStay2D(Collider2D other)
     {
         if(other.CompareTag("Player")) {
-            if(!other.GetComponent<PlayerController>().isBouncing) {
-                if (pitfallTileMap.HasTile(pitfallTileMap.WorldToCell(CheckLocation.transform.position)))
+            PlayerController playerController = other.GetComponent<PlayerController>();
+            if(!playerController.isBouncing) {
+                if (pitfallTileMap.HasTile(pitfallTileMap.WorldToCell(playerController.TilemapCollisionPoint.transform.position)))
+                {
+                    other.GetComponent<Animator>().SetTrigger("triggerFall");
+                }
+            }
+        } else if(other.CompareTag("Ghost")) {
+            GhostController ghostController = other.GetComponent<GhostController>();
+            if(!ghostController.isBouncing) {
+                if (pitfallTileMap.HasTile(pitfallTileMap.WorldToCell(ghostController.TilemapCollisionPoint.transform.position)))
                 {
                     other.GetComponent<Animator>().SetTrigger("triggerFall");
                 }

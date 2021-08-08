@@ -5,6 +5,7 @@ using System.IO;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using UnityEngine.Tilemaps;
 
 /// <summary>
 /// Class <c>GameManager</c> is a Unity component script used to manage general gameplay features of the game.
@@ -172,12 +173,11 @@ public class GameManager : MonoBehaviour
     {
         Debug.Log("OnSceneLoaded: " + scene.name);
         Debug.Log(mode);
-        TimeLoopManager.Instance.StartTimeLoop();
         if (!mainThemeAudioSource.isPlaying)
         {
             mainThemeAudioSource.Play();
         }
-        SceneManager.sceneLoaded -= OnSceneLoaded; 
+        SceneManager.sceneLoaded -= OnSceneLoaded;
     }
 
     /// <summary>

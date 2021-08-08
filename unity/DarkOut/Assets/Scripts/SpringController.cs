@@ -76,6 +76,9 @@ public class SpringController : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             other.GetComponent<PlayerController>().TriggerBounce(_direction * forceAmplitude, timeToWait);
+        } else if (other.CompareTag("Ghost"))
+        {
+            other.GetComponent<GhostController>().TriggerBounce(_direction * forceAmplitude, timeToWait);
         }
         else if (other.CompareTag("Arrow"))
         {

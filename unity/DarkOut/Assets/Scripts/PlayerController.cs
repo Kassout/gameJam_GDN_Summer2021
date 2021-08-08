@@ -111,7 +111,7 @@ public class PlayerController : MonoBehaviour
     private static readonly int TriggerFall = Animator.StringToHash("triggerFall");
 
     [SerializeField]
-    private GameObject TilemapCollisionPoint;
+    public GameObject TilemapCollisionPoint;
 
     /// <summary>
     /// Instance variable <c>walkingSound</c> represents the <c>AudioSource</c> Unity component triggering player walking sound.
