@@ -66,6 +66,10 @@ public class GhostController : MonoBehaviour
     /// </summary>
     private static readonly int TriggerFall = Animator.StringToHash("triggerFall");
 
+    public Tilemap groundTileMap;
+    public Tilemap collisionTileMap;
+    public Tilemap pitfallTileMap;
+
     private bool _isDisabled;
     public bool isBouncing;
 
@@ -80,7 +84,9 @@ public class GhostController : MonoBehaviour
         _isDisabled = false;
         isBouncing = false;
         StartingPosition = transform.position;
-
+        groundTileMap = GameManager.Instance.GetGround();
+        pitfallTileMap = GameManager.Instance.GetPitfall();
+        collisionTileMap = GameManager.Instance.GetCollision();
     }
 
     private void Start()
@@ -106,7 +112,9 @@ public class GhostController : MonoBehaviour
     {
         if (frameCount < s_playerOldCommands.Count) {
             //Move the box with the current command
-            s_playerOldCommands[frameCount].Move(_rigidBody, s_playerOldDirections[frameCount]);
+            if(CanMove((Vector3)s_playerOldDirections[frameCount])) {
+                s_playerOldCommands[frameCount].Move(_rigidBody, s_playerOldDirections[frameCount]);
+            }
 
             if (s_playerOldCommands[frameCount].GetType() == typeof(PlayerInteract))
             {
@@ -114,6 +122,17 @@ public class GhostController : MonoBehaviour
             }
             frameCount += 1;
         }
+    }
+
+    private bool CanMove(Vector3 direction)
+    {
+        Vector3Int gridPosition = groundTileMap.WorldToCell(TilemapCollisionPoint.transform.position + direction * 1.05f);
+        if (!groundTileMap.HasTile(gridPosition) || collisionTileMap.HasTile(gridPosition) || pitfallTileMap.HasTile(gridPosition))
+        {
+            return false;
+        }
+
+        return true;
     }
 
     private void Interact()
@@ -140,6 +159,7 @@ public class GhostController : MonoBehaviour
             _currentInteractionObj = other.gameObject;
         }
     }
+    
     
     /// <summary>
     /// This method is called when another object leaves a trigger collider attached to this object.

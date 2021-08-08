@@ -93,6 +93,10 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private int startingScene;
 
+    private Tilemap groundTileMap;
+    private Tilemap collisionTileMap;
+    private Tilemap pitfallTileMap;
+
     public bool blockPlayer;
 
     /// <summary>
@@ -237,10 +241,26 @@ public class GameManager : MonoBehaviour
         blockPlayer = false;
         TimeLoopManager.Instance.StartTimeLoop();
         
+        groundTileMap = GameObject.Find("Ground Tilemap").GetComponent<Tilemap>();
+        collisionTileMap = GameObject.Find("Collision Tilemap").GetComponent<Tilemap>();
+        pitfallTileMap = GameObject.Find("Pit Tilemap").GetComponent<Tilemap>();
+
         if (isRecall)
         {
             Instantiate(playerGhost, PlayerController.StartingPosition, Quaternion.identity);
         }
+    }
+
+    public Tilemap GetGround() {
+        return groundTileMap;
+    }
+
+    public Tilemap GetCollision() {
+        return collisionTileMap;
+    }
+
+    public Tilemap GetPitfall() {
+        return pitfallTileMap;
     }
 
     /// <summary>
