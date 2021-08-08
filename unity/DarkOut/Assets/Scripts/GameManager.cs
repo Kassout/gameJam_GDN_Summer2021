@@ -62,6 +62,12 @@ public class GameManager : MonoBehaviour
     /// TODO: comments
     /// </summary>
     [SerializeField]
+    private AudioSource mainThemeAudioSource;
+    
+    /// <summary>
+    /// TODO: comments
+    /// </summary>
+    [SerializeField]
     private AudioSource onRecallTimeLoopAudioSource;
 
     /// <summary>
@@ -85,6 +91,8 @@ public class GameManager : MonoBehaviour
     /// </summary>
     [SerializeField]
     private int startingScene;
+
+    public bool blockPlayer;
 
     /// <summary>
     /// This method is called when the script instance is being loaded.
@@ -165,6 +173,10 @@ public class GameManager : MonoBehaviour
         Debug.Log("OnSceneLoaded: " + scene.name);
         Debug.Log(mode);
         TimeLoopManager.Instance.StartTimeLoop();
+        if (!mainThemeAudioSource.isPlaying)
+        {
+            mainThemeAudioSource.Play();
+        }
         SceneManager.sceneLoaded -= OnSceneLoaded; 
     }
 
@@ -202,7 +214,9 @@ public class GameManager : MonoBehaviour
     private IEnumerator OnLoadScene(int sceneIndex, bool isRecall)
     {
         _gameManagerAnimator.SetTrigger(IsLoading);
+        blockPlayer = true;
         yield return new WaitForSeconds(1f);
+        
         
         AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(sceneIndex);
         asyncLoad.allowSceneActivation = false;
@@ -219,7 +233,8 @@ public class GameManager : MonoBehaviour
         
         _gameManagerAnimator.SetTrigger(IsLoadingOver);
         yield return new WaitForSeconds(0.8f);
-
+        blockPlayer = false;
+        
         if (isRecall)
         {
             Instantiate(playerGhost, PlayerController.StartingPosition, Quaternion.identity);

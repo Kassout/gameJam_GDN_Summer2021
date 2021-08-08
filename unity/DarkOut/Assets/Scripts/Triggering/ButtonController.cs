@@ -132,6 +132,7 @@ public class ButtonController : TriggeringObject
     /// </summary>
     public override void OnDeactivate()
     {
+        buttonPushedSound.Play();
         IsActivated = false;
         _buttonAnimator.SetBool(Pushed, IsActivated);
         if(actionableObjects.Count > 0) {

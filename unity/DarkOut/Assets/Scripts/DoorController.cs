@@ -1,5 +1,3 @@
-
-using System;
 using UnityEngine;
 
 /// <summary>
@@ -15,21 +13,12 @@ public class DoorController : ReceiverObject
     /// <summary>
     /// TODO: comments
     /// </summary>
-    [SerializeField]
-    private AudioSource openDoorSound;
-
-    /// <summary>
-    /// TODO: comments
-    /// </summary>
-    [SerializeField]
-    private AudioSource unlockTriggerSound;
-
-    /// <summary>
-    /// TODO: comments
-    /// </summary>
     private static readonly int IsOpen = Animator.StringToHash("isOpen");
 
-    BoxCollider2D collision;
+    /// <summary>
+    /// TODO: comments
+    /// </summary>
+    private BoxCollider2D _collision;
 
     /// <summary>
     /// TODO: comments
@@ -37,7 +26,7 @@ public class DoorController : ReceiverObject
     private void Awake()
     {
         _doorAnimator = GetComponent<Animator>();
-        collision = GetComponent<BoxCollider2D>();
+        _collision = GetComponent<BoxCollider2D>();
     }
 
     /// <summary>
@@ -59,7 +48,7 @@ public class DoorController : ReceiverObject
     private void OpenDoor()
     {
         _doorAnimator.SetBool(IsOpen, true);
-        collision.enabled = false;
+        _collision.enabled = false;
     }
 
     /// <summary>
@@ -67,14 +56,6 @@ public class DoorController : ReceiverObject
     /// </summary>
     private void CloseDoor() {
         _doorAnimator.SetBool(IsOpen, false);
-        collision.enabled = true;
-    }
-
-    /// <summary>
-    /// TODO: comments
-    /// </summary>
-    public void OnOpenDoor()
-    {
-        openDoorSound.Play();
+        _collision.enabled = true;
     }
 }
