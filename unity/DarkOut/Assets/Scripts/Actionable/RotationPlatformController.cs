@@ -27,6 +27,37 @@ public class RotationPlatformController : MonoBehaviour
     /// </summary>
     private List<Collider2D> colliderList = new List<Collider2D>();
 
+    void Start() {
+        SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
+        switch (rotationDirection) {
+            case RotationDirection.Clockwise:
+                spriteRenderer.flipX = false;
+                break;
+            case RotationDirection.Counterclockwise:
+                spriteRenderer.flipX = true;
+                break;
+        }
+    }
+
+#if UNITY_EDITOR
+    /// <summary>
+    /// This method is called when the script is loaded or a value is changed in the Inspector.
+    /// </summary>
+    void OnValidate()
+    {
+        SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
+        switch (rotationDirection)
+        {
+            case RotationDirection.Clockwise:
+                spriteRenderer.flipX = false;
+                break;
+            case RotationDirection.Counterclockwise:
+                spriteRenderer.flipX = true;
+                break;
+        }
+    }
+#endif
+
     /// <summary>
     /// This method is called when another object enters a trigger collider attached to this object.
     /// </summary>

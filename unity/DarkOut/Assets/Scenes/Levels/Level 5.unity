@@ -130,6 +130,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 482932009, guid: 1cf3997a30d17464cbcd09b193dd7ffb, type: 3}
+      propertyPath: groundTileMap
+      value: 
+      objectReference: {fileID: 1800631885}
+    - target: {fileID: 482932009, guid: 1cf3997a30d17464cbcd09b193dd7ffb, type: 3}
+      propertyPath: pitfallTileMap
+      value: 
+      objectReference: {fileID: 1087441702}
+    - target: {fileID: 482932009, guid: 1cf3997a30d17464cbcd09b193dd7ffb, type: 3}
+      propertyPath: collisionTileMap
+      value: 
+      objectReference: {fileID: 183146626}
     - target: {fileID: 6946633870335174764, guid: 1cf3997a30d17464cbcd09b193dd7ffb, type: 3}
       propertyPath: m_RootOrder
       value: 1
