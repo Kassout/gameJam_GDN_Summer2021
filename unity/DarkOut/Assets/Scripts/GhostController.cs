@@ -112,7 +112,7 @@ public class GhostController : MonoBehaviour
     {
         if (frameCount < s_playerOldCommands.Count) {
             //Move the box with the current command
-            if(CanMove((Vector3)s_playerOldDirections[frameCount])) {
+            if(CanMove((Vector3)s_playerOldDirections[frameCount]) && !_isDisabled) {
                 s_playerOldCommands[frameCount].Move(_rigidBody, s_playerOldDirections[frameCount]);
             }
 
