@@ -112,6 +112,7 @@ public class GhostController : MonoBehaviour
     {
         if (frameCount < s_playerOldCommands.Count) {
             //Move the box with the current command
+            
             if(CanMove((Vector3)s_playerOldDirections[frameCount]) && !_isDisabled) {
                 s_playerOldCommands[frameCount].Move(_rigidBody, s_playerOldDirections[frameCount]);
             }
@@ -126,7 +127,7 @@ public class GhostController : MonoBehaviour
 
     private bool CanMove(Vector3 direction)
     {
-        Vector3Int gridPosition = groundTileMap.WorldToCell(TilemapCollisionPoint.transform.position + direction * 1.05f);
+        Vector3Int gridPosition = groundTileMap.WorldToCell(TilemapCollisionPoint.transform.position + direction * 0.05f);
         if (!groundTileMap.HasTile(gridPosition) || collisionTileMap.HasTile(gridPosition) || pitfallTileMap.HasTile(gridPosition))
         {
             return false;

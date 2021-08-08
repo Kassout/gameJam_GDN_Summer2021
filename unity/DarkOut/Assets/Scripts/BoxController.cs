@@ -40,6 +40,10 @@ public class BoxController : MonoBehaviour
 
     private bool bouncing;
 
+    private float bounceDistance;
+    private float bounceSpeed = 30.0f;
+    private Vector2 bounceDirection;
+
     /// <summary>
     /// This method is called on the frame when a script is enabled.
     /// </summary>
@@ -54,8 +58,11 @@ public class BoxController : MonoBehaviour
     /// This method is called every fixed frame-rate frame.
     /// </summary>
     void FixedUpdate()
-    {        
+    {
         CheckMoveCollision();
+        if(bouncing) {
+            ContinueSpring();
+        }
         if (_rigidbody.velocity.magnitude == 0)
         {
             boxPushedSound.Pause();
@@ -104,22 +111,19 @@ public class BoxController : MonoBehaviour
         _rigidbody.position = _startPosition;
     }
 
-    public IEnumerator SpringBounce(Vector2 direction) {
-        
+    public void SpringBounce(Vector2 direction) {
         bouncing = true;
-        float distance = 0.0f;
+        bounceDistance = 0.0f;
+        bounceDirection = direction;
+    }
 
-        while(distance < 28.0f) {
-            float speed = 30.0f;
-            Vector2 move = _rigidbody.position + direction * speed * Time.deltaTime;
-            distance += speed * Time.deltaTime;
+    public void ContinueSpring() {
+        if (bounceDistance < 13.0f) {
+            Vector2 move = _rigidbody.position + bounceDirection * bounceSpeed * Time.deltaTime;
+            bounceDistance += bounceSpeed * Time.deltaTime;
             _rigidbody.MovePosition(move);
-            Debug.Log(distance);
-            yield return null;
+        } else {
+            bouncing = false;
         }
-        
-        bouncing = false;
-
-        yield return null;
     }
 }
