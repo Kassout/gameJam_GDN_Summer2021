@@ -146,4 +146,10 @@ public class MainMenuUIHandler : MonoBehaviour
         settingsMenu.SetActive(false);
         OpenMainMenu();
     }
+    
+    public void ContinueGame()
+    {
+        StopMainMenuTheme();
+        GameManager.Instance.LoadLevelData();
+    }
 }

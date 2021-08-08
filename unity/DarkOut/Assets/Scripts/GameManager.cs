@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -27,7 +29,7 @@ public class GameManager : MonoBehaviour
     /// <summary>
     /// TODO: comments
     /// </summary>
-    private static int s_currentScene;
+    public int currentScene;
     
     /// <summary>
     /// TODO: comments
@@ -103,7 +105,7 @@ public class GameManager : MonoBehaviour
     {
         // Load main menu at start.
         LoadScene(MAIN_MENU_SCENE, false);
-        s_currentScene = MAIN_MENU_SCENE;
+        currentScene = MAIN_MENU_SCENE;
     }
 
     /// <summary>
@@ -114,7 +116,7 @@ public class GameManager : MonoBehaviour
     public void LoadScene(int sceneIndex, bool isRecall)
     {
         StartCoroutine(OnLoadScene(sceneIndex, isRecall));
-        s_currentScene = sceneIndex;
+        currentScene = sceneIndex;
         AudioListener.volume = PlayerPrefs.GetFloat("volume");
         if (!sceneIndex.Equals(MAIN_MENU_SCENE) && !sceneIndex.Equals(PRELOAD_SCENE))
         {
@@ -141,7 +143,16 @@ public class GameManager : MonoBehaviour
     /// </summary>
     private void SaveLevelData()
     {
-        // TODO : save player progress before loading next scene
+        SavePersistantData();
+    }
+
+    /// <summary>
+    /// TODO: comments
+    /// </summary>
+    public void LoadLevelData()
+    {
+        PersistantData data = LoadPersistantData();
+        LoadScene(data.level, false);
     }
 
     /// <summary>
@@ -154,7 +165,7 @@ public class GameManager : MonoBehaviour
         OldCommands = new List<Command>(oldCommands);
         OldDirections = new List<Vector2>(oldDirections);
         onRecallTimeLoopAudioSource.Play();
-        StartCoroutine(OnLoadScene(s_currentScene, true));
+        StartCoroutine(OnLoadScene(currentScene, true));
         //SceneManager.activeSceneChanged += OnActiveSceneChanged;
     }
 
@@ -193,8 +204,54 @@ public class GameManager : MonoBehaviour
         transitionScreen.gameObject.SetActive(true);
     }
 
+    /// <summary>
+    /// TODO: comments
+    /// </summary>
     public void OnTriggerLoadingOverScene()
     {
         transitionScreen.gameObject.SetActive(false);
+    }
+    
+    /// <summary>
+    /// Class <c>PersistantData</c> is used to manager persistant game data and player progress save.
+    /// </summary>
+    [Serializable]
+    public class PersistantData
+    {
+        /// <summary>
+        /// Static variable <c>Level</c> representing the level 
+        /// </summary>
+        public int level = 1;
+    }
+
+    /// <summary>
+    /// This method is used to save the different attributes class values in a json file.
+    /// </summary>
+    private void SavePersistantData()
+    {
+        PersistantData data = new PersistantData();
+        data.level = currentScene;
+        
+        string json = JsonUtility.ToJson(data);
+
+        File.WriteAllText(Application.persistentDataPath + "/savefile.json", json);
+        Debug.Log(Application.persistentDataPath);
+    }
+
+    /// <summary>
+    /// This method is used to load the different attributes class values from a json file.
+    /// </summary>
+    private PersistantData LoadPersistantData()
+    {
+        string path = Application.persistentDataPath + "/savefile.json";
+
+        PersistantData data = new PersistantData();
+        if (File.Exists(path))
+        {
+            string json = File.ReadAllText(path);
+            data = JsonUtility.FromJson<PersistantData>(json);
+        }
+
+        return data;
     }
 }

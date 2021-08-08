@@ -373,6 +373,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4fd091feab46b424096792eea0dd2c98, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentScene: 0
   playerGhost: {fileID: 7580586328579239189, guid: eba3c862abbcbb34a81497a70bf71780, type: 3}
   onTimeLoopOverAudioSource: {fileID: 2015623155}
   onRecallTimeLoopAudioSource: {fileID: 2015623156}
