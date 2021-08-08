@@ -109,7 +109,7 @@ public class BoxController : MonoBehaviour
         bouncing = true;
         float distance = 0.0f;
 
-        while(distance < 14.0f) {
+        while(distance < 28.0f) {
             float speed = 30.0f;
             Vector2 move = _rigidbody.position + direction * speed * Time.deltaTime;
             distance += speed * Time.deltaTime;
