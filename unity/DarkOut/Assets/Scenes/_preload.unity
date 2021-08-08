@@ -379,7 +379,7 @@ MonoBehaviour:
   mainThemeAudioSource: {fileID: 2015623158}
   onRecallTimeLoopAudioSource: {fileID: 2015623156}
   transitionScreen: {fileID: 1978135568}
-  startingScene: 11
+  startingScene: 1
   blockPlayer: 0
 --- !u!114 &2015623154
 MonoBehaviour:
