@@ -145,7 +145,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   activationType: 1
-  buttonType: 0
+  buttonType: 1
   actionableObjects: []
   buttonPushedSound: {fileID: 1385268023}
 --- !u!50 &1872516668670032217

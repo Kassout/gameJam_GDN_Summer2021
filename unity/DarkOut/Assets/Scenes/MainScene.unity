@@ -4206,6 +4206,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a3cd8395e1a90e49bef8f7279656db7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  CheckLocation: {fileID: 0}
 --- !u!4 &1161105913 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 834166823788280836, guid: 2bcdc1fa18eec764f99c275000036903, type: 3}
@@ -8876,19 +8877,6 @@ PrefabInstance:
       objectReference: {fileID: 183146626}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 774d1a3a050cd2d468e9cfa5c5c3820b, type: 3}
---- !u!1 &4170179781198387417 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4170179781896407324, guid: 774d1a3a050cd2d468e9cfa5c5c3820b, type: 3}
-  m_PrefabInstance: {fileID: 4170179781198387416}
-  m_PrefabAsset: {fileID: 0}
---- !u!81 &4170179781198387418
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4170179781198387417}
-  m_Enabled: 1
 --- !u!1001 &4472427960419423366
 PrefabInstance:
   m_ObjectHideFlags: 0

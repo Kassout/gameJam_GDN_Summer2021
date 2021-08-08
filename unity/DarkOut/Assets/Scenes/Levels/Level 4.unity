@@ -3657,6 +3657,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 1889385035}
     m_Modifications:
     - target: {fileID: 7170386317477074725, guid: 73c3734e77dd08843a7a947827187388, type: 3}
+      propertyPath: buttonType
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7170386317477074725, guid: 73c3734e77dd08843a7a947827187388, type: 3}
       propertyPath: actionableObjects.Array.size
       value: 0
       objectReference: {fileID: 0}
@@ -4702,7 +4706,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1462656494659833241, guid: f69335def86ef89409a72157994d250c, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 3.9923298
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 1462656494659833241, guid: f69335def86ef89409a72157994d250c, type: 3}
       propertyPath: m_LocalPosition.z

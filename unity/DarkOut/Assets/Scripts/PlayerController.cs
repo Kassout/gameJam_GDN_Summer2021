@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -8,9 +9,9 @@ using UnityEngine.Tilemaps;
 public class PlayerController : MonoBehaviour
 {
     /// <summary>
-    /// Instance variable <c>_startingPosition</c> represents the 3D coordinate value of the starting point of the game object.
+    /// Instance variable <c>StartingPosition</c> represents the 3D coordinate value of the starting point of the game object.
     /// </summary>
-    private Vector3 _startingPosition;
+    public static Vector3 StartingPosition;
 
     /// <summary>
     /// Instance variable <c>characterSprite</c> represents the player's character sprite.
@@ -124,8 +125,11 @@ public class PlayerController : MonoBehaviour
     [SerializeField] 
     private AudioSource deathSound;
 
+    /// <summary>
+    /// TODO: comments
+    /// </summary>
     public bool isBouncing;
-
+    
     /// <summary>
     /// This method is called when the script instance is being loaded.
     /// </summary>
@@ -134,7 +138,7 @@ public class PlayerController : MonoBehaviour
         _idleSprite = characterSprite.sprite;
         _rigidBody = gameObject.GetComponent<Rigidbody2D>();
         _animator = gameObject.GetComponent<Animator>();
-        _startingPosition = transform.position;
+        StartingPosition = transform.position;
     }
 
     /// <summary>
@@ -322,7 +326,7 @@ public class PlayerController : MonoBehaviour
     {
         _animator.ResetTrigger(TriggerFall);
         deathSound.Stop();
-        transform.position = _startingPosition;
+        transform.position = StartingPosition;
         if(_currentInteractionObj != null) {
             if (_currentInteractionObj.CompareTag("Spring"))
             {

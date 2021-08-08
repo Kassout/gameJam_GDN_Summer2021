@@ -1,5 +1,8 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 /// <summary>
 /// Class <c>GameManager</c> is a Unity component script used to manage general gameplay features of the game.
@@ -20,6 +23,60 @@ public class GameManager : MonoBehaviour
     /// Static variable <c>PRELOAD_SCENE</c> represents the scene index of the preload scene.
     /// </summary>
     private static int PRELOAD_SCENE = 0;
+    
+    /// <summary>
+    /// TODO: comments
+    /// </summary>
+    private static int s_currentScene;
+    
+    /// <summary>
+    /// TODO: comments
+    /// </summary>
+    public static List<Command> OldCommands = new List<Command>();
+    
+    /// <summary>
+    /// TODO: comments
+    /// </summary>
+    public static List<Vector2> OldDirections = new List<Vector2>();
+    
+    /// <summary>
+    /// TODO: comments
+    /// </summary>
+    [SerializeField]
+    private GameObject playerGhost;
+
+    /// <summary>
+    /// TODO: comments
+    /// </summary>
+    private Animator _gameManagerAnimator;
+
+    /// <summary>
+    /// TODO: comments
+    /// </summary>
+    [SerializeField]
+    private AudioSource onTimeLoopOverAudioSource;
+
+    /// <summary>
+    /// TODO: comments
+    /// </summary>
+    [SerializeField]
+    private AudioSource onRecallTimeLoopAudioSource;
+
+    /// <summary>
+    /// TODO: comments
+    /// </summary>
+    [SerializeField]
+    private Image transitionScreen;
+
+    /// <summary>
+    /// TODO: comments
+    /// </summary>
+    private static readonly int IsLoading = Animator.StringToHash("isLoading");
+
+    /// <summary>
+    /// TODO: comments
+    /// </summary>
+    private static readonly int IsLoadingOver = Animator.StringToHash("isLoadingOver");
 
     /// <summary>
     /// This method is called when the script instance is being loaded.
@@ -35,6 +92,8 @@ public class GameManager : MonoBehaviour
         {
             Debug.Log("Warning: multiple " + this + " in scene!");
         }
+
+        _gameManagerAnimator = GetComponent<Animator>();
     }
 
     /// <summary>
@@ -43,16 +102,19 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         // Load main menu at start.
-        LoadScene(MAIN_MENU_SCENE);
+        LoadScene(MAIN_MENU_SCENE, false);
+        s_currentScene = MAIN_MENU_SCENE;
     }
 
     /// <summary>
     /// This method is used to load a scene.
     /// </summary>
     /// <param name="sceneIndex">An integer value representing the index of the scene to load.</param>
-    public void LoadScene(int sceneIndex)
+    /// <param name="isRecall">TODO: comments</param>
+    public void LoadScene(int sceneIndex, bool isRecall)
     {
-        SceneManager.LoadScene(sceneIndex);
+        StartCoroutine(OnLoadScene(sceneIndex, isRecall));
+        s_currentScene = sceneIndex;
         AudioListener.volume = PlayerPrefs.GetFloat("volume");
         if (!sceneIndex.Equals(MAIN_MENU_SCENE) && !sceneIndex.Equals(PRELOAD_SCENE))
         {
@@ -80,5 +142,59 @@ public class GameManager : MonoBehaviour
     private void SaveLevelData()
     {
         // TODO : save player progress before loading next scene
+    }
+
+    /// <summary>
+    /// TODO: comments
+    /// </summary>
+    /// <param name="oldCommands"></param>
+    /// <param name="oldDirections"></param>
+    public void PlayerReplay(List<Command> oldCommands, List<Vector2> oldDirections)
+    {
+        OldCommands = new List<Command>(oldCommands);
+        OldDirections = new List<Vector2>(oldDirections);
+        onRecallTimeLoopAudioSource.Play();
+        StartCoroutine(OnLoadScene(s_currentScene, true));
+        //SceneManager.activeSceneChanged += OnActiveSceneChanged;
+    }
+
+    private IEnumerator OnLoadScene(int sceneIndex, bool isRecall)
+    {
+        _gameManagerAnimator.SetTrigger(IsLoading);
+        yield return new WaitForSeconds(1f);
+        
+        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(sceneIndex);
+        asyncLoad.allowSceneActivation = false;
+        
+        while (!asyncLoad.isDone)
+        {
+            if (asyncLoad.progress >= 0.9f)
+            {
+                asyncLoad.allowSceneActivation = true;
+            }
+            
+            yield return null;
+        }
+        
+        _gameManagerAnimator.SetTrigger(IsLoadingOver);
+        yield return new WaitForSeconds(0.8f);
+
+        if (isRecall)
+        {
+            Instantiate(playerGhost, PlayerController.StartingPosition, Quaternion.identity);
+        }
+    }
+
+    /// <summary>
+    /// TODO: comments
+    /// </summary>
+    public void OnTriggerLoadScene()
+    {
+        transitionScreen.gameObject.SetActive(true);
+    }
+
+    public void OnTriggerLoadingOverScene()
+    {
+        transitionScreen.gameObject.SetActive(false);
     }
 }

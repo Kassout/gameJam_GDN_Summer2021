@@ -108,7 +108,7 @@ GameObject:
   - component: {fileID: 8988773504293151853}
   - component: {fileID: 8988773504293151850}
   m_Layer: 0
-  m_Name: Wall With Gap For Door
+  m_Name: Wall_gap_door
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

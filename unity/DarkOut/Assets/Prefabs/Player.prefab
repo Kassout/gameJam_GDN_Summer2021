@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4170179780837705354}
   - component: {fileID: 4170179780837705355}
   - component: {fileID: 7978791743746967897}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Character Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -108,10 +108,12 @@ GameObject:
   - component: {fileID: 4170179781896407327}
   - component: {fileID: 4170179781896407326}
   - component: {fileID: 4170179781896407312}
+  - component: {fileID: 1419585730841924201}
   - component: {fileID: 1991693033}
   - component: {fileID: 4170179781198387419}
   - component: {fileID: 4170179781198387418}
-  m_Layer: 0
+  - component: {fileID: 2109419792820613922}
+  m_Layer: 3
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -194,6 +196,18 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: -0.15}
   m_Size: {x: 0.5, y: 0.4}
   m_Direction: 1
+--- !u!114 &1419585730841924201
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4170179781896407324}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 10834de03b6604f4787e56d1e2c121b2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!95 &1991693033
 Animator:
   serializedVersion: 3
@@ -405,6 +419,14 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!81 &2109419792820613922
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4170179781896407324}
+  m_Enabled: 1
 --- !u!1 &4170179782733741507
 GameObject:
   m_ObjectHideFlags: 0
@@ -416,7 +438,7 @@ GameObject:
   - component: {fileID: 4170179782733741508}
   - component: {fileID: 4170179782733741509}
   - component: {fileID: 5073611028029606872}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Chole_shadow
   m_TagString: Untagged
   m_Icon: {fileID: 0}

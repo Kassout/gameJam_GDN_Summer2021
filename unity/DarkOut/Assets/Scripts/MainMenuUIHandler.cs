@@ -45,7 +45,8 @@ public class MainMenuUIHandler : MonoBehaviour
     /// <summary>
     /// Static variable <c>MAIN_GAME_SCENE</c> represents the scene index of the main game scene.
     /// </summary>
-    private static int MAIN_GAME_SCENE = 2;
+    [SerializeField]
+    private int gameSceneToLoad = 2;
 
     /// <summary>
     /// This method is called when the script instance is being loaded.
@@ -63,7 +64,7 @@ public class MainMenuUIHandler : MonoBehaviour
     public void StartGame()
     {
         StopMainMenuTheme();
-        SceneManager.LoadScene(MAIN_GAME_SCENE);
+        GameManager.Instance.LoadScene(gameSceneToLoad, false);
     }
 
     /// <summary>

@@ -71,6 +71,6 @@ public class TimeLoopManager : MonoBehaviour
         //After we have waited 5 seconds print the time again.
         Debug.Log("Finished Coroutine at timestamp : " + Time.time);
         
-        GameManager.Instance.LoadScene(2);
+        GameManager.Instance.LoadScene(2, false);
     }
 }
