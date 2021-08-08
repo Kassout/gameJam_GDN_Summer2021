@@ -41,7 +41,7 @@ public class BoxController : MonoBehaviour
     private bool bouncing;
 
     private float bounceDistance;
-    private float bounceSpeed = 30.0f;
+    private float bounceSpeed = 10.0f;
     private Vector2 bounceDirection;
 
     /// <summary>
@@ -118,7 +118,7 @@ public class BoxController : MonoBehaviour
     }
 
     public void ContinueSpring() {
-        if (bounceDistance < 13.0f) {
+        if (bounceDistance < 5.0f) {
             Vector2 move = _rigidbody.position + bounceDirection * bounceSpeed * Time.deltaTime;
             bounceDistance += bounceSpeed * Time.deltaTime;
             _rigidbody.MovePosition(move);
