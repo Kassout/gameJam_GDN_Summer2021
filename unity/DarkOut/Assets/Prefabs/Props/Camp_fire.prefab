@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 6426749149307084011}
   - component: {fileID: 4726466098003514361}
   - component: {fileID: 6426749149307084009}
+  - component: {fileID: 1143876885}
   m_Layer: 0
   m_Name: Camp_fire
   m_TagString: Untagged
@@ -72,7 +73,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 3000
   m_Sprite: {fileID: 21300000, guid: 052cfff8af11bc04283ee1c4b8817eb3, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -119,3 +120,16 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &1143876885
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6426749149307084012}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 72b4c6113fcb1624f99f4d18295c940d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  offset: 0

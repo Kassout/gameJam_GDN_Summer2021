@@ -15,21 +15,6 @@ public class EndDoorController : ReceiverObject
     /// </summary>
     [SerializeField]
     private AudioSource openDoorSound;
-    
-    /// <summary>
-    /// TODO: comments
-    /// </summary>
-    [SerializeField] 
-    private DoorType _doorType;
-    
-    /// <summary>
-    /// TODO: comments
-    /// </summary>
-    private enum DoorType
-    {
-        LevelProgress,
-        LevelEnd
-    }
 
     /// <summary>
     /// TODO: comments
