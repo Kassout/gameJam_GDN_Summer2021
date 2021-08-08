@@ -29,7 +29,7 @@ public class GameManager : MonoBehaviour
     /// <summary>
     /// TODO: comments
     /// </summary>
-    public int currentScene;
+    private int _currentScene;
     
     /// <summary>
     /// TODO: comments
@@ -81,6 +81,12 @@ public class GameManager : MonoBehaviour
     private static readonly int IsLoadingOver = Animator.StringToHash("isLoadingOver");
 
     /// <summary>
+    /// TODO: comments
+    /// </summary>
+    [SerializeField]
+    private int startingScene;
+
+    /// <summary>
     /// This method is called when the script instance is being loaded.
     /// </summary>
     private void Awake()
@@ -104,8 +110,8 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         // Load main menu at start.
-        LoadScene(MAIN_MENU_SCENE, false);
-        currentScene = MAIN_MENU_SCENE;
+        LoadScene(startingScene, false);
+        _currentScene = startingScene;
     }
 
     /// <summary>
@@ -116,13 +122,37 @@ public class GameManager : MonoBehaviour
     public void LoadScene(int sceneIndex, bool isRecall)
     {
         StartCoroutine(OnLoadScene(sceneIndex, isRecall));
-        currentScene = sceneIndex;
+        _currentScene = sceneIndex;
         AudioListener.volume = PlayerPrefs.GetFloat("volume");
         if (!sceneIndex.Equals(MAIN_MENU_SCENE) && !sceneIndex.Equals(PRELOAD_SCENE))
         {
             SaveLevelData();
             SceneManager.sceneLoaded += OnSceneLoaded;   
         }
+    }
+
+    /// <summary>
+    /// TODO: comments
+    /// </summary>
+    public void LoadNextLevel()
+    {
+        int nextLevelSceneIndex = _currentScene + 1;
+        if (nextLevelSceneIndex <= SceneManager.sceneCountInBuildSettings)
+        {
+            LoadScene(nextLevelSceneIndex, false);
+        }
+        else
+        {
+            GameEnd();
+        }
+    }
+
+    /// <summary>
+    /// TODO: comments
+    /// </summary>
+    public void GameEnd()
+    {
+        // TODO    
     }
 
     /// <summary>
@@ -165,7 +195,7 @@ public class GameManager : MonoBehaviour
         OldCommands = new List<Command>(oldCommands);
         OldDirections = new List<Vector2>(oldDirections);
         onRecallTimeLoopAudioSource.Play();
-        StartCoroutine(OnLoadScene(currentScene, true));
+        StartCoroutine(OnLoadScene(_currentScene, true));
         //SceneManager.activeSceneChanged += OnActiveSceneChanged;
     }
 
@@ -230,7 +260,7 @@ public class GameManager : MonoBehaviour
     private void SavePersistantData()
     {
         PersistantData data = new PersistantData();
-        data.level = currentScene;
+        data.level = _currentScene;
         
         string json = JsonUtility.ToJson(data);
 

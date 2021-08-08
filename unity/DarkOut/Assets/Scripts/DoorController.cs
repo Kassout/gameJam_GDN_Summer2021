@@ -62,6 +62,9 @@ public class DoorController : ReceiverObject
         collision.enabled = false;
     }
 
+    /// <summary>
+    /// TODO: comments
+    /// </summary>
     private void CloseDoor() {
         _doorAnimator.SetBool(IsOpen, false);
         collision.enabled = true;
