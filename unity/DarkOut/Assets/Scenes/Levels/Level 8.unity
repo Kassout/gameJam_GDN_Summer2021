@@ -4057,7 +4057,7 @@ PrefabInstance:
     - target: {fileID: 482932009, guid: 1cf3997a30d17464cbcd09b193dd7ffb, type: 3}
       propertyPath: pitfallTileMap
       value: 
-      objectReference: {fileID: 1246007639}
+      objectReference: {fileID: 1087441702}
     - target: {fileID: 482932009, guid: 1cf3997a30d17464cbcd09b193dd7ffb, type: 3}
       propertyPath: collisionTileMap
       value: 

@@ -4244,6 +4244,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1812660199485551704, guid: 49699ff783c509745b3ed14fc333d75a, type: 3}
+      propertyPath: groundTileMap
+      value: 
+      objectReference: {fileID: 1800631885}
+    - target: {fileID: 1812660199485551704, guid: 49699ff783c509745b3ed14fc333d75a, type: 3}
+      propertyPath: pitfallTileMap
+      value: 
+      objectReference: {fileID: 1087441702}
+    - target: {fileID: 1812660199485551704, guid: 49699ff783c509745b3ed14fc333d75a, type: 3}
+      propertyPath: collisionTileMap
+      value: 
+      objectReference: {fileID: 183146626}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 49699ff783c509745b3ed14fc333d75a, type: 3}
 --- !u!4 &1332118126 stripped
