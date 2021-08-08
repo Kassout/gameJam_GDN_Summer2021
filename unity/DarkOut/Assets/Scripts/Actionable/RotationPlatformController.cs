@@ -14,6 +14,12 @@ public class RotationPlatformController : MonoBehaviour
     protected RotationDirection rotationDirection;
     
     /// <summary>
+    /// Instance variable <c>boxOnPlatformSound</c> represents the <c>AudioSource</c> Unity component triggering box being pushed on platform sound.
+    /// </summary>
+    [SerializeField]
+    private AudioSource boxOnPlatformSound;
+    
+    /// <summary>
     /// Instance variable <c>RotationDirection</c> represents an enumeration of the two rotation directions.
     /// </summary>
     protected enum RotationDirection
@@ -98,8 +104,10 @@ public class RotationPlatformController : MonoBehaviour
                 if(collider == other) {
                     if(rotationDirection == RotationDirection.Clockwise) {
                         connectedObject.GetComponent<SpringBoxController>().Rotate(true);
+                        boxOnPlatformSound.Play();
                     } else {
                         connectedObject.GetComponent<SpringBoxController>().Rotate(false);
+                        boxOnPlatformSound.Play();
                     }
                     
                 }

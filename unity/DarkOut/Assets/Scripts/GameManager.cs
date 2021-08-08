@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -150,7 +151,7 @@ public class GameManager : MonoBehaviour
     public void LoadNextLevel()
     {
         int nextLevelSceneIndex = _currentScene + 1;
-        if (nextLevelSceneIndex <= SceneManager.sceneCountInBuildSettings)
+        if (nextLevelSceneIndex != SceneManager.sceneCountInBuildSettings - 1)
         {
             LoadScene(nextLevelSceneIndex, false);
         }
@@ -165,7 +166,7 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public void GameEnd()
     {
-        // TODO    
+        LoadScene(MAIN_MENU_SCENE, false);
     }
 
     /// <summary>

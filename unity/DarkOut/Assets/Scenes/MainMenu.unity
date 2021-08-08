@@ -919,7 +919,7 @@ MonoBehaviour:
   settingsMenu: {fileID: 145915244}
   mainMenuWithSave: {fileID: 1867304219}
   volumeSlider: {fileID: 247358717}
-  gameSceneToLoad: 3
+  gameSceneToLoad: 2
 --- !u!82 &274017620
 AudioSource:
   m_ObjectHideFlags: 0
