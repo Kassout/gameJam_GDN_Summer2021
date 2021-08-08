@@ -51,7 +51,9 @@ public class ArrowController : MonoBehaviour
         {
             LeverController lever = other.GetComponent<LeverController>();
             if(lever != null) {
-                
+                IEnumerator coroutine = lever.PushSequenceOnInteraction();
+                lever.PassCoroutineRef(coroutine);
+                lever.StartCoroutine(coroutine);
             }
         }
     }

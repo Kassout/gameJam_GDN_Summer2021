@@ -4,7 +4,10 @@ using UnityEngine;
 
 public class SortOrderController : MonoBehaviour
 {
-    SpriteRenderer sprite;
+    [SerializeField]
+    private float offset;
+
+    private SpriteRenderer sprite;
 
     // Start is called before the first frame update
     void Awake()
@@ -15,6 +18,6 @@ public class SortOrderController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        sprite.sortingOrder = Mathf.RoundToInt(transform.position.y * 100f) * -1;
+        sprite.sortingOrder = Mathf.RoundToInt((transform.position.y + offset) * 100f) * -1 + 1000;
     }
 }

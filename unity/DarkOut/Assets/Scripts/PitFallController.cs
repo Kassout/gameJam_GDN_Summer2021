@@ -24,7 +24,6 @@ public class PitFallController : MonoBehaviour
     /// <param name="other">A <c>Collider2D</c> Unity component representing the collider of the object that it collides with.</param>
     private void OnTriggerStay2D(Collider2D other)
     {
-        Debug.Log("bruh");
         if(other.CompareTag("Player")) {
             if(!other.GetComponent<PlayerController>().isBouncing) {
                 if (pitfallTileMap.HasTile(pitfallTileMap.WorldToCell(CheckLocation.transform.position)))

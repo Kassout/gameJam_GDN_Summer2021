@@ -228,6 +228,7 @@ public class PlayerController : MonoBehaviour
             LeverController lever = _currentInteractionObj.GetComponent<LeverController>();
             if(lever != null) {
                 lever.PassCoroutineRef(coroutine);
+                Debug.Log("bruh!");
             }
             StartCoroutine(coroutine);
         }

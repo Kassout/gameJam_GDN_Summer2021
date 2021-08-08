@@ -100,8 +100,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e35bc93f32e2d448a803a56470204be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  triggeringObjects:
-  - {fileID: 0}
+  triggeringObjects: []
   openDoorSound: {fileID: 1462656494659833244}
   unlockTriggerSound: {fileID: 1462656494659833245}
 --- !u!95 &1462656494659833246
@@ -353,3 +352,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 72b4c6113fcb1624f99f4d18295c940d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  offset: -0.5

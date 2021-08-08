@@ -146,8 +146,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   activationType: 1
   buttonType: 0
-  actionableObjects:
-  - {fileID: 0}
+  actionableObjects: []
   buttonPushedSound: {fileID: 1385268023}
 --- !u!50 &1872516668670032217
 Rigidbody2D:

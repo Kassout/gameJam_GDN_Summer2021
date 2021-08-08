@@ -146,8 +146,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   activationType: 0
   buttonType: 0
-  actionableObjects:
-  - {fileID: 0}
+  actionableObjects: []
   holdTime: 8
   leverPushedSound: {fileID: 1521436114}
 --- !u!50 &5954210537180904765

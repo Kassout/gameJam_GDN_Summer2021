@@ -1463,6 +1463,10 @@ PrefabInstance:
       value: Door
       objectReference: {fileID: 0}
     - target: {fileID: 1462656494659833247, guid: f69335def86ef89409a72157994d250c, type: 3}
+      propertyPath: triggeringObjects.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1462656494659833247, guid: f69335def86ef89409a72157994d250c, type: 3}
       propertyPath: triggeringObjects.Array.data[0]
       value: 
       objectReference: {fileID: 1853555465}
@@ -3310,14 +3314,6 @@ PrefabInstance:
       propertyPath: buttonType
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 5954210537180904764, guid: 59795be87b3c5cf41abca58336133dfb, type: 3}
-      propertyPath: actionableObjects.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5954210537180904764, guid: 59795be87b3c5cf41abca58336133dfb, type: 3}
-      propertyPath: actionableObjects.Array.data[0]
-      value: 
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 59795be87b3c5cf41abca58336133dfb, type: 3}
 --- !u!1 &1312267535
@@ -4470,7 +4466,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8988773504293151851, guid: 13fa829bcfd871f49817ff71f50e646e, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8988773504293151851, guid: 13fa829bcfd871f49817ff71f50e646e, type: 3}
       propertyPath: m_LocalPosition.z
