@@ -76,9 +76,12 @@ public class SpringController : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             other.GetComponent<PlayerController>().TriggerBounce(_direction * forceAmplitude, timeToWait);
-        } else if (other.CompareTag("Ghost"))
+            springTriggerSound.Play();
+        } 
+        else if (other.CompareTag("Ghost"))
         {
             other.GetComponent<GhostController>().TriggerBounce(_direction * forceAmplitude, timeToWait);
+            springTriggerSound.Play();
         }
         else if (other.CompareTag("Arrow"))
         {
@@ -90,9 +93,9 @@ public class SpringController : MonoBehaviour
             if(box != null) {
                 box.StartCoroutine(box.SpringBounce(_direction));
             }
+            springTriggerSound.Play();
             //other.GetComponent<Rigidbody2D>().AddForce(_direction * forceAmplitude * 10, ForceMode2D.Impulse);
         }
-        springTriggerSound.Play();
     }
 
     /// <summary>

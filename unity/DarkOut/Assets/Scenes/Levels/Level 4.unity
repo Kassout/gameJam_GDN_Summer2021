@@ -5353,6 +5353,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1889385035}
     m_Modifications:
+    - target: {fileID: 1959928987338436108, guid: 13fa829bcfd871f49817ff71f50e646e, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8988773504293151849, guid: 13fa829bcfd871f49817ff71f50e646e, type: 3}
       propertyPath: m_Name
       value: Wall With Gap For Door (1)

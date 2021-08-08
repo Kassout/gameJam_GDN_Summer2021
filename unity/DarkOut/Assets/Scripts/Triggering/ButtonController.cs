@@ -56,7 +56,7 @@ public class ButtonController : TriggeringObject
     /// <param name="other">A <c>Collider2D</c> Unity component representing the collider of the object that it collides with.</param>
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if(!other.CompareTag("Arrow")) {
+        if(!other.CompareTag("Arrow") && !other.CompareTag("Spring")) {
             if (activationType.Equals(ActivationType.Pressure))
             {
                 buttonPushedSound.Play();
@@ -70,7 +70,7 @@ public class ButtonController : TriggeringObject
     /// <param name="other">A <c>Collider2D</c> Unity component representing the collider of the object that it collides with.</param>
     private void OnTriggerStay2D(Collider2D other)
     {
-        if(!other.CompareTag("Arrow")) {
+        if(!other.CompareTag("Arrow") && !other.CompareTag("Spring")) {
             if (activationType.Equals(ActivationType.Pressure))
             {
                 OnActivate();
