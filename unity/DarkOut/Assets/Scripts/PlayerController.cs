@@ -228,7 +228,6 @@ public class PlayerController : MonoBehaviour
             LeverController lever = _currentInteractionObj.GetComponent<LeverController>();
             if(lever != null) {
                 lever.PassCoroutineRef(coroutine);
-                Debug.Log("bruh!");
             }
             StartCoroutine(coroutine);
         }
@@ -311,7 +310,6 @@ public class PlayerController : MonoBehaviour
     /// </summary>
     public void StopSpring()
     {
-        Debug.Log("bruh");
         _isDisabled = false;
         _rigidBody.velocity = Vector2.zero;
         isBouncing = false;

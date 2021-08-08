@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -37,6 +38,8 @@ public class BoxController : MonoBehaviour
     /// </summary>
     private Vector2 _startPosition;
 
+    private bool bouncing;
+
     /// <summary>
     /// This method is called on the frame when a script is enabled.
     /// </summary>
@@ -44,6 +47,7 @@ public class BoxController : MonoBehaviour
     {
         _rigidbody = GetComponent<Rigidbody2D>();
         _startPosition = _rigidbody.position;
+        bouncing = false;
     }
 
     /// <summary>
@@ -83,10 +87,12 @@ public class BoxController : MonoBehaviour
     /// This method is used to check for potential collision with walls and pit tile.
     /// </summary>
     private void CheckMoveCollision() {
-        Vector3Int gridPosition = groundTileMap.WorldToCell(_rigidbody.position);
-        if (!groundTileMap.HasTile(gridPosition) || collisionTileMap.HasTile(gridPosition) || pitfallTileMap.HasTile(gridPosition))
-        {
-            Kill();
+        if (!bouncing) {
+            Vector3Int gridPosition = groundTileMap.WorldToCell(_rigidbody.position);
+            if (!groundTileMap.HasTile(gridPosition) || collisionTileMap.HasTile(gridPosition) || pitfallTileMap.HasTile(gridPosition))
+            {
+                Kill();
+            }
         }
     }
 
@@ -96,5 +102,24 @@ public class BoxController : MonoBehaviour
     private void Kill() {
         _rigidbody.velocity = Vector2.zero;
         _rigidbody.position = _startPosition;
+    }
+
+    public IEnumerator SpringBounce(Vector2 direction) {
+        
+        bouncing = true;
+        float distance = 0.0f;
+
+        while(distance < 14.0f) {
+            float speed = 30.0f;
+            Vector2 move = _rigidbody.position + direction * speed * Time.deltaTime;
+            distance += speed * Time.deltaTime;
+            _rigidbody.MovePosition(move);
+            Debug.Log(distance);
+            yield return null;
+        }
+        
+        bouncing = false;
+
+        yield return null;
     }
 }
