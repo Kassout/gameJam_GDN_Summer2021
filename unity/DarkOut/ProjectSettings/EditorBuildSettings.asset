@@ -37,7 +37,13 @@ EditorBuildSettings:
     guid: d81e2c27e02afce4388f907657cff31b
   - enabled: 1
     path: Assets/Scenes/Levels/Level 8.unity
-    guid: 4d6f3726adc84ab499817c3640e9cde9
+    guid: 29a7df6ec99324f4ca4fc495f5394a78
+  - enabled: 1
+    path: Assets/Scenes/Levels/Level 9.unity
+    guid: 158ffa34a235b9e488f86dcf854090f1
+  - enabled: 1
+    path: Assets/Scenes/Levels/Level 10.unity
+    guid: 58d72d2d7a7862a4faa7d107755882a9
   m_configObjects:
     com.unity.adaptiveperformance.loader_settings: {fileID: 11400000, guid: 26d5f50d38c38654eb2fe58ea763abe0, type: 2}
     com.unity.adaptiveperformance.simulator.provider_settings: {fileID: 11400000, guid: 91ebfc9e61f77f248af761da55e40e1f, type: 2}
