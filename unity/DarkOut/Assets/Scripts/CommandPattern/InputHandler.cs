@@ -14,10 +14,15 @@ public class InputHandler : MonoBehaviour
     public static List<Command> OldCommands;
     public static List<Vector2> OldDirections;
 
+    private bool ePressed;
+    private bool yPressed;
+
     private void Awake()
     {
         OldCommands = new List<Command>();
         OldDirections = new List<Vector2>();
+        ePressed = false;
+        yPressed = false;
     }
 
     // Start is called before the first frame update
@@ -29,8 +34,19 @@ public class InputHandler : MonoBehaviour
         _playerRigidBody = new Rigidbody2D();
     }
 
+    void Update() {
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            ePressed = true;
+        }
+        if (Input.GetKeyDown(KeyCode.Y))
+        {
+            yPressed = true;
+        }
+    }
+
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         if (!GameManager.Instance.blockPlayer)
         {
@@ -44,17 +60,17 @@ public class InputHandler : MonoBehaviour
         moveDirection.x = Input.GetAxisRaw("Horizontal");
         moveDirection.y = Input.GetAxisRaw("Vertical");
 
-        if (moveDirection.magnitude != 0)
-        {
-            _buttonMove.Execute(_playerRigidBody, moveDirection, _buttonMove);
-        }
-        
-        if (Input.GetKeyDown(KeyCode.Y))
-        {
-            GameManager.Instance.PlayerReplay(OldCommands, OldDirections);
-        } else if (Input.GetKeyDown(KeyCode.E))
+        if (ePressed)
         {
             _buttonInteract.Execute(_playerRigidBody, moveDirection, _buttonInteract);
+            ePressed = false;
+        } else {
+            _buttonMove.Execute(_playerRigidBody, moveDirection, _buttonMove);
+        }
+        if (yPressed)
+        {
+            GameManager.Instance.PlayerReplay();
+            yPressed = false;
         }
     }
 }

@@ -16,6 +16,8 @@ public class TimeLoopManager : MonoBehaviour
     /// </summary>
     [SerializeField]   
     private float timeLoopDuration = 60.0f;
+
+    private Coroutine coroutine;
     
     /// <summary>
     /// This method is called when the script instance is being loaded.
@@ -46,7 +48,10 @@ public class TimeLoopManager : MonoBehaviour
     /// </summary>
     public void StartTimeLoop()
     {
-        StartCoroutine(ProcessTimeLoop(timeLoopDuration));
+        if(coroutine != null) {
+            StopCoroutine(coroutine);
+        }
+        coroutine = StartCoroutine(ProcessTimeLoop(timeLoopDuration));
     }
 
     /// <summary>
@@ -70,7 +75,9 @@ public class TimeLoopManager : MonoBehaviour
         // TODO : remove after tests
         //After we have waited 5 seconds print the time again.
         Debug.Log("Finished Coroutine at timestamp : " + Time.time);
+
+        coroutine = null;
         
-        GameManager.Instance.LoadScene(2, false);
+        GameManager.Instance.PlayerReplay();
     }
 }

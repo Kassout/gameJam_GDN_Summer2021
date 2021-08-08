@@ -35,12 +35,15 @@ public class GhostController : MonoBehaviour
     /// </summary>
     private GameObject _currentInteractionObj;
 
+    private int frameCount;
+
     private void Awake()
     {
         _rigidbody2D = GetComponent<Rigidbody2D>();
         _ghostStartingPosition = transform.position;
         s_playerOldCommands = new List<Command>(GameManager.OldCommands);
         s_playerOldDirections = new List<Vector2>(GameManager.OldDirections);
+        frameCount = 0;
     }
 
     private void Start()
@@ -53,18 +56,38 @@ public class GhostController : MonoBehaviour
     {
         if (s_playerOldCommands.Count > 0)
         {
-            //Stop the coroutine so it starts from the beginning
+            frameCount = 0;
+            _rigidbody2D.position = _ghostStartingPosition;
+            /*//Stop the coroutine so it starts from the beginning
             if (_replayCoroutine != null)
             {
                 StopCoroutine(_replayCoroutine);
             }
 
             //Start the replay
-            _replayCoroutine = StartCoroutine(ReplayCommands());
+            _replayCoroutine = StartCoroutine(ReplayCommands());*/
+        }
+    }
+
+    void FixedUpdate() {
+        ReplayCommands();
+    }
+
+    private void ReplayCommands()
+    {
+        if (frameCount < s_playerOldCommands.Count) {
+            //Move the box with the current command
+            s_playerOldCommands[frameCount].Move(_rigidbody2D, s_playerOldDirections[frameCount]);
+
+            if (s_playerOldCommands[frameCount].GetType() == typeof(PlayerInteract))
+            {
+                Interact();
+            }
+            frameCount += 1;
         }
     }
     
-    //The replay coroutine
+    /*//The replay coroutine
     IEnumerator ReplayCommands()
     {
         //Move the box to the start position
@@ -82,7 +105,7 @@ public class GhostController : MonoBehaviour
 
             yield return null; //new WaitForSeconds(0.3f);
         }
-    }
+    }*/
 
     private void Interact()
     {

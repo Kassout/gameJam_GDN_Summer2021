@@ -202,10 +202,10 @@ public class GameManager : MonoBehaviour
     /// </summary>
     /// <param name="oldCommands"></param>
     /// <param name="oldDirections"></param>
-    public void PlayerReplay(List<Command> oldCommands, List<Vector2> oldDirections)
+    public void PlayerReplay()
     {
-        OldCommands = new List<Command>(oldCommands);
-        OldDirections = new List<Vector2>(oldDirections);
+        OldCommands = new List<Command>(InputHandler.OldCommands);
+        OldDirections = new List<Vector2>(InputHandler.OldDirections);
         onRecallTimeLoopAudioSource.Play();
         StartCoroutine(OnLoadScene(_currentScene, true));
         //SceneManager.activeSceneChanged += OnActiveSceneChanged;
@@ -233,7 +233,9 @@ public class GameManager : MonoBehaviour
         
         _gameManagerAnimator.SetTrigger(IsLoadingOver);
         yield return new WaitForSeconds(0.8f);
+        
         blockPlayer = false;
+        TimeLoopManager.Instance.StartTimeLoop();
         
         if (isRecall)
         {

@@ -147,7 +147,7 @@ public class PlayerController : MonoBehaviour
     private void Update()
     {
         // Input
-        if (!_isDisabled || !GameManager.Instance.blockPlayer)
+        if (!_isDisabled && !GameManager.Instance.blockPlayer)
         {
             _movement.x = Input.GetAxisRaw("Horizontal");
             _movement.y = Input.GetAxisRaw("Vertical");

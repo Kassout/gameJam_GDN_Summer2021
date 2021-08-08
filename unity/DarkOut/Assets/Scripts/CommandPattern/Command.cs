@@ -41,14 +41,10 @@ public class PlayerMove : Command
         rigidbody2D.MovePosition(_move);
     }
 }
-public class PlayerInteract : Command
+
+public class PlayerInteract : PlayerMove
 {
-    //Called when we press a key
-    public override void Execute(Rigidbody2D rigidbody2D, Vector2 direction,  Command command)
-    {
-        InputHandler.OldCommands.Add(command);
-        InputHandler.OldDirections.Add(direction);
-    }
+    
 }
 
 
