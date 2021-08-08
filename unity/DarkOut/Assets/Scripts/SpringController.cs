@@ -88,7 +88,7 @@ public class SpringController : MonoBehaviour
         {
             BoxController box = other.GetComponent<BoxController>();
             if(box != null) {
-                box.StartCoroutine(box.SpringBounce(_direction));
+                box.SpringBounce(_direction);
             }
             //other.GetComponent<Rigidbody2D>().AddForce(_direction * forceAmplitude * 10, ForceMode2D.Impulse);
         }

@@ -11,6 +11,10 @@ public class SortOrderController : MonoBehaviour
     void Awake()
     {
         sprite = GetComponent<SpriteRenderer>();
+    }
+
+    void Update()
+    {
         sprite.sortingOrder = Mathf.RoundToInt((transform.position.y + offset) * 100f) * -1 + 1000;
     }
 }
