@@ -607,7 +607,7 @@ TilemapRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 4
+  m_SortingOrder: 3
   m_ChunkSize: {x: 32, y: 32, z: 32}
   m_ChunkCullingBounds: {x: 0, y: 0, z: 0}
   m_MaxChunkCount: 16
@@ -4865,7 +4865,8 @@ PrefabInstance:
       propertyPath: collisionTileMap
       value: 
       objectReference: {fileID: 183146626}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 7978791743746967897, guid: 774d1a3a050cd2d468e9cfa5c5c3820b, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 774d1a3a050cd2d468e9cfa5c5c3820b, type: 3}
 --- !u!1 &4170179781198387417 stripped
 GameObject:
@@ -4945,6 +4946,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1889385035}
     m_Modifications:
+    - target: {fileID: 5801861573134109158, guid: 88264a348876b3441a934776d09470aa, type: 3}
+      propertyPath: m_SortingOrder
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 8379988797761358825, guid: 88264a348876b3441a934776d09470aa, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -5001,7 +5006,9 @@ PrefabInstance:
       propertyPath: triggeringObjects.Array.data[0]
       value: 
       objectReference: {fileID: 1078339133}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 3766055231961493111, guid: 88264a348876b3441a934776d09470aa, type: 3}
+    - {fileID: 8666876206549062884, guid: 88264a348876b3441a934776d09470aa, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 88264a348876b3441a934776d09470aa, type: 3}
 --- !u!1001 &8740491975605027616
 PrefabInstance:
