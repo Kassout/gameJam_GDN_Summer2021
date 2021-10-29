@@ -5,16 +5,17 @@ using UnityEngine;
 /// </summary>
 public class SpikesController : ActionableObject 
 {
+    #region Fields/Variables
+
+    /// <summary>
+    /// Instance variable <c>spikesUpSound</c> represents the <c>AudioSource</c> Unity component triggering spikes sound.
+    /// </summary>
+    [SerializeField] private AudioSource spikesUpSound;
+    
     /// <summary>
     /// Instance variable <c>animator</c> represents the spikes animator Unity component.
     /// </summary>
     private Animator _animator;
-    
-    /// <summary>
-    /// TODO: comments
-    /// </summary>
-    [SerializeField]
-    private AudioSource spikesUpSound;
     
     /// <summary>
     /// Static variable <c>Pushed</c> represents the string message to send to the game object animator to change the state of the "isEventTriggered" variable.
@@ -30,6 +31,10 @@ public class SpikesController : ActionableObject
     /// Static variable <c>Pushed</c> represents the string message to send to the game object animator to change the state of the "actionTrigger" variable.
     /// </summary>
     private static readonly int ActionTrigger = Animator.StringToHash("actionTrigger");
+
+    #endregion
+
+    #region MonoBehaviour
     
     /// <summary>
     /// This method is called on the frame when a script is enabled
@@ -51,19 +56,6 @@ public class SpikesController : ActionableObject
     }
 
     /// <summary>
-    /// This method is called to activate the box collider of the spikes on the animation trap triggering frame.
-    /// </summary>
-    public void SpikeEvent()
-    {
-        if (!spikesUpSound.isPlaying)
-        {
-            spikesUpSound.Play();
-        }
-        
-        gameObject.GetComponent<BoxCollider2D>().enabled = !gameObject.GetComponent<BoxCollider2D>().enabled;
-    }
-
-    /// <summary>
     /// This method is called when another object enters a trigger collider attached to this object.
     /// </summary>
     /// <param name="other">A <c>Collider2D</c> Unity component representing the collider of the object that it collides with.</param>
@@ -76,6 +68,27 @@ public class SpikesController : ActionableObject
         }
     }
     
+    #endregion
+
+    #region Private
+
+    /// <summary>
+    /// This method is called to activate the box collider of the spikes on the animation trap triggering frame.
+    /// </summary>
+    private void SpikeEvent()
+    {
+        if (!spikesUpSound.isPlaying)
+        {
+            spikesUpSound.Play();
+        }
+        
+        gameObject.GetComponent<BoxCollider2D>().enabled = !gameObject.GetComponent<BoxCollider2D>().enabled;
+    }
+
+    #endregion
+
+    #region Public
+
     /// <summary>
     /// This method is used when the spikes trap get triggered.
     /// </summary>
@@ -95,4 +108,6 @@ public class SpikesController : ActionableObject
     {
         _animator.ResetTrigger(ActionTrigger);
     }
+
+    #endregion
 }
