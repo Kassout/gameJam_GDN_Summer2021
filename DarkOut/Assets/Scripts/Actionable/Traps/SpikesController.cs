@@ -5,12 +5,13 @@ using UnityEngine;
 /// </summary>
 public class SpikesController : ActionableObject 
 {
-    #region Fields/Variables
+    #region Fields / Properties
 
     /// <summary>
     /// Instance variable <c>spikesUpSound</c> represents the <c>AudioSource</c> Unity component triggering spikes sound.
     /// </summary>
-    [SerializeField] private AudioSource spikesUpSound;
+    [SerializeField] 
+    private AudioSource spikesUpSound;
     
     /// <summary>
     /// Instance variable <c>animator</c> represents the spikes animator Unity component.

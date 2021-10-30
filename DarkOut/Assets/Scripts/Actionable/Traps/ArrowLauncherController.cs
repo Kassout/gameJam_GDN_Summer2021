@@ -5,22 +5,25 @@ using UnityEngine;
 /// </summary>
 public class ArrowLauncherController : ActionableObject
 {
-    #region Fields/Variables
+    #region Fields / Properties
 
     /// <summary>
     /// Instance variable <c>bouncingDirection</c> represents the bouncing direction type of the spring.
     /// </summary>
-    [SerializeField] private ShootDirection shootDirection;
+    [SerializeField] 
+    private ShootDirection shootDirection;
     
     /// <summary>
     /// Instance variable <c>arrow</c> represents the arrow game object launcher by the trap.
     /// </summary>
-    [SerializeField] private GameObject arrow;
+    [SerializeField] 
+    private GameObject arrow;
     
     /// <summary>
     /// Instance variable <c>arrowLaunchSound</c> represents the <c>AudioSource</c> Unity component triggering arrow launching sound.
     /// </summary>
-    [SerializeField] private AudioSource arrowLaunchSound;
+    [SerializeField] 
+    private AudioSource arrowLaunchSound;
 
     /// <summary>
     /// Instance variable <c>vectorDirection</c> represents a <c>Vector2</c> Unity component of the arrow launching direction.

@@ -6,12 +6,13 @@ using UnityEngine;
 /// </summary>
 public class ArrowController : MonoBehaviour
 {
-    #region Fields/Variables
+    #region Fields / Properties
 
     /// <summary>
     /// Instance variable <c>moveSpeed</c> represents the speed of the arrow.
     /// </summary>
-    [SerializeField] private float moveSpeed = 10.0f;
+    [SerializeField] 
+    private float moveSpeed = 10.0f;
     
     /// <summary>
     /// Instance variable <c>_direction</c> represents the direction vector of the arrow game object.

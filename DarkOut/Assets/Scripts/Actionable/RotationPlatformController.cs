@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -11,7 +10,7 @@ public class RotationPlatformController : MonoBehaviour
     /// Instance variable <c>rotationDirection</c> represents which direction boxes placed on the tile will rotate.
     /// </summary>
     [SerializeField]
-    protected RotationDirection rotationDirection;
+    private RotationDirection rotationDirection;
     
     /// <summary>
     /// Instance variable <c>boxOnPlatformSound</c> represents the <c>AudioSource</c> Unity component triggering box being pushed on platform sound.
@@ -31,7 +30,7 @@ public class RotationPlatformController : MonoBehaviour
     /// <summary>
     /// Instance variable <c>colliderList</c> represents the game objects that are on the rotation tile.
     /// </summary>
-    private List<Collider2D> colliderList = new List<Collider2D>();
+    private readonly List<Collider2D> _colliderList = new List<Collider2D>();
 
     void Start() {
         SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
@@ -77,7 +76,7 @@ public class RotationPlatformController : MonoBehaviour
             other.attachedRigidbody.MovePosition(gameObject.GetComponent<Collider2D>().bounds.center);*/
             GameObject connectedObject = other.gameObject;
             if(connectedObject.CompareTag("SpringBox"))
-                colliderList.Add(other);
+                _colliderList.Add(other);
         }
     }
 
@@ -87,11 +86,11 @@ public class RotationPlatformController : MonoBehaviour
     /// <param name="other">A <c>Collider2D</c> Unity component representing the collider of the object that it collides with.</param>
     private void OnTriggerExit2D(Collider2D other)
     {
-        List<Collider2D> tempColliderList = new List<Collider2D>(colliderList); // This is so that I can modify colliderList during foreach without error
+        List<Collider2D> tempColliderList = new List<Collider2D>(_colliderList); // This is so that I can modify colliderList during foreach without error
         foreach (Collider2D collider in tempColliderList) {
             Debug.Log(collider.gameObject);
             if(collider == other) {
-                colliderList.Remove(collider);
+                _colliderList.Remove(collider);
             }
         }
     }
@@ -99,7 +98,7 @@ public class RotationPlatformController : MonoBehaviour
     public void OuterExited(Collider2D other) {
         GameObject connectedObject = other.gameObject;
         if(connectedObject.CompareTag("SpringBox")) {
-            List<Collider2D> tempColliderList = new List<Collider2D>(colliderList); // This is so that I can modify colliderList during foreach without error
+            List<Collider2D> tempColliderList = new List<Collider2D>(_colliderList); // This is so that I can modify colliderList during foreach without error
             foreach (Collider2D collider in tempColliderList) {
                 if(collider == other) {
                     if(rotationDirection == RotationDirection.Clockwise) {
