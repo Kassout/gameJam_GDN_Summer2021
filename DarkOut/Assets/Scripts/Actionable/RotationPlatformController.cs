@@ -6,6 +6,8 @@ using UnityEngine;
 /// </summary>
 public class RotationPlatformController : MonoBehaviour
 {
+    #region Fields / Properties
+
     /// <summary>
     /// Instance variable <c>rotationDirection</c> represents which direction boxes placed on the tile will rotate.
     /// </summary>
@@ -21,7 +23,7 @@ public class RotationPlatformController : MonoBehaviour
     /// <summary>
     /// Instance variable <c>RotationDirection</c> represents an enumeration of the two rotation directions.
     /// </summary>
-    protected enum RotationDirection
+    private enum RotationDirection
     {
         Clockwise,
         Counterclockwise,
@@ -32,6 +34,13 @@ public class RotationPlatformController : MonoBehaviour
     /// </summary>
     private readonly List<Collider2D> _colliderList = new List<Collider2D>();
 
+    #endregion
+
+    #region MonoBehaviour
+
+    /// <summary>
+    /// This method is called on the frame when a script is enabled
+    /// </summary>
     void Start() {
         SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
         switch (rotationDirection) {
@@ -62,7 +71,7 @@ public class RotationPlatformController : MonoBehaviour
         }
     }
 #endif
-
+    
     /// <summary>
     /// This method is called when another object enters a trigger collider attached to this object.
     /// </summary>
@@ -79,7 +88,7 @@ public class RotationPlatformController : MonoBehaviour
                 _colliderList.Add(other);
         }
     }
-
+    
     /// <summary>
     /// This method is called when another object leaves a trigger collider attached to this object.
     /// </summary>
@@ -87,20 +96,28 @@ public class RotationPlatformController : MonoBehaviour
     private void OnTriggerExit2D(Collider2D other)
     {
         List<Collider2D> tempColliderList = new List<Collider2D>(_colliderList); // This is so that I can modify colliderList during foreach without error
-        foreach (Collider2D collider in tempColliderList) {
-            Debug.Log(collider.gameObject);
-            if(collider == other) {
-                _colliderList.Remove(collider);
+        foreach (Collider2D oCollider in tempColliderList) {
+            Debug.Log(oCollider.gameObject);
+            if(oCollider == other) {
+                _colliderList.Remove(oCollider);
             }
         }
     }
+    
+    #endregion
 
+    #region Public
+
+    /// <summary>
+    /// This method is responsible for handling actions triggered by the collider exiting the rotation platform.
+    /// </summary>
+    /// <param name="other">A <c>Collider2D</c> Unity component representing the object exiting the rotation platform collider area.</param>
     public void OuterExited(Collider2D other) {
         GameObject connectedObject = other.gameObject;
         if(connectedObject.CompareTag("SpringBox")) {
             List<Collider2D> tempColliderList = new List<Collider2D>(_colliderList); // This is so that I can modify colliderList during foreach without error
-            foreach (Collider2D collider in tempColliderList) {
-                if(collider == other) {
+            foreach (Collider2D oCollider in tempColliderList) {
+                if(oCollider == other) {
                     if(rotationDirection == RotationDirection.Clockwise) {
                         connectedObject.GetComponent<SpringBoxController>().Rotate(true);
                         boxOnPlatformSound.Play();
@@ -113,4 +130,6 @@ public class RotationPlatformController : MonoBehaviour
             }
         }
     }
+
+    #endregion
 }
