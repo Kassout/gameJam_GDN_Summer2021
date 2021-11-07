@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -23,22 +22,24 @@ public class PlayerMove : Command
     //Called when we press a key
     public override void Execute(Rigidbody2D rigidbody2D, Vector2 direction,  Command command)
     {
-        InputHandler.OldCommands.Add(command);
-        InputHandler.OldDirections.Add(direction);
+        InputHandler.oldCommands.Add(command);
+        InputHandler.oldDirections.Add(direction);
     }
     
     //Undo an old command
     public override void Undo(Rigidbody2D rigidbody2D, Vector2 direction)
     {
-        Vector2 _move = rigidbody2D.position - direction.normalized * (moveSpeed * Time.fixedDeltaTime);
-        rigidbody2D.MovePosition(_move);
+        Vector2 move = rigidbody2D.position - direction.normalized * (moveSpeed * Time.fixedDeltaTime);
+        rigidbody2D.MovePosition(move);
     }
 
     //Move the box
     public override void Move(Rigidbody2D rigidbody2D, Vector2 direction)
     {
-        Vector2 _move = rigidbody2D.position + direction.normalized * (moveSpeed * Time.fixedDeltaTime);
-        rigidbody2D.MovePosition(_move);
+        float timing = Time.fixedDeltaTime;
+        Vector2 move = rigidbody2D.position + direction.normalized * (moveSpeed * timing);
+        rigidbody2D.MovePosition(move);
+        GameManager.moveGhostRecord.Add(new Vector3(move.x, move.y, timing));
     }
 }
 
@@ -64,8 +65,8 @@ public class UndoCommand : Command
     //Called when we press a key
     public override void Execute(Rigidbody2D rigidbody2D, Vector2 direction, Command command)
     {
-        List<Command> oldCommands = InputHandler.OldCommands;
-        List<Vector2> directions = InputHandler.OldDirections;
+        List<Command> oldCommands = InputHandler.oldCommands;
+        List<Vector2> directions = InputHandler.oldDirections;
 
         if (oldCommands.Count > 0)
         {

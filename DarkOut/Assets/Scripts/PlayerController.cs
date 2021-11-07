@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Apple.ReplayKit;
 using UnityEngine.Tilemaps;
 
 /// <summary>
@@ -8,6 +9,13 @@ using UnityEngine.Tilemaps;
 /// </summary>
 public class PlayerController : MonoBehaviour
 {
+    //The different keys we need
+    private Command _buttonMove, _buttonInteract;
+    
+    //Stores all commands for replay and undo
+    public static List<Command> oldCommands;
+    public static List<Vector2> oldDirections;
+    
     /// <summary>
     /// Instance variable <c>StartingPosition</c> represents the 3D coordinate value of the starting point of the game object.
     /// </summary>
@@ -139,6 +147,9 @@ public class PlayerController : MonoBehaviour
         _rigidBody = gameObject.GetComponent<Rigidbody2D>();
         _animator = gameObject.GetComponent<Animator>();
         StartingPosition = transform.position;
+        
+        _buttonMove = new PlayerMove();
+        _buttonInteract = new PlayerInteract();
     }
 
     /// <summary>
@@ -173,6 +184,9 @@ public class PlayerController : MonoBehaviour
             
             // Interact
             Interact();
+            
+            // Replay
+            Replay();
         }
     }
 
@@ -182,7 +196,7 @@ public class PlayerController : MonoBehaviour
     private void FixedUpdate()
     {
         // Move
-        if (!_isDisabled)
+        if (!_isDisabled && !GameManager.Instance.blockPlayer)
         {
             MovePlayer();
         }
@@ -194,14 +208,14 @@ public class PlayerController : MonoBehaviour
     /// </summary>
     private void MovePlayer()
     {
-        _move = _rigidBody.position + _movement.normalized * (moveSpeed * Time.fixedDeltaTime);
+        float timing = Time.fixedDeltaTime;
+        _move = _rigidBody.position + _movement.normalized * (moveSpeed * timing);
         if (CanMove(_move - _rigidBody.position))
         {
             _rigidBody.MovePosition(_move);
-        }
-        if (walkingSound.isPlaying) 
-        {
-            //walkingSound.Stop();
+            // TODO: erase
+            _buttonMove.Execute(_rigidBody, _movement, _buttonMove);
+            GameManager.movePlayerRecord.Add(new Vector3(_move.x, _move.y, timing));
         }
     }
     
@@ -228,12 +242,22 @@ public class PlayerController : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.E) && _currentInteractionObj && _currentInteractionObj.GetComponent<TriggeringObject>())
         {
+            // TODO: erase 
+            _buttonInteract.Execute(_rigidBody, _movement, _buttonInteract);
             IEnumerator coroutine = _currentInteractionObj.GetComponent<TriggeringObject>().PushSequenceOnInteraction();
             LeverController lever = _currentInteractionObj.GetComponent<LeverController>();
             if(lever != null) {
                 lever.PassCoroutineRef(coroutine);
             }
             StartCoroutine(coroutine);
+        }
+    }
+
+    private void Replay()
+    {
+        if (Input.GetKeyDown(KeyCode.Y))
+        {
+            GameManager.Instance.PlayerReplay();
         }
     }
 

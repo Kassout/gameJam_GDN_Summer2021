@@ -37,6 +37,9 @@ public class GameManager : MonoBehaviour
     /// TODO: comments
     /// </summary>
     public static List<Command> OldCommands = new List<Command>();
+
+    public static List<Vector3> movePlayerRecord = new List<Vector3>();
+    public static List<Vector3> moveGhostRecord = new List<Vector3>();
     
     /// <summary>
     /// TODO: comments
@@ -150,6 +153,8 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public void LoadNextLevel()
     {
+        movePlayerRecord.Clear();
+        moveGhostRecord.Clear();
         int nextLevelSceneIndex = _currentScene + 1;
         if (nextLevelSceneIndex != SceneManager.sceneCountInBuildSettings - 1)
         {
@@ -209,8 +214,8 @@ public class GameManager : MonoBehaviour
     /// <param name="oldDirections"></param>
     public void PlayerReplay()
     {
-        OldCommands = new List<Command>(InputHandler.OldCommands);
-        OldDirections = new List<Vector2>(InputHandler.OldDirections);
+        OldCommands = new List<Command>(InputHandler.oldCommands);
+        OldDirections = new List<Vector2>(InputHandler.oldDirections);
         onRecallTimeLoopAudioSource.Play();
         StartCoroutine(OnLoadScene(_currentScene, true));
         //SceneManager.activeSceneChanged += OnActiveSceneChanged;

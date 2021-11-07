@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -11,18 +10,18 @@ public class InputHandler : MonoBehaviour
     private Command _buttonMove, _buttonInteract;
     
     //Stores all commands for replay and undo
-    public static List<Command> OldCommands;
-    public static List<Vector2> OldDirections;
+    public static List<Command> oldCommands;
+    public static List<Vector2> oldDirections;
 
-    private bool ePressed;
-    private bool yPressed;
+    private bool _ePressed;
+    private bool _yPressed;
 
     private void Awake()
     {
-        OldCommands = new List<Command>();
-        OldDirections = new List<Vector2>();
-        ePressed = false;
-        yPressed = false;
+        oldCommands = new List<Command>();
+        oldDirections = new List<Vector2>();
+        _ePressed = false;
+        _yPressed = false;
     }
 
     // Start is called before the first frame update
@@ -35,23 +34,24 @@ public class InputHandler : MonoBehaviour
     }
 
     void Update() {
-        if (Input.GetKeyDown(KeyCode.E))
+        if (!GameManager.Instance.blockPlayer)
         {
-            ePressed = true;
+            HandleInput();
+        }
+        /*if (Input.GetKeyDown(KeyCode.E))
+        {
+            _ePressed = true;
         }
         if (Input.GetKeyDown(KeyCode.Y))
         {
-            yPressed = true;
-        }
+            _yPressed = true;
+        }*/
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
-        if (!GameManager.Instance.blockPlayer)
-        {
-            HandleInput();
-        }
+
     }
 
     public void HandleInput()
@@ -60,17 +60,17 @@ public class InputHandler : MonoBehaviour
         moveDirection.x = Input.GetAxisRaw("Horizontal");
         moveDirection.y = Input.GetAxisRaw("Vertical");
 
-        if (ePressed)
+        if (Input.GetKeyDown(KeyCode.E))
         {
             _buttonInteract.Execute(_playerRigidBody, moveDirection, _buttonInteract);
-            ePressed = false;
+            _ePressed = false;
         } else {
             _buttonMove.Execute(_playerRigidBody, moveDirection, _buttonMove);
         }
-        if (yPressed)
+        if (Input.GetKeyDown(KeyCode.Y))
         {
             GameManager.Instance.PlayerReplay();
-            yPressed = false;
+            _yPressed = false;
         }
     }
 }
