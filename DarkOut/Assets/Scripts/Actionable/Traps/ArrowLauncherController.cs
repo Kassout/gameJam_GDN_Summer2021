@@ -170,7 +170,6 @@ public class ArrowLauncherController : ActionableObject
     /// </summary>
     public override void TriggerActionEvent()
     {
-        Debug.Log("Trigger " + gameObject);
         if (actionableStyle.Equals(ActionableStyle.TriggeredRepeat) && !IsActive)
         {
             _animator.SetTrigger(ActionTrigger);
@@ -193,7 +192,6 @@ public class ArrowLauncherController : ActionableObject
     /// </summary>
     public override void KillTriggers()
     {
-        Debug.Log("Kill " + gameObject);
         _animator.ResetTrigger(ActionTrigger);
         if(actionableStyle.Equals(ActionableStyle.AutoWhenTriggered) && IsActive) {
             IsActive = false;

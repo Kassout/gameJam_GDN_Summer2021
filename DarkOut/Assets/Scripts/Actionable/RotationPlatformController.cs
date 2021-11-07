@@ -97,7 +97,6 @@ public class RotationPlatformController : MonoBehaviour
     {
         List<Collider2D> tempColliderList = new List<Collider2D>(_colliderList); // This is so that I can modify colliderList during foreach without error
         foreach (Collider2D oCollider in tempColliderList) {
-            Debug.Log(oCollider.gameObject);
             if(oCollider == other) {
                 _colliderList.Remove(oCollider);
             }

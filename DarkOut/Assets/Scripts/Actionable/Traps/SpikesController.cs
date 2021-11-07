@@ -64,7 +64,6 @@ public class SpikesController : ActionableObject
     {
         if (other.CompareTag("Player"))
         {
-            Debug.Log("Kill player");
             other.GetComponent<PlayerController>().TakeDamage();
         }
     }

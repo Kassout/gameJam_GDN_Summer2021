@@ -37,9 +37,6 @@ public class GameManager : MonoBehaviour
     /// TODO: comments
     /// </summary>
     public static List<Command> OldCommands = new List<Command>();
-
-    public static List<Vector3> movePlayerRecord = new List<Vector3>();
-    public static List<Vector3> moveGhostRecord = new List<Vector3>();
     
     /// <summary>
     /// TODO: comments
@@ -55,14 +52,8 @@ public class GameManager : MonoBehaviour
     /// <summary>
     /// TODO: comments
     /// </summary>
-    private Animator _gameManagerAnimator;
-
-    /// <summary>
-    /// TODO: comments
-    /// </summary>
-    [SerializeField]
-    private AudioSource onTimeLoopOverAudioSource;
-
+    public Animator gameManagerAnimator;
+    
     /// <summary>
     /// TODO: comments
     /// </summary>
@@ -118,7 +109,7 @@ public class GameManager : MonoBehaviour
             Debug.Log("Warning: multiple " + this + " in scene!");
         }
 
-        _gameManagerAnimator = GetComponent<Animator>();
+        gameManagerAnimator = GetComponent<Animator>();
     }
 
     /// <summary>
@@ -153,8 +144,6 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public void LoadNextLevel()
     {
-        movePlayerRecord.Clear();
-        moveGhostRecord.Clear();
         int nextLevelSceneIndex = _currentScene + 1;
         if (nextLevelSceneIndex != SceneManager.sceneCountInBuildSettings - 1)
         {
@@ -181,8 +170,6 @@ public class GameManager : MonoBehaviour
     /// <param name="mode">A Unity <c>LoadSceneMode</c> enumeration representing the type of loading mode used for the loaded scene.</param>
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        Debug.Log("OnSceneLoaded: " + scene.name);
-        Debug.Log(mode);
         if (!mainThemeAudioSource.isPlaying)
         {
             mainThemeAudioSource.Play();
@@ -223,7 +210,7 @@ public class GameManager : MonoBehaviour
 
     private IEnumerator OnLoadScene(int sceneIndex, bool isRecall)
     {
-        _gameManagerAnimator.SetTrigger(IsLoading);
+        gameManagerAnimator.SetTrigger(IsLoading);
         blockPlayer = true;
         yield return new WaitForSeconds(1f);
         
@@ -241,7 +228,7 @@ public class GameManager : MonoBehaviour
             yield return null;
         }
         
-        _gameManagerAnimator.SetTrigger(IsLoadingOver);
+        gameManagerAnimator.SetTrigger(IsLoadingOver);
         yield return new WaitForSeconds(0.8f);
         
         blockPlayer = false;
@@ -308,7 +295,6 @@ public class GameManager : MonoBehaviour
         string json = JsonUtility.ToJson(data);
 
         File.WriteAllText(Application.persistentDataPath + "/savefile.json", json);
-        Debug.Log(Application.persistentDataPath);
     }
 
     /// <summary>

@@ -61,21 +61,13 @@ public class TimeLoopManager : MonoBehaviour
     /// <returns>A <c>IEnumerator</c> object representing a list of controls.</returns>
     private IEnumerator ProcessTimeLoop(float countDownTime)
     {
-        // TODO : remove after tests
-        //Print the time of when the function is first called.
-        Debug.Log("Started Coroutine at timestamp : " + Time.time);
-        
         float totalTime = 0;
         while(totalTime <= countDownTime)
         {
             totalTime += Time.deltaTime;
             yield return null;
         }
-
-        // TODO : remove after tests
-        //After we have waited 5 seconds print the time again.
-        Debug.Log("Finished Coroutine at timestamp : " + Time.time);
-
+        
         coroutine = null;
         
         GameManager.Instance.PlayerReplay();

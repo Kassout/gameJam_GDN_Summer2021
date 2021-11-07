@@ -36,10 +36,8 @@ public class PlayerMove : Command
     //Move the box
     public override void Move(Rigidbody2D rigidbody2D, Vector2 direction)
     {
-        float timing = Time.fixedDeltaTime;
-        Vector2 move = rigidbody2D.position + direction.normalized * (moveSpeed * timing);
+        Vector2 move = rigidbody2D.position + direction.normalized * (moveSpeed * Time.fixedDeltaTime);
         rigidbody2D.MovePosition(move);
-        GameManager.moveGhostRecord.Add(new Vector3(move.x, move.y, timing));
     }
 }
 

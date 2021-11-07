@@ -208,14 +208,11 @@ public class PlayerController : MonoBehaviour
     /// </summary>
     private void MovePlayer()
     {
-        float timing = Time.fixedDeltaTime;
-        _move = _rigidBody.position + _movement.normalized * (moveSpeed * timing);
+        _move = _rigidBody.position + _movement.normalized * (moveSpeed * Time.fixedDeltaTime);
         if (CanMove(_move - _rigidBody.position))
         {
             _rigidBody.MovePosition(_move);
-            // TODO: erase
             _buttonMove.Execute(_rigidBody, _movement, _buttonMove);
-            GameManager.movePlayerRecord.Add(new Vector3(_move.x, _move.y, timing));
         }
     }
     
