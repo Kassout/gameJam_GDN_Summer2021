@@ -38,7 +38,10 @@ public class LeverController : TriggeringObject
     /// </summary>
     private static readonly int Pushed = Animator.StringToHash("isPushed");
 
-    private IEnumerator activatedCoroutine;
+    /// <summary>
+    /// TODO: comments
+    /// </summary>
+    private IEnumerator _activatedCoroutine;
 
     /// <summary>
     /// This method is called when the script instance is being loaded.
@@ -136,15 +139,19 @@ public class LeverController : TriggeringObject
         {
             actionableObject.KillTriggers();
         }
-        activatedCoroutine = null;
+        _activatedCoroutine = null;
     }
 
+    /// <summary>
+    /// TODO: comments
+    /// </summary>
+    /// <param name="coroutine">TODO: comments</param>
     public void PassCoroutineRef(IEnumerator coroutine) {
-        if (activatedCoroutine != null) {
-            StopCoroutine(activatedCoroutine);
+        if (_activatedCoroutine != null) {
+            StopCoroutine(_activatedCoroutine);
         } else {
             OnActivate();
         }
-        activatedCoroutine = coroutine;
+        _activatedCoroutine = coroutine;
     }
 }

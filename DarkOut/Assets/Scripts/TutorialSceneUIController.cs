@@ -1,20 +1,42 @@
 using System.Collections;
 using UnityEngine;
 
+/// <summary>
+/// TODO: comments
+/// </summary>
 public class TutorialSceneUIController : MonoBehaviour
 {
+    /// <summary>
+    /// TODO: comments
+    /// </summary>
     [SerializeField] private GameObject[] slideList;
 
+    /// <summary>
+    /// TODO: comments
+    /// </summary>
     private int _currentIndex = 0;
+    
+    /// <summary>
+    /// TODO: comments
+    /// </summary>
     private bool _isLoading = false;
+    
+    /// <summary>
+    /// TODO: comments
+    /// </summary>
     private bool _endTutorial = false;
 
+    /// <summary>
+    /// TODO: comments
+    /// </summary>
     private void Awake()
     {
         slideList[_currentIndex].SetActive(true);
     }
 
-    // Update is called once per frame
+    /// <summary>
+    /// TODO: comments
+    /// </summary>
     void Update()
     {
         if (_currentIndex == slideList.Length)
@@ -35,6 +57,10 @@ public class TutorialSceneUIController : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// TODO: comments
+    /// </summary>
+    /// <returns>TODO: comments</returns>
     private IEnumerator ChangeSlide()
     {
         _isLoading = true;

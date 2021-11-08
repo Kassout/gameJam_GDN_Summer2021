@@ -27,7 +27,10 @@ public class EndDoorController : ReceiverObject
     /// </summary>
     private static readonly int IsOpen = Animator.StringToHash("isOpen");
 
-    BoxCollider2D collision;
+    /// <summary>
+    /// TODO: comments
+    /// </summary>
+    private BoxCollider2D _collision;
 
     /// <summary>
     /// TODO: comments
@@ -35,7 +38,7 @@ public class EndDoorController : ReceiverObject
     private void Awake()
     {
         _doorAnimator = GetComponent<Animator>();
-        collision = GetComponent<BoxCollider2D>();
+        _collision = GetComponent<BoxCollider2D>();
     }
 
     /// <summary>
@@ -46,6 +49,9 @@ public class EndDoorController : ReceiverObject
         OpenDoor();
     }
 
+    /// <summary>
+    /// TODO: comments
+    /// </summary>
     protected override void OnReceiverTriggersDeactivated()
     {
         CloseDoor();
@@ -57,7 +63,7 @@ public class EndDoorController : ReceiverObject
     private void OpenDoor()
     {
         _doorAnimator.SetBool(IsOpen, true);
-        collision.enabled = false;
+        _collision.enabled = false;
     }
 
     /// <summary>
@@ -65,7 +71,7 @@ public class EndDoorController : ReceiverObject
     /// </summary>
     private void CloseDoor() {
         _doorAnimator.SetBool(IsOpen, false);
-        collision.enabled = true;
+        _collision.enabled = true;
     }
 
     /// <summary>
@@ -76,6 +82,9 @@ public class EndDoorController : ReceiverObject
         openDoorSound.Play();
     }
 
+    /// <summary>
+    /// TODO: comments
+    /// </summary>
     public void OnDoorWideOpen()
     {
         endPoint.SetActive(true);

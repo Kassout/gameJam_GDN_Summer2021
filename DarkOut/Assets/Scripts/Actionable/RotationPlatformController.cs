@@ -124,7 +124,6 @@ public class RotationPlatformController : MonoBehaviour
                         connectedObject.GetComponent<SpringBoxController>().Rotate(false);
                         boxOnPlatformSound.Play();
                     }
-                    
                 }
             }
         }

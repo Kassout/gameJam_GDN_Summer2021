@@ -37,6 +37,9 @@ public class DoorController : ReceiverObject
         OpenDoor();
     }
 
+    /// <summary>
+    /// TODO: comments
+    /// </summary>
     protected override void OnReceiverTriggersDeactivated()
     {
         CloseDoor();

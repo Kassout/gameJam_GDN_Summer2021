@@ -4,7 +4,6 @@ using UnityEditor;
 
 using System.IO;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 // Sets the script to be executed later than all default scripts
@@ -147,6 +146,9 @@ public class MainMenuUIHandler : MonoBehaviour
         OpenMainMenu();
     }
     
+    /// <summary>
+    /// TODO: comments
+    /// </summary>
     public void ContinueGame()
     {
         StopMainMenuTheme();

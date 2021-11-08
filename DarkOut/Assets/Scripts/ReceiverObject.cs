@@ -84,5 +84,8 @@ public abstract class ReceiverObject : MonoBehaviour
     /// </summary>
     protected abstract void OnReceiverTriggersActivated();
 
+    /// <summary>
+    /// TODO: comments
+    /// </summary>
     protected abstract void OnReceiverTriggersDeactivated();
 }

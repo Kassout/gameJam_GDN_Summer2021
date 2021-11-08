@@ -9,13 +9,19 @@ public class PitFallController : MonoBehaviour
     /// <summary>
     /// Instance variable <c>pitfallTileMap</c> represents the tile map containing the different pit tiles the player could fall into.
     /// </summary>
-    private Tilemap pitfallTileMap;
+    private Tilemap _pitfallTileMap;
 
+    /// <summary>
+    /// TODO: comments
+    /// </summary>
     [SerializeField]
-    private GameObject CheckLocation;
+    private GameObject checkLocation;
 
+    /// <summary>
+    /// TODO: comments
+    /// </summary>
     void Awake() {
-        pitfallTileMap = GetComponent<Tilemap>();
+        _pitfallTileMap = GetComponent<Tilemap>();
     }
 
     /// <summary>
@@ -27,7 +33,7 @@ public class PitFallController : MonoBehaviour
         if(other.CompareTag("Player")) {
             PlayerController playerController = other.GetComponent<PlayerController>();
             if(!playerController.isBouncing) {
-                if (pitfallTileMap.HasTile(pitfallTileMap.WorldToCell(playerController.TilemapCollisionPoint.transform.position)))
+                if (_pitfallTileMap.HasTile(_pitfallTileMap.WorldToCell(playerController.tilemapCollisionPoint.transform.position)))
                 {
                     other.GetComponent<Animator>().SetTrigger("triggerFall");
                 }
@@ -35,7 +41,7 @@ public class PitFallController : MonoBehaviour
         } else if(other.CompareTag("Ghost")) {
             GhostController ghostController = other.GetComponent<GhostController>();
             if(!ghostController.isBouncing) {
-                if (pitfallTileMap.HasTile(pitfallTileMap.WorldToCell(ghostController.TilemapCollisionPoint.transform.position)))
+                if (_pitfallTileMap.HasTile(_pitfallTileMap.WorldToCell(ghostController.tilemapCollisionPoint.transform.position)))
                 {
                     other.GetComponent<Animator>().SetTrigger("triggerFall");
                 }

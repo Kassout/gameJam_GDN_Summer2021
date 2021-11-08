@@ -33,6 +33,9 @@ public class SpringBoxController : MonoBehaviour
         Left = 3
     }
 
+    /// <summary>
+    /// TODO: comments
+    /// </summary>
     private void Awake()
     {
         _indexCurrentOrientation = (int)bouncingDirection;
@@ -82,6 +85,9 @@ public class SpringBoxController : MonoBehaviour
         bouncingDirection = (BouncingDirection)_indexCurrentOrientation;
     }
 
+    /// <summary>
+    /// TODO: comments
+    /// </summary>
     public void RestartPosition()
     {
         transform.position = _startingPoint;

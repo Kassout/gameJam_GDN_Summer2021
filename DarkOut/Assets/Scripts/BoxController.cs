@@ -1,7 +1,9 @@
-using System.Collections;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
+/// <summary>
+/// TODO: comments
+/// </summary>
 public class BoxController : MonoBehaviour
 {
     /// <summary>
@@ -38,11 +40,25 @@ public class BoxController : MonoBehaviour
     /// </summary>
     private Vector2 _startPosition;
 
-    private bool bouncing;
+    /// <summary>
+    /// TODO: comments
+    /// </summary>
+    private bool _bouncing;
 
-    private float bounceDistance;
+    /// <summary>
+    /// TODO: comments
+    /// </summary>
+    private float _bounceDistance;
+    
+    /// <summary>
+    /// TODO: comments
+    /// </summary>
     private float bounceSpeed = 10.0f;
-    private Vector2 bounceDirection;
+    
+    /// <summary>
+    /// TODO: comments
+    /// </summary>
+    private Vector2 _bounceDirection;
 
     /// <summary>
     /// This method is called on the frame when a script is enabled.
@@ -51,7 +67,7 @@ public class BoxController : MonoBehaviour
     {
         _rigidbody = GetComponent<Rigidbody2D>();
         _startPosition = _rigidbody.position;
-        bouncing = false;
+        _bouncing = false;
     }
 
     /// <summary>
@@ -60,7 +76,7 @@ public class BoxController : MonoBehaviour
     void FixedUpdate()
     {
         CheckMoveCollision();
-        if(bouncing) {
+        if(_bouncing) {
             ContinueSpring();
         }
         if (_rigidbody.velocity.magnitude == 0)
@@ -94,7 +110,7 @@ public class BoxController : MonoBehaviour
     /// This method is used to check for potential collision with walls and pit tile.
     /// </summary>
     private void CheckMoveCollision() {
-        if (!bouncing) {
+        if (!_bouncing) {
             Vector3Int gridPosition = groundTileMap.WorldToCell(_rigidbody.position);
             if (!groundTileMap.HasTile(gridPosition) || collisionTileMap.HasTile(gridPosition) || pitfallTileMap.HasTile(gridPosition))
             {
@@ -111,19 +127,26 @@ public class BoxController : MonoBehaviour
         _rigidbody.position = _startPosition;
     }
 
+    /// <summary>
+    /// TODO: comments
+    /// </summary>
+    /// <param name="direction">TODO: comments</param>
     public void SpringBounce(Vector2 direction) {
-        bouncing = true;
-        bounceDistance = 0.0f;
-        bounceDirection = direction;
+        _bouncing = true;
+        _bounceDistance = 0.0f;
+        _bounceDirection = direction;
     }
 
+    /// <summary>
+    /// TODO: comments
+    /// </summary>
     public void ContinueSpring() {
-        if (bounceDistance < 5.0f) {
-            Vector2 move = _rigidbody.position + bounceDirection * bounceSpeed * Time.deltaTime;
-            bounceDistance += bounceSpeed * Time.deltaTime;
+        if (_bounceDistance < 5.0f) {
+            Vector2 move = _rigidbody.position + _bounceDirection * bounceSpeed * Time.deltaTime;
+            _bounceDistance += bounceSpeed * Time.deltaTime;
             _rigidbody.MovePosition(move);
         } else {
-            bouncing = false;
+            _bouncing = false;
         }
     }
 }

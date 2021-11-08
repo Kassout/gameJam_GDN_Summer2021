@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Apple.ReplayKit;
 using UnityEngine.Tilemaps;
 
 /// <summary>
@@ -9,17 +8,15 @@ using UnityEngine.Tilemaps;
 /// </summary>
 public class PlayerController : MonoBehaviour
 {
-    //The different keys we need
+    /// <summary>
+    /// TODO: comments
+    /// </summary>
     private Command _buttonMove, _buttonInteract;
-    
-    //Stores all commands for replay and undo
-    public static List<Command> oldCommands;
-    public static List<Vector2> oldDirections;
     
     /// <summary>
     /// Instance variable <c>StartingPosition</c> represents the 3D coordinate value of the starting point of the game object.
     /// </summary>
-    public static Vector3 StartingPosition;
+    public static Vector3 startingPosition;
 
     /// <summary>
     /// Instance variable <c>characterSprite</c> represents the player's character sprite.
@@ -118,8 +115,11 @@ public class PlayerController : MonoBehaviour
     /// </summary>
     private static readonly int TriggerFall = Animator.StringToHash("triggerFall");
 
+    /// <summary>
+    /// TODO: comments
+    /// </summary>
     [SerializeField]
-    public GameObject TilemapCollisionPoint;
+    public GameObject tilemapCollisionPoint;
 
     /// <summary>
     /// Instance variable <c>walkingSound</c> represents the <c>AudioSource</c> Unity component triggering player walking sound.
@@ -146,7 +146,7 @@ public class PlayerController : MonoBehaviour
         _idleSprite = characterSprite.sprite;
         _rigidBody = gameObject.GetComponent<Rigidbody2D>();
         _animator = gameObject.GetComponent<Animator>();
-        StartingPosition = transform.position;
+        startingPosition = transform.position;
         
         _buttonMove = new PlayerMove();
         _buttonInteract = new PlayerInteract();
@@ -223,7 +223,7 @@ public class PlayerController : MonoBehaviour
     /// <returns>A boolean value representing the state of movement allowance.</returns>
     private bool CanMove(Vector3 direction)
     {
-        Vector3Int gridPosition = groundTileMap.WorldToCell(TilemapCollisionPoint.transform.position + direction * 1.05f);
+        Vector3Int gridPosition = groundTileMap.WorldToCell(tilemapCollisionPoint.transform.position + direction * 1.05f);
         if (!groundTileMap.HasTile(gridPosition) || collisionTileMap.HasTile(gridPosition) || pitfallTileMap.HasTile(gridPosition))
         {
             return false;
@@ -250,6 +250,9 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// TODO: comments
+    /// </summary>
     private void Replay()
     {
         if (Input.GetKeyDown(KeyCode.Y))
@@ -347,7 +350,7 @@ public class PlayerController : MonoBehaviour
     {
         _animator.ResetTrigger(TriggerFall);
         deathSound.Stop();
-        transform.position = StartingPosition;
+        transform.position = startingPosition;
         if(_currentInteractionObj != null) {
             if (_currentInteractionObj.CompareTag("Spring"))
             {

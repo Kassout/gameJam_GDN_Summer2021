@@ -1,20 +1,34 @@
 using UnityEngine;
 
+/// <summary>
+/// TODO: comments
+/// </summary>
 public class SortOrderController : MonoBehaviour
 {
+    /// <summary>
+    /// TODO: comments
+    /// </summary>
     [SerializeField]
     private float offset;
 
-    private SpriteRenderer sprite;
+    /// <summary>
+    /// TODO: comments
+    /// </summary>
+    private SpriteRenderer _sprite;
 
-    // Start is called before the first frame update
+    /// <summary>
+    /// TODO: comments
+    /// </summary>
     void Awake()
     {
-        sprite = GetComponent<SpriteRenderer>();
+        _sprite = GetComponent<SpriteRenderer>();
     }
 
+    /// <summary>
+    /// TODO: comments
+    /// </summary>
     void Update()
     {
-        sprite.sortingOrder = Mathf.RoundToInt((transform.position.y + offset) * 100f) * -1 + 1000;
+        _sprite.sortingOrder = Mathf.RoundToInt((transform.position.y + offset) * 100f) * -1 + 1000;
     }
 }

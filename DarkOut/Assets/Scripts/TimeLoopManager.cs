@@ -17,7 +17,10 @@ public class TimeLoopManager : MonoBehaviour
     [SerializeField]   
     private float timeLoopDuration = 60.0f;
 
-    private Coroutine coroutine;
+    /// <summary>
+    /// TODO: comments
+    /// </summary>
+    private Coroutine _coroutine;
     
     /// <summary>
     /// This method is called when the script instance is being loaded.
@@ -48,10 +51,10 @@ public class TimeLoopManager : MonoBehaviour
     /// </summary>
     public void StartTimeLoop()
     {
-        if(coroutine != null) {
-            StopCoroutine(coroutine);
+        if(_coroutine != null) {
+            StopCoroutine(_coroutine);
         }
-        coroutine = StartCoroutine(ProcessTimeLoop(timeLoopDuration));
+        _coroutine = StartCoroutine(ProcessTimeLoop(timeLoopDuration));
     }
 
     /// <summary>
@@ -68,7 +71,7 @@ public class TimeLoopManager : MonoBehaviour
             yield return null;
         }
         
-        coroutine = null;
+        _coroutine = null;
         
         GameManager.Instance.PlayerReplay();
     }

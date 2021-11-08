@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -88,10 +87,24 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private int startingScene;
 
-    private Tilemap groundTileMap;
-    private Tilemap collisionTileMap;
-    private Tilemap pitfallTileMap;
+    /// <summary>
+    /// TODO: comments
+    /// </summary>
+    private Tilemap _groundTileMap;
+    
+    /// <summary>
+    /// TODO: comments
+    /// </summary>
+    private Tilemap _collisionTileMap;
+    
+    /// <summary>
+    /// TODO: comments
+    /// </summary>
+    private Tilemap _pitfallTileMap;
 
+    /// <summary>
+    /// TODO: comments
+    /// </summary>
     public bool blockPlayer;
 
     /// <summary>
@@ -208,6 +221,12 @@ public class GameManager : MonoBehaviour
         //SceneManager.activeSceneChanged += OnActiveSceneChanged;
     }
 
+    /// <summary>
+    /// TODO: comments
+    /// </summary>
+    /// <param name="sceneIndex">TODO: comments</param>
+    /// <param name="isRecall">TODO: comments</param>
+    /// <returns>TODO: comments</returns>
     private IEnumerator OnLoadScene(int sceneIndex, bool isRecall)
     {
         gameManagerAnimator.SetTrigger(IsLoading);
@@ -234,26 +253,38 @@ public class GameManager : MonoBehaviour
         blockPlayer = false;
         TimeLoopManager.Instance.StartTimeLoop();
         
-        groundTileMap = GameObject.Find("Ground Tilemap").GetComponent<Tilemap>();
-        collisionTileMap = GameObject.Find("Collision Tilemap").GetComponent<Tilemap>();
-        pitfallTileMap = GameObject.Find("Pit Tilemap").GetComponent<Tilemap>();
+        _groundTileMap = GameObject.Find("Ground Tilemap").GetComponent<Tilemap>();
+        _collisionTileMap = GameObject.Find("Collision Tilemap").GetComponent<Tilemap>();
+        _pitfallTileMap = GameObject.Find("Pit Tilemap").GetComponent<Tilemap>();
 
         if (isRecall)
         {
-            Instantiate(playerGhost, PlayerController.StartingPosition, Quaternion.identity);
+            Instantiate(playerGhost, PlayerController.startingPosition, Quaternion.identity);
         }
     }
 
+    /// <summary>
+    /// TODO: comments
+    /// </summary>
+    /// <returns>TODO: comments</returns>
     public Tilemap GetGround() {
-        return groundTileMap;
+        return _groundTileMap;
     }
 
+    /// <summary>
+    /// TODO: comments
+    /// </summary>
+    /// <returns>TODO: comments</returns>
     public Tilemap GetCollision() {
-        return collisionTileMap;
+        return _collisionTileMap;
     }
 
+    /// <summary>
+    /// TODO: comments
+    /// </summary>
+    /// <returns>TODO: comments</returns>
     public Tilemap GetPitfall() {
-        return pitfallTileMap;
+        return _pitfallTileMap;
     }
 
     /// <summary>

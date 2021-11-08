@@ -1,9 +1,11 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
+/// <summary>
+/// TODO: comments
+/// </summary>
 public class GhostController : MonoBehaviour
 {
     /// <summary>
@@ -41,15 +43,21 @@ public class GhostController : MonoBehaviour
     /// </summary>
     private Animator _animator;
 
-    private int frameCount;
+    /// <summary>
+    /// TODO: comments
+    /// </summary>
+    private int _frameCount;
 
+    /// <summary>
+    /// TODO: comments
+    /// </summary>
     [SerializeField]
-    public GameObject TilemapCollisionPoint;
+    public GameObject tilemapCollisionPoint;
 
     /// <summary>
     /// Instance variable <c>StartingPosition</c> represents the 3D coordinate value of the starting point of the game object.
     /// </summary>
-    public static Vector3 StartingPosition;
+    public static Vector3 startingPosition;
 
     /// <summary>
     /// Static variable <c>AirTime</c> represents the string message to send to the game object animator to change the state of the "airTime" variable.
@@ -66,13 +74,34 @@ public class GhostController : MonoBehaviour
     /// </summary>
     private static readonly int TriggerFall = Animator.StringToHash("triggerFall");
 
+    /// <summary>
+    /// TODO: comments
+    /// </summary>
     public Tilemap groundTileMap;
+    
+    /// <summary>
+    /// TODO: comments
+    /// </summary>
     public Tilemap collisionTileMap;
+    
+    /// <summary>
+    /// TODO: comments
+    /// </summary>
     public Tilemap pitfallTileMap;
 
+    /// <summary>
+    /// TODO: comments
+    /// </summary>
     private bool _isDisabled;
+    
+    /// <summary>
+    /// TODO: comments
+    /// </summary>
     public bool isBouncing;
 
+    /// <summary>
+    /// TODO: comments
+    /// </summary>
     private void Awake()
     {
         _rigidBody = GetComponent<Rigidbody2D>();
@@ -80,61 +109,64 @@ public class GhostController : MonoBehaviour
         _animator = gameObject.GetComponent<Animator>();
         s_playerOldCommands = new List<Command>(GameManager.OldCommands);
         s_playerOldDirections = new List<Vector2>(GameManager.OldDirections);
-        frameCount = 0;
+        _frameCount = 0;
         _isDisabled = false;
         isBouncing = false;
-        StartingPosition = transform.position;
+        startingPosition = transform.position;
         groundTileMap = GameManager.Instance.GetGround();
         pitfallTileMap = GameManager.Instance.GetPitfall();
         collisionTileMap = GameManager.Instance.GetCollision();
     }
 
+    /// <summary>
+    /// TODO: comments
+    /// </summary>
     private void Start()
     {
         StartReplay();
     }
 
-    //Checks if we should start the replay
+    /// <summary>
+    /// TODO: comments
+    /// </summary>
     void StartReplay()
     {
         if (s_playerOldCommands.Count > 0)
         {
-            frameCount = 0;
+            _frameCount = 0;
             _rigidBody.position = _ghostStartingPosition;
         }
     }
 
+    /// <summary>
+    /// TODO: comments
+    /// </summary>
     void FixedUpdate() {
         ReplayCommands();
     }
 
+    /// <summary>
+    /// TODO: comments
+    /// </summary>
     private void ReplayCommands()
     {
-        if (frameCount < s_playerOldCommands.Count) {
+        if (_frameCount < s_playerOldCommands.Count) {
             //Move the box with the current command
-            if (s_playerOldCommands[frameCount].GetType() == typeof(PlayerInteract))
+            if (s_playerOldCommands[_frameCount].GetType() == typeof(PlayerInteract))
             {
                 Interact();
             }
             else if (!_isDisabled)
             {
-                s_playerOldCommands[frameCount].Move(_rigidBody, s_playerOldDirections[frameCount]);
+                s_playerOldCommands[_frameCount].Move(_rigidBody, s_playerOldDirections[_frameCount]);
             }
-            frameCount += 1;
+            _frameCount += 1;
         }
     }
 
-    private bool CanMove(Vector3 direction)
-    {
-        Vector3Int gridPosition = groundTileMap.WorldToCell(TilemapCollisionPoint.transform.position + direction * 1.05f);
-        if (!groundTileMap.HasTile(gridPosition) || collisionTileMap.HasTile(gridPosition) || pitfallTileMap.HasTile(gridPosition))
-        {
-            return false;
-        }
-
-        return true;
-    }
-
+    /// <summary>
+    /// TODO: comments
+    /// </summary>
     private void Interact()
     {
         if (_currentInteractionObj && _currentInteractionObj.GetComponent<TriggeringObject>())
@@ -204,10 +236,13 @@ public class GhostController : MonoBehaviour
         _rigidBody.AddForce(springForce, ForceMode2D.Impulse);
     }
 
+    /// <summary>
+    /// TODO: comments
+    /// </summary>
     public void RestartPosition()
     {
         _animator.ResetTrigger(TriggerFall);
-        transform.position = StartingPosition;
+        transform.position = startingPosition;
         if(_currentInteractionObj != null) {
             if (_currentInteractionObj.CompareTag("Spring"))
             {
