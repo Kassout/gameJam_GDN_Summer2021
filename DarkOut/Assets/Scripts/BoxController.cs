@@ -73,7 +73,7 @@ public class BoxController : MonoBehaviour
     /// <summary>
     /// This method is called every fixed frame-rate frame.
     /// </summary>
-    void FixedUpdate()
+    private void FixedUpdate()
     {
         CheckMoveCollision();
         if(_bouncing) {

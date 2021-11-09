@@ -41,7 +41,8 @@ public class RotationPlatformController : MonoBehaviour
     /// <summary>
     /// This method is called on the frame when a script is enabled
     /// </summary>
-    void Start() {
+    private void Start() 
+    {
         SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
         switch (rotationDirection) {
             case RotationDirection.Clockwise:

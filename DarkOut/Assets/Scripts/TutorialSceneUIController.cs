@@ -27,7 +27,7 @@ public class TutorialSceneUIController : MonoBehaviour
     private bool _endTutorial = false;
 
     /// <summary>
-    /// TODO: comments
+    /// This method is called once when the script instance is being loaded.
     /// </summary>
     private void Awake()
     {
@@ -35,9 +35,9 @@ public class TutorialSceneUIController : MonoBehaviour
     }
 
     /// <summary>
-    /// TODO: comments
+    /// This method is called once per frame
     /// </summary>
-    void Update()
+    private void Update()
     {
         if (_currentIndex == slideList.Length)
         {

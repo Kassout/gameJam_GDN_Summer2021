@@ -23,7 +23,7 @@ public class TimeLoopManager : MonoBehaviour
     private Coroutine _coroutine;
     
     /// <summary>
-    /// This method is called when the script instance is being loaded.
+    /// This method is called once when the script instance is being loaded.
     /// </summary>
     private void Awake()
     {

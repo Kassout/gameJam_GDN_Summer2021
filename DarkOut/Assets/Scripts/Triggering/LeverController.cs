@@ -6,11 +6,19 @@ using UnityEngine;
 /// </summary>
 public class LeverController : TriggeringObject
 {
+    #region Fields / Properties
+
     /// <summary>
     /// Instance variable <c>holdTime</c> represents the time to hold a button when on the PushButton mode.
     /// </summary>
     [SerializeField] 
     protected float holdTime = 0.15f;
+    
+    /// <summary>
+    /// Instance variable <c>leverPushedSound</c> represents the <c>AudioSource</c> Unity component triggering lever pushed sound.
+    /// </summary>
+    [SerializeField]
+    private AudioSource leverPushedSound;
 
     /// <summary>
     /// Instance variable <c>colliderSizeOnPressure</c> represents the collider size value when activation on pressure.
@@ -26,27 +34,25 @@ public class LeverController : TriggeringObject
     /// Instance variable <c>leverAnimator</c> represents the lever Unity component animator.
     /// </summary>
     private Animator _leverAnimator;
-    
-    /// <summary>
-    /// Instance variable <c>leverPushedSound</c> represents the <c>AudioSource</c> Unity component triggering lever pushed sound.
-    /// </summary>
-    [SerializeField]
-    private AudioSource leverPushedSound;
-    
+
     /// <summary>
     /// Static variable <c>Pushed</c> represents the string message to send to the game object animator to change the state of the "isPushed" variable.
     /// </summary>
     private static readonly int Pushed = Animator.StringToHash("isPushed");
 
     /// <summary>
-    /// TODO: comments
+    /// Instance variable <c>_activatedCoroutine</c> represents a collection of method state related to the named coroutine function.
     /// </summary>
     private IEnumerator _activatedCoroutine;
 
+    #endregion
+
+    #region MonoBehaviour
+
     /// <summary>
-    /// This method is called when the script instance is being loaded.
+    /// This method is called once when the script instance is being loaded.
     /// </summary>
-    void Awake()
+    private void Awake()
     {
         IsActivated = false;
         BoxCollider2D boxCollider = GetComponent<BoxCollider2D>();
@@ -96,7 +102,11 @@ public class LeverController : TriggeringObject
             OnDeactivate();
         }
     }
-    
+
+    #endregion
+
+    #region Public
+
     /// <summary>
     /// This method is called when the lever is activated.
     /// </summary>
@@ -108,7 +118,7 @@ public class LeverController : TriggeringObject
         }
         IsActivated = true;
         _leverAnimator.SetBool(Pushed, IsActivated);
-        foreach (var actionableObject in actionableObjects)
+        foreach (ActionableObject actionableObject in actionableObjects)
         {
             actionableObject.TriggerActionEvent();
         }
@@ -135,7 +145,7 @@ public class LeverController : TriggeringObject
     {
         IsActivated = false;
         _leverAnimator.SetBool(Pushed, IsActivated);
-        foreach (var actionableObject in actionableObjects)
+        foreach (ActionableObject actionableObject in actionableObjects)
         {
             actionableObject.KillTriggers();
         }
@@ -143,9 +153,9 @@ public class LeverController : TriggeringObject
     }
 
     /// <summary>
-    /// TODO: comments
+    /// This method is called to switch the active coroutine reference.
     /// </summary>
-    /// <param name="coroutine">TODO: comments</param>
+    /// <param name="coroutine">A <c>IEnumerator</c> object representing a list of controls.</param>
     public void PassCoroutineRef(IEnumerator coroutine) {
         if (_activatedCoroutine != null) {
             StopCoroutine(_activatedCoroutine);
@@ -154,4 +164,6 @@ public class LeverController : TriggeringObject
         }
         _activatedCoroutine = coroutine;
     }
+
+    #endregion
 }

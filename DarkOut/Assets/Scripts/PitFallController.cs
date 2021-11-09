@@ -18,9 +18,10 @@ public class PitFallController : MonoBehaviour
     private GameObject checkLocation;
 
     /// <summary>
-    /// TODO: comments
+    /// This method is called once when the script instance is being loaded.
     /// </summary>
-    void Awake() {
+    private void Awake() 
+    {
         _pitfallTileMap = GetComponent<Tilemap>();
     }
 

@@ -20,7 +20,8 @@ public class OuterTrigger : MonoBehaviour
     /// This method is called when another object leaves a trigger collider attached to this object.
     /// </summary>
     /// <param name="other">A <c>Collider2D</c> Unity component representing the collider of the object that it collides with.</param>
-    void OnTriggerExit2D(Collider2D other) {
+    private void OnTriggerExit2D(Collider2D other)
+    {
         controller.OuterExited(other);
     }
 

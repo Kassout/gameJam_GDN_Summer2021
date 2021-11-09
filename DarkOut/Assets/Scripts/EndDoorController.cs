@@ -33,7 +33,7 @@ public class EndDoorController : ReceiverObject
     private BoxCollider2D _collision;
 
     /// <summary>
-    /// TODO: comments
+    /// This method is called once when the script instance is being loaded.
     /// </summary>
     private void Awake()
     {

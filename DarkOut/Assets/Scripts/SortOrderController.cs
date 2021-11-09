@@ -17,17 +17,17 @@ public class SortOrderController : MonoBehaviour
     private SpriteRenderer _sprite;
 
     /// <summary>
-    /// TODO: comments
+    /// This method is called once when the script instance is being loaded.
     /// </summary>
-    void Awake()
+    private void Awake()
     {
         _sprite = GetComponent<SpriteRenderer>();
     }
 
     /// <summary>
-    /// TODO: comments
+    /// This method is called once per frame
     /// </summary>
-    void Update()
+    private void Update()
     {
         _sprite.sortingOrder = Mathf.RoundToInt((transform.position.y + offset) * 100f) * -1 + 1000;
     }

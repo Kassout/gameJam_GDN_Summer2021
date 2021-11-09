@@ -6,9 +6,9 @@ using UnityEngine;
 public class EndPointController : MonoBehaviour
 {
     /// <summary>
-    /// TODO: comments
+    /// This method is called when another object enters a trigger collider attached to this object.
     /// </summary>
-    /// <param name="other">TODO: comments</param>
+    /// <param name="other">A <c>Collider2D</c> Unity component representing the collider of the object that it collides with.</param>
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Player"))

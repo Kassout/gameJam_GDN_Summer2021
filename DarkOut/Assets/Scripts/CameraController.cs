@@ -45,9 +45,9 @@ public class CameraController : MonoBehaviour
     };
     
     /// <summary>
-    /// This method is called when the script instance is being loaded.
+    /// This method is called once when the script instance is being loaded.
     /// </summary>
-    void Awake()
+    private void Awake()
     {
         // raw following camera style
         if (cameraStyle.Equals(CameraStyle.Following))

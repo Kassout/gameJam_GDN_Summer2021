@@ -34,7 +34,7 @@ public class SpringBoxController : MonoBehaviour
     }
 
     /// <summary>
-    /// TODO: comments
+    /// This method is called once when the script instance is being loaded.
     /// </summary>
     private void Awake()
     {

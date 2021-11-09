@@ -31,7 +31,7 @@ public class MenuUIHandler : MonoBehaviour
     private bool _isPaused = false;
     
     /// <summary>
-    /// This method is called when the script instance is being loaded.
+    /// This method is called once when the script instance is being loaded.
     /// </summary>
     private void Awake()
     {

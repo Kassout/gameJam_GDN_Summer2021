@@ -34,19 +34,19 @@ public class ArrowController : MonoBehaviour
     /// <summary>
     /// This method is called when another object enters a trigger collider attached to this object.
     /// </summary>
-    /// <param name="oCollider">A <c>Collider2D</c> Unity component representing the collider of the object that it collides with.</param>
-    private void OnTriggerEnter2D(Collider2D oCollider)
+    /// <param name="other">A <c>Collider2D</c> Unity component representing the collider of the object that it collides with.</param>
+    private void OnTriggerEnter2D(Collider2D other)
     {
-        if (oCollider.CompareTag("Spring"))
+        if (other.CompareTag("Spring"))
         {
-            transform.position = oCollider.transform.position;
-            _direction = oCollider.GetComponent<SpringController>().GetDirection();
+            transform.position = other.transform.position;
+            _direction = other.GetComponent<SpringController>().GetDirection();
             Rotate();
             transform.Translate(_direction * 0.8f, Space.World);
-        } else if (oCollider.CompareTag("InteractionObject"))
+        } else if (other.CompareTag("InteractionObject"))
         {
-            LeverController lever = oCollider.GetComponent<LeverController>();
-            if(lever != null) {
+            LeverController lever = other.GetComponent<LeverController>();
+            if (lever != null) {
                 IEnumerator coroutine = lever.PushSequenceOnInteraction();
                 lever.PassCoroutineRef(coroutine);
                 lever.StartCoroutine(coroutine);
@@ -55,16 +55,16 @@ public class ArrowController : MonoBehaviour
     }
 
     /// <summary>
-    /// TODO: comments
+    /// This method is called when an incoming collider makes contact with this object's collider.
     /// </summary>
-    /// <param name="oCollision"></param>
-    private void OnCollisionEnter2D(Collision2D oCollision)
+    /// <param name="other">A <c>Collision2D</c> Unity component data associated with this collision.</param>
+    private void OnCollisionEnter2D(Collision2D other)
     {
-        if (oCollision.gameObject.CompareTag("Player"))
+        if (other.gameObject.CompareTag("Player"))
         {
-            oCollision.gameObject.GetComponent<PlayerController>().TakeDamage();
+            other.gameObject.GetComponent<PlayerController>().TakeDamage();
         }
-        if(!oCollision.gameObject.CompareTag("Spring") || !oCollision.gameObject.CompareTag("InteractionObject")) {
+        if(!other.gameObject.CompareTag("Spring") || !other.gameObject.CompareTag("InteractionObject")) {
             Destroy(gameObject);
         }
     }

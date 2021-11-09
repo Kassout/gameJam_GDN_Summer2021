@@ -6,6 +6,14 @@ using UnityEngine;
 /// </summary>
 public class ButtonController : TriggeringObject
 {
+    #region Fields / Properties
+
+    /// <summary>
+    /// Instance variable <c>buttonPushedSound</c> represents the <c>AudioSource</c> Unity component triggering button pushed sound.
+    /// </summary>
+    [SerializeField]
+    private AudioSource buttonPushedSound;
+    
     /// <summary>
     /// Instance variable <c>colliderSizeOnPressure</c> represents the collider size value when activation on pressure.
     /// </summary>
@@ -20,22 +28,20 @@ public class ButtonController : TriggeringObject
     /// Instance variable <c>buttonAnimator</c> represents the button Unity component animator.
     /// </summary>
     private Animator _buttonAnimator;
-    
-    /// <summary>
-    /// Instance variable <c>buttonPushedSound</c> represents the <c>AudioSource</c> Unity component triggering button pushed sound.
-    /// </summary>
-    [SerializeField]
-    private AudioSource buttonPushedSound;
-    
+
     /// <summary>
     /// Static variable <c>Pushed</c> represents the string message to send to the game object animator to change the state of the "isPushed" variable.
     /// </summary>
     private static readonly int Pushed = Animator.StringToHash("isPushed");
 
-    /// <summary>
-    /// This method is called when the script instance is being loaded.
+    #endregion
+
+    #region MonoBehaviour
+
+        /// <summary>
+    /// This method is called once when the script instance is being loaded.
     /// </summary>
-    void Awake()
+    private void Awake()
     {
         IsActivated = false;
         BoxCollider2D boxCollider = GetComponent<BoxCollider2D>();
@@ -91,6 +97,10 @@ public class ButtonController : TriggeringObject
             }
         }
     }
+    
+    #endregion
+
+    #region Public
 
     /// <summary>
     /// This method is called when the button is activated.
@@ -107,6 +117,22 @@ public class ButtonController : TriggeringObject
             foreach (var actionableObject in actionableObjects)
             {
                 actionableObject.TriggerActionEvent();
+            }
+        }
+    }
+    
+    /// <summary>
+    /// This method is called when the button is deactivated.
+    /// </summary>
+    public override void OnDeactivate()
+    {
+        buttonPushedSound.Play();
+        IsActivated = false;
+        _buttonAnimator.SetBool(Pushed, IsActivated);
+        if(actionableObjects.Count > 0) {
+            foreach (ActionableObject actionableObject in actionableObjects)
+            {
+                actionableObject.KillTriggers();
             }
         }
     }
@@ -127,19 +153,5 @@ public class ButtonController : TriggeringObject
         }
     }
 
-    /// <summary>
-    /// This method is called when the button is deactivated.
-    /// </summary>
-    public override void OnDeactivate()
-    {
-        buttonPushedSound.Play();
-        IsActivated = false;
-        _buttonAnimator.SetBool(Pushed, IsActivated);
-        if(actionableObjects.Count > 0) {
-            foreach (var actionableObject in actionableObjects)
-            {
-                actionableObject.KillTriggers();
-            }
-        }
-    }
+    #endregion
 }

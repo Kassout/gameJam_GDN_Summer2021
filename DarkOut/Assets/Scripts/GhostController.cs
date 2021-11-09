@@ -100,7 +100,7 @@ public class GhostController : MonoBehaviour
     public bool isBouncing;
 
     /// <summary>
-    /// TODO: comments
+    /// This method is called once when the script instance is being loaded.
     /// </summary>
     private void Awake()
     {
@@ -119,7 +119,7 @@ public class GhostController : MonoBehaviour
     }
 
     /// <summary>
-    /// TODO: comments
+    /// This method is called on the frame when a script is enabled
     /// </summary>
     private void Start()
     {
@@ -139,9 +139,10 @@ public class GhostController : MonoBehaviour
     }
 
     /// <summary>
-    /// TODO: comments
+    /// This method is called every fixed frame-rate frame.
     /// </summary>
-    void FixedUpdate() {
+    private void FixedUpdate() 
+    {
         ReplayCommands();
     }
 

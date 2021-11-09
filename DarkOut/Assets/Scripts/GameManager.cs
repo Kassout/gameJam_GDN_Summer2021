@@ -108,7 +108,7 @@ public class GameManager : MonoBehaviour
     public bool blockPlayer;
 
     /// <summary>
-    /// This method is called when the script instance is being loaded.
+    /// This method is called once when the script instance is being loaded.
     /// </summary>
     private void Awake()
     {

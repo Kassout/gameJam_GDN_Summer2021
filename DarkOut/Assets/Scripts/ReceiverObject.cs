@@ -33,17 +33,17 @@ public abstract class ReceiverObject : MonoBehaviour
     private List<TriggeringObject> _activatedTriggeringObjects;
 
     /// <summary>
-    /// TODO: comments
+    /// This method is called on the frame when a script is enabled
     /// </summary>
-    void Start()
+    private void Start()
     {
         _activatedTriggeringObjects = new List<TriggeringObject>();
     }
 
     /// <summary>
-    /// TODO: comments
+    /// This method is called once per frame
     /// </summary>
-    void Update()
+    private void Update()
     {
         UpdateReceiverStatus();
     }

@@ -19,8 +19,11 @@ public class Spring : MonoBehaviour {
 		}
 	}
 
-	// Use this for initialization
-	void Start () {
+	/// <summary>
+	/// This method is called on the frame when a script is enabled
+	/// </summary>
+	private void Start () 
+	{
 		animator = GetComponent<Animator>();
 
 		if (rayCastStart != null && rayCastEnd != null) {
@@ -28,8 +31,11 @@ public class Spring : MonoBehaviour {
 		}
 	}
 	
-	// Update is called once per frame
-	void Update () {
+	/// <summary>
+	/// This method is called once per frame
+	/// </summary>
+	private void Update()
+	{
 		Debug.DrawLine (rayCastStart.position, rayCastEnd.position, Color.green);
 		RaycastHit2D hit = Physics2D.Raycast(rayCastStart.position, Vector2.right, rayCastDistance, playerLayerMask);
 		if (hit.collider != null && !animator.GetBool("Pressing"))

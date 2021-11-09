@@ -6,9 +6,9 @@ using UnityEngine;
 public class MoveCameraController : MonoBehaviour
 {
     /// <summary>
-    /// TODO: comments
+    /// This method is called once per frame
     /// </summary>
-    void Update()
+    private void Update()
     {
         transform.localPosition = new Vector3(Input.GetAxis("ArrowHorizontal") * 3.0f, Input.GetAxis("ArrowVertical") * 3.0f, 0);
     }
