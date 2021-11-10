@@ -170,6 +170,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0524e78b17329914b9406a44c68cdaa8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isBouncing: 0
   characterSprite: {fileID: 4170179780837705355}
   walkSprite: {fileID: 21300000, guid: 806f5d73b91ed754696339ce0ca0d6b0, type: 3}
   moveSpeed: 2.5
@@ -177,10 +178,9 @@ MonoBehaviour:
   groundTileMap: {fileID: 0}
   collisionTileMap: {fileID: 0}
   pitfallTileMap: {fileID: 0}
-  TilemapCollisionPoint: {fileID: 4170179782733741507}
+  tilemapCollisionPoint: {fileID: 4170179782733741507}
   walkingSound: {fileID: 4170179781198387418}
   deathSound: {fileID: 4170179781198387419}
-  isBouncing: 0
 --- !u!70 &4170179781896407312
 CapsuleCollider2D:
   m_ObjectHideFlags: 0

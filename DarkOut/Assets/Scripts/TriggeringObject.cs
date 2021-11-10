@@ -23,6 +23,8 @@ public interface ITriggeringObject
 /// </summary>
 public abstract class TriggeringObject : MonoBehaviour, ITriggeringObject
 {
+    #region Fields / Properties
+
     /// <summary>
     /// Instance variable <c>IsActivated</c> represents the state of activation of the triggering object.
     /// </summary>
@@ -63,7 +65,11 @@ public abstract class TriggeringObject : MonoBehaviour, ITriggeringObject
         PushButton,
         Switch
     }
-    
+
+    #endregion
+
+    #region Public
+
     /// <summary>
     /// This method is used when the triggering object get activated.
     /// </summary>
@@ -80,4 +86,5 @@ public abstract class TriggeringObject : MonoBehaviour, ITriggeringObject
     /// <returns>A <c>IEnumerator</c> object representing a list of controls.</returns>
     public abstract IEnumerator PushSequenceOnInteraction();
 
+    #endregion
 }

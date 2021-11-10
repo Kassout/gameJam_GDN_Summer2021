@@ -7,6 +7,8 @@ using UnityEngine.UI;
 [DefaultExecutionOrder(1000)]
 public class MenuUIHandler : MonoBehaviour
 {
+    #region Fields / Properties
+
     /// <summary>
     /// Instance variable <c>pauseMenu</c> represents the pause UI menu of the main game scene.
     /// </summary>
@@ -28,8 +30,12 @@ public class MenuUIHandler : MonoBehaviour
     /// <summary>
     /// Instance variable <c>isPaused</c> represents the state of the game pause.
     /// </summary>
-    private bool _isPaused = false;
-    
+    private bool _isPaused;
+
+    #endregion
+
+    #region MonoBehaviour
+
     /// <summary>
     /// This method is called once when the script instance is being loaded.
     /// </summary>
@@ -68,6 +74,10 @@ public class MenuUIHandler : MonoBehaviour
         Time.timeScale = 1 * (_isPaused ? 0 : 1);
     }
 
+    #endregion
+
+    #region Private
+
     /// <summary>
     /// This method is called to open the pause UI menu.
     /// </summary>
@@ -75,6 +85,10 @@ public class MenuUIHandler : MonoBehaviour
     {
         pauseMenu.SetActive(true);
     }
+
+    #endregion
+
+    #region Public
 
     /// <summary>
     /// This method is used to stop and close the game.
@@ -126,4 +140,7 @@ public class MenuUIHandler : MonoBehaviour
         settingsMenu.SetActive(false);
         pauseMenu.SetActive(true);
     }
+
+    #endregion
+
 }

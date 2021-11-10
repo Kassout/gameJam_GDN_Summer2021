@@ -125,9 +125,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   forceAmplitude: 5
-  bouncingDirection: 3
   timeToWait: 0.5
   springTriggerSound: {fileID: 480830328}
+  bouncingDirection: 3
 --- !u!82 &480830328
 AudioSource:
   m_ObjectHideFlags: 0
@@ -362,9 +362,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   forceAmplitude: 5
-  bouncingDirection: 0
   timeToWait: 0.5
   springTriggerSound: {fileID: 1014390369}
+  bouncingDirection: 0
 --- !u!82 &1014390369
 AudioSource:
   m_ObjectHideFlags: 0
@@ -599,9 +599,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   forceAmplitude: 5
-  bouncingDirection: 1
   timeToWait: 0.5
   springTriggerSound: {fileID: 1849706650}
+  bouncingDirection: 1
 --- !u!82 &1849706650
 AudioSource:
   m_ObjectHideFlags: 0
@@ -836,9 +836,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   forceAmplitude: 5
-  bouncingDirection: 2
   timeToWait: 0.5
   springTriggerSound: {fileID: 1935789606}
+  bouncingDirection: 2
 --- !u!82 &1935789606
 AudioSource:
   m_ObjectHideFlags: 0
@@ -1059,10 +1059,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce59f19bb449aa648a943f87b7683e70, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  boxPushedSound: {fileID: 482932010}
   groundTileMap: {fileID: 0}
   collisionTileMap: {fileID: 0}
   pitfallTileMap: {fileID: 0}
-  boxPushedSound: {fileID: 482932010}
 --- !u!82 &482932010
 AudioSource:
   m_ObjectHideFlags: 0

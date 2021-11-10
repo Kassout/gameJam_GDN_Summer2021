@@ -5,11 +5,8 @@ using UnityEngine;
 /// </summary>
 public class SpringController : MonoBehaviour
 {
-    /// <summary>
-    /// Instance variable <c>direction</c> represents the bouncing direction vector of the spring.
-    /// </summary>
-    private Vector2 _direction;
-
+    #region Fields / Properties
+    
     /// <summary>
     /// Instance variable <c>forceAmplitude</c> represents the bouncing force amplitude value of the spring.
     /// </summary>
@@ -17,16 +14,27 @@ public class SpringController : MonoBehaviour
     private float forceAmplitude;
     
     /// <summary>
-    /// Instance variable <c>bouncingDirection</c> represents the bouncing direction type of the spring.
-    /// </summary>
-    public BouncingDirection bouncingDirection;
-
-    /// <summary>
     /// Instance variable <c>timeToWait</c> represents the bouncing time of the objects which collides with the spring.
     /// </summary>
     [SerializeField]
     private float timeToWait = 0.5f;
+    
+    /// <summary>
+    /// Instance variable <c>springTriggerSound</c> represents the <c>AudioSource</c> Unity component triggering spring bounce sound.
+    /// </summary>
+    [SerializeField]
+    private AudioSource springTriggerSound;
 
+    /// <summary>
+    /// Instance variable <c>direction</c> represents the bouncing direction vector of the spring.
+    /// </summary>
+    private Vector2 _direction;
+    
+    /// <summary>
+    /// Instance variable <c>bouncingDirection</c> represents the bouncing direction type of the spring.
+    /// </summary>
+    public BouncingDirection bouncingDirection;
+    
     /// <summary>
     /// Instance variable <c>BouncingDirection</c> represents an enumeration of bouncing direction type for the spring object.
     /// </summary>
@@ -37,13 +45,10 @@ public class SpringController : MonoBehaviour
         Left,
         Right
     }
-    
-    /// <summary>
-    /// Instance variable <c>springTriggerSound</c> represents the <c>AudioSource</c> Unity component triggering spring bounce sound.
-    /// </summary>
-    [SerializeField]
-    private AudioSource springTriggerSound;
-    
+
+    #endregion
+
+    #region MonoBehaviour
 
     /// <summary>
     /// This method is called once when the script instance is being loaded.
@@ -94,9 +99,12 @@ public class SpringController : MonoBehaviour
                 box.SpringBounce(_direction);
             }
             springTriggerSound.Play();
-            //other.GetComponent<Rigidbody2D>().AddForce(_direction * forceAmplitude * 10, ForceMode2D.Impulse);
         }
     }
+
+    #endregion
+
+    #region Public
 
     /// <summary>
     /// This method is called to get the spring bouncing direction.
@@ -106,4 +114,5 @@ public class SpringController : MonoBehaviour
         return _direction;
     }
 
+    #endregion
 }

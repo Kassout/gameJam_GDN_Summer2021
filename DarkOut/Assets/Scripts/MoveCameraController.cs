@@ -1,7 +1,7 @@
 using UnityEngine;
 
 /// <summary>
-/// TODO: comments
+/// Class <c>MoveCameraController</c> is a Unity component script used to manage the camera movement behaviour.
 /// </summary>
 public class MoveCameraController : MonoBehaviour
 {

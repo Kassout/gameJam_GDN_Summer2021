@@ -11,6 +11,8 @@ using UnityEngine.UI;
 [DefaultExecutionOrder(1000)]
 public class MainMenuUIHandler : MonoBehaviour
 {
+    #region Fields / Properties
+
     /// <summary>
     /// Instance variable <c>mainMenuTheme</c> represents the audio clip of the main menu scene.
     /// </summary>
@@ -47,6 +49,10 @@ public class MainMenuUIHandler : MonoBehaviour
     [SerializeField]
     private int gameSceneToLoad = 2;
 
+    #endregion
+
+    #region MonoBehaviour
+
     /// <summary>
     /// This method is called once when the script instance is being loaded.
     /// </summary>
@@ -56,8 +62,32 @@ public class MainMenuUIHandler : MonoBehaviour
         OpenMainMenu();
         volumeSlider.value = PlayerPrefs.GetFloat("volume");
     }
+    
+    #endregion
+
+    #region Private
 
     /// <summary>
+    /// This method is called to start playing the main menu theme.
+    /// </summary>
+    private void PlayMainMenuTheme()
+    {
+        mainMenuTheme.Play();
+    }
+
+    /// <summary>
+    /// This method is called to stop playing the main menu theme.
+    /// </summary>
+    private void StopMainMenuTheme()
+    {
+        mainMenuTheme.Stop();
+    }
+
+    #endregion
+
+    #region Public
+
+        /// <summary>
     /// This method is used to start the game from the main menu.
     /// </summary>
     public void StartGame()
@@ -105,8 +135,8 @@ public class MainMenuUIHandler : MonoBehaviour
     {
         PlayerPrefs.SetFloat("volume", volumeSlider.value);
         AudioListener.volume = volumeSlider.value;
-;    }
-    
+    }
+
     /// <summary>
     /// This method is used to stop and close the game.
     /// </summary>
@@ -122,22 +152,6 @@ public class MainMenuUIHandler : MonoBehaviour
     }
 
     /// <summary>
-    /// This method is called to start playing the main menu theme.
-    /// </summary>
-    private void PlayMainMenuTheme()
-    {
-        mainMenuTheme.Play();
-    }
-
-    /// <summary>
-    /// This method is called to stop playing the main menu theme.
-    /// </summary>
-    private void StopMainMenuTheme()
-    {
-        mainMenuTheme.Stop();
-    }
-
-    /// <summary>
     /// This method is called to close the settings UI menu.
     /// </summary>
     public void CloseSettings()
@@ -147,11 +161,13 @@ public class MainMenuUIHandler : MonoBehaviour
     }
     
     /// <summary>
-    /// TODO: comments
+    /// This method is called to resume the game.
     /// </summary>
     public void ContinueGame()
     {
         StopMainMenuTheme();
         GameManager.Instance.LoadLevelData();
     }
+
+    #endregion
 }

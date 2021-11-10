@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -8,16 +7,18 @@ using UnityEngine.Tilemaps;
 /// </summary>
 public class PlayerController : MonoBehaviour
 {
+    #region Fields / Properties
+
     /// <summary>
-    /// TODO: comments
-    /// </summary>
-    private Command _buttonMove, _buttonInteract;
-    
-    /// <summary>
-    /// Instance variable <c>StartingPosition</c> represents the 3D coordinate value of the starting point of the game object.
+    /// Static variable <c>StartingPosition</c> represents the 3D coordinate value of the starting point of the game object.
     /// </summary>
     public static Vector3 startingPosition;
-
+    
+    /// <summary>
+    /// Instance variable <c>isBouncing</c> represents the bouncing status of the player.
+    /// </summary>
+    public bool isBouncing;
+    
     /// <summary>
     /// Instance variable <c>characterSprite</c> represents the player's character sprite.
     /// </summary>
@@ -31,31 +32,11 @@ public class PlayerController : MonoBehaviour
     private Sprite walkSprite;
     
     /// <summary>
-    /// Instance variable <c>walkSprite</c> represents the player's character walking sprite.
-    /// </summary>
-    private Sprite _idleSprite;
-    
-    /// <summary>
-    /// Instance variable <c>rigidBody</c> represents the player's rigidbody.
-    /// </summary>
-    private Rigidbody2D _rigidBody;
-
-    /// <summary>
-    /// Instance variable <c>_animator</c> represents the player's animator controller.
-    /// </summary>
-    private Animator _animator;
-    
-    /// <summary>
     /// Instance variable <c>moveSpeed</c> represents the player's movement speed.
     /// </summary>
     [SerializeField]
     private float moveSpeed = 5f;
-
-    /// <summary>
-    /// Instance variable <c>isDisabled</c> represents the state of player control inputs.
-    /// </summary>
-    private bool _isDisabled = false;
-
+    
     /// <summary>
     /// Instance variable <c>immobilizationTime</c> represents the player's time of immobilization when getting hurt.
     /// </summary>
@@ -79,27 +60,29 @@ public class PlayerController : MonoBehaviour
     /// </summary>
     [SerializeField]
     private Tilemap pitfallTileMap;
+    
+    /// <summary>
+    /// Instance variable <c>tilemapCollisionPoint</c> represents the player's collision point game object to interact with tilemaps.
+    /// </summary>
+    public GameObject tilemapCollisionPoint;
 
     /// <summary>
-    /// Instance variable <c>movement</c> represents the player's movement.
+    /// Instance variable <c>walkingSound</c> represents the <c>AudioSource</c> Unity component triggering player walking sound.
     /// </summary>
-    private Vector2 _movement;
+    [SerializeField]
+    private AudioSource walkingSound;
 
     /// <summary>
-    /// Instance variable <c>currentInteractionObj</c> represents the triggering game object the player is in the range of activation.
+    /// Instance variable <c>deathSound</c> represents the <c>AudioSource</c> Unity component triggering player death sound.
     /// </summary>
-    private GameObject _currentInteractionObj;
-
+    [SerializeField] 
+    private AudioSource deathSound;
+    
     /// <summary>
     /// Static variable <c>TriggerDamage</c> represents the string message of the animator trigger variable "triggerDamage".
     /// </summary>
     private static readonly int TriggerDamage = Animator.StringToHash("triggerDamage");
-
-    /// <summary>
-    /// Instance variable <c>move</c> represents movement vector of the player.
-    /// </summary>
-    private Vector2 _move;
-
+    
     /// <summary>
     /// Static variable <c>AirTime</c> represents the string message to send to the game object animator to change the state of the "airTime" variable.
     /// </summary>
@@ -116,28 +99,54 @@ public class PlayerController : MonoBehaviour
     private static readonly int TriggerFall = Animator.StringToHash("triggerFall");
 
     /// <summary>
-    /// TODO: comments
+    /// Instance variable <c>_buttonMove</c> represents the player's move command.
     /// </summary>
-    [SerializeField]
-    public GameObject tilemapCollisionPoint;
-
-    /// <summary>
-    /// Instance variable <c>walkingSound</c> represents the <c>AudioSource</c> Unity component triggering player walking sound.
-    /// </summary>
-    [SerializeField]
-    private AudioSource walkingSound;
-
-    /// <summary>
-    /// Instance variable <c>deathSound</c> represents the <c>AudioSource</c> Unity component triggering player death sound.
-    /// </summary>
-    [SerializeField] 
-    private AudioSource deathSound;
-
-    /// <summary>
-    /// TODO: comments
-    /// </summary>
-    public bool isBouncing;
+    private Command _buttonMove;
     
+    /// <summary>
+    /// Instance variable <c>_buttonInteract</c> represents the player's interact command.
+    /// </summary>
+    private Command _buttonInteract;
+    
+    /// <summary>
+    /// Instance variable <c>walkSprite</c> represents the player's character walking sprite.
+    /// </summary>
+    private Sprite _idleSprite;
+    
+    /// <summary>
+    /// Instance variable <c>rigidBody</c> represents the player's rigidbody.
+    /// </summary>
+    private Rigidbody2D _rigidBody;
+
+    /// <summary>
+    /// Instance variable <c>_animator</c> represents the player's animator controller.
+    /// </summary>
+    private Animator _animator;
+
+    /// <summary>
+    /// Instance variable <c>isDisabled</c> represents the state of player control inputs.
+    /// </summary>
+    private bool _isDisabled;
+
+    /// <summary>
+    /// Instance variable <c>movement</c> represents the player's movement.
+    /// </summary>
+    private Vector2 _movement;
+
+    /// <summary>
+    /// Instance variable <c>currentInteractionObj</c> represents the triggering game object the player is in the range of activation.
+    /// </summary>
+    private GameObject _currentInteractionObj;
+
+    /// <summary>
+    /// Instance variable <c>move</c> represents movement vector of the player.
+    /// </summary>
+    private Vector2 _move;
+
+    #endregion
+
+    #region MonoBehaviour
+
     /// <summary>
     /// This method is called once when the script instance is being loaded.
     /// </summary>
@@ -200,10 +209,37 @@ public class PlayerController : MonoBehaviour
         {
             MovePlayer();
         }
+    }
 
+    /// <summary>
+    /// This method is called when another object enters a trigger collider attached to this object.
+    /// </summary>
+    /// <param name="other">A <c>Collider2D</c> Unity component representing the collider of the object that it collides with.</param>
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.gameObject.CompareTag("InteractionObject") || other.gameObject.CompareTag("Spring"))
+        {
+            _currentInteractionObj = other.gameObject;
+        }
     }
     
     /// <summary>
+    /// This method is called when another object leaves a trigger collider attached to this object.
+    /// </summary>
+    /// <param name="other">A <c>Collider2D</c> Unity component representing the collider of the object that it collides with.</param>
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        if (other.gameObject.CompareTag("InteractionObject"))
+        {
+            _currentInteractionObj = null;
+        }
+    }
+    
+    #endregion
+
+    #region Private
+
+        /// <summary>
     /// This method is used to move the player.
     /// </summary>
     private void MovePlayer()
@@ -239,7 +275,6 @@ public class PlayerController : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.E) && _currentInteractionObj && _currentInteractionObj.GetComponent<TriggeringObject>())
         {
-            // TODO: erase 
             _buttonInteract.Execute(_rigidBody, _movement, _buttonInteract);
             IEnumerator coroutine = _currentInteractionObj.GetComponent<TriggeringObject>().PushSequenceOnInteraction();
             LeverController lever = _currentInteractionObj.GetComponent<LeverController>();
@@ -251,7 +286,7 @@ public class PlayerController : MonoBehaviour
     }
 
     /// <summary>
-    /// TODO: comments
+    /// This method is called on player's replay command invocation.
     /// </summary>
     private void Replay()
     {
@@ -259,38 +294,6 @@ public class PlayerController : MonoBehaviour
         {
             GameManager.Instance.PlayerReplay();
         }
-    }
-
-    /// <summary>
-    /// This method is called when another object enters a trigger collider attached to this object.
-    /// </summary>
-    /// <param name="other">A <c>Collider2D</c> Unity component representing the collider of the object that it collides with.</param>
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-        if (other.gameObject.CompareTag("InteractionObject") || other.gameObject.CompareTag("Spring"))
-        {
-            _currentInteractionObj = other.gameObject;
-        }
-    }
-    
-    /// <summary>
-    /// This method is called when another object leaves a trigger collider attached to this object.
-    /// </summary>
-    /// <param name="other">A <c>Collider2D</c> Unity component representing the collider of the object that it collides with.</param>
-    private void OnTriggerExit2D(Collider2D other)
-    {
-        if (other.gameObject.CompareTag("InteractionObject"))
-        {
-            _currentInteractionObj = null;
-        }
-    }
-
-    /// <summary>
-    /// This method is called when the player get in collision with a hurting game object.
-    /// </summary>
-    public void TakeDamage()
-    {
-        StartCoroutine(GetHurt());
     }
 
     // ReSharper disable Unity.PerformanceAnalysis
@@ -306,6 +309,18 @@ public class PlayerController : MonoBehaviour
         yield return new WaitForSeconds(immobilizationTime);
         
         _rigidBody.constraints = RigidbodyConstraints2D.FreezeRotation;
+    }
+    
+    #endregion
+
+    #region Public
+
+    /// <summary>
+    /// This method is called when the player get in collision with a hurting game object.
+    /// </summary>
+    public void TakeDamage()
+    {
+        StartCoroutine(GetHurt());
     }
 
     /// <summary>
@@ -366,4 +381,6 @@ public class PlayerController : MonoBehaviour
     {
         deathSound.Play();
     }
+
+    #endregion
 }

@@ -6,10 +6,16 @@ using UnityEngine.EventSystems;
 /// </summary>
 public class LogoText : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
 {
+    #region Fields / Properties
+
     /// <summary>
     /// Instance variable <c>logoText</c> represents the text bubble to activate on mouse hover.
     /// </summary>
     public GameObject logoText;
+
+    #endregion
+
+    #region MonoBehaviour
 
     /// <summary>
     /// This method is called when the object becomes enabled and active.
@@ -26,6 +32,10 @@ public class LogoText : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     {
         logoText.SetActive(false);
     }
+
+    #endregion
+
+    #region PointerHandler
 
     /// <summary>
     /// This method is called to evaluate current state and transition to appropriate state.
@@ -53,4 +63,6 @@ public class LogoText : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     {
         logoText.SetActive(false);
     }
+
+    #endregion
 }

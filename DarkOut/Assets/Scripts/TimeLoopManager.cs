@@ -6,6 +6,8 @@ using UnityEngine;
 /// </summary>
 public class TimeLoopManager : MonoBehaviour
 {
+    #region Fields / Properties
+
     /// <summary>
     /// Static variable <c>Instance</c> represents the instance of the class. 
     /// </summary>
@@ -18,10 +20,14 @@ public class TimeLoopManager : MonoBehaviour
     private float timeLoopDuration = 60.0f;
 
     /// <summary>
-    /// TODO: comments
+    /// Instance variable <c>_coroutine</c> represents the coroutine to call on processing the time loop.
     /// </summary>
     private Coroutine _coroutine;
-    
+
+    #endregion
+
+    #region MonoBehaviour
+
     /// <summary>
     /// This method is called once when the script instance is being loaded.
     /// </summary>
@@ -46,16 +52,9 @@ public class TimeLoopManager : MonoBehaviour
         Time.timeScale = 1;
     }
 
-    /// <summary>
-    /// This method is used to start a time loop.
-    /// </summary>
-    public void StartTimeLoop()
-    {
-        if(_coroutine != null) {
-            StopCoroutine(_coroutine);
-        }
-        _coroutine = StartCoroutine(ProcessTimeLoop(timeLoopDuration));
-    }
+    #endregion
+
+    #region Private
 
     /// <summary>
     /// This method is used to launch the time loop counter.
@@ -75,4 +74,21 @@ public class TimeLoopManager : MonoBehaviour
         
         GameManager.Instance.PlayerReplay();
     }
+
+    #endregion
+
+    #region Public
+
+    /// <summary>
+    /// This method is used to start a time loop.
+    /// </summary>
+    public void StartTimeLoop()
+    {
+        if(_coroutine != null) {
+            StopCoroutine(_coroutine);
+        }
+        _coroutine = StartCoroutine(ProcessTimeLoop(timeLoopDuration));
+    }
+
+    #endregion
 }

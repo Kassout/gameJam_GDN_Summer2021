@@ -2304,13 +2304,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4fd091feab46b424096792eea0dd2c98, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerGhost: {fileID: 7580586328579239189, guid: eba3c862abbcbb34a81497a70bf71780, type: 3}
-  onTimeLoopOverAudioSource: {fileID: 2015623155}
-  mainThemeAudioSource: {fileID: 2015623158}
-  onRecallTimeLoopAudioSource: {fileID: 2015623156}
-  transitionScreen: {fileID: 1978135568}
-  startingScene: 1
+  gameManagerAnimator: {fileID: 2015623157}
   blockPlayer: 0
+  startingScene: 1
+  playerGhost: {fileID: 7580586328579239189, guid: eba3c862abbcbb34a81497a70bf71780, type: 3}
+  mainTheme: {fileID: 2015623158}
+  onRecallTimeLoop: {fileID: 2015623156}
+  transitionScreen: {fileID: 1978135568}
 --- !u!114 &2015623154
 MonoBehaviour:
   m_ObjectHideFlags: 0

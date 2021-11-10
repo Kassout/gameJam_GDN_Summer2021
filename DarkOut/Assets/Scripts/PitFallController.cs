@@ -6,16 +6,16 @@ using UnityEngine.Tilemaps;
 /// </summary>
 public class PitFallController : MonoBehaviour
 {
+    #region Fields / Properties
+
     /// <summary>
     /// Instance variable <c>pitfallTileMap</c> represents the tile map containing the different pit tiles the player could fall into.
     /// </summary>
     private Tilemap _pitfallTileMap;
 
-    /// <summary>
-    /// TODO: comments
-    /// </summary>
-    [SerializeField]
-    private GameObject checkLocation;
+    #endregion
+
+    #region MonoBehaviour
 
     /// <summary>
     /// This method is called once when the script instance is being loaded.
@@ -49,4 +49,6 @@ public class PitFallController : MonoBehaviour
             }
         }
     }
+
+    #endregion
 }

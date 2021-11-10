@@ -19,17 +19,17 @@ public class SpikesController : ActionableObject
     private Animator _animator;
     
     /// <summary>
-    /// Static variable <c>Pushed</c> represents the string message to send to the game object animator to change the state of the "isEventTriggered" variable.
+    /// Static variable <c>IsEventTriggered</c> represents the string message to send to the game object animator to change the state of the "isEventTriggered" variable.
     /// </summary>
     private static readonly int IsEventTriggered = Animator.StringToHash("isEventTriggered");
 
     /// <summary>
-    /// Static variable <c>Pushed</c> represents the string message to send to the game object animator to change the state of the "isEventRepeated" variable.
+    /// Static variable <c>IsEventRepeated</c> represents the string message to send to the game object animator to change the state of the "isEventRepeated" variable.
     /// </summary>
     private static readonly int IsEventRepeated = Animator.StringToHash("isEventRepeated");
 
     /// <summary>
-    /// Static variable <c>Pushed</c> represents the string message to send to the game object animator to change the state of the "actionTrigger" variable.
+    /// Static variable <c>ActionTrigger</c> represents the string message to send to the game object animator to change the state of the "actionTrigger" variable.
     /// </summary>
     private static readonly int ActionTrigger = Animator.StringToHash("actionTrigger");
 
@@ -42,7 +42,7 @@ public class SpikesController : ActionableObject
     /// </summary>
     private void Start()
     {
-        IsActive = false;
+        isActive = false;
         _animator = GetComponent<Animator>();
         if (actionableStyle.Equals(ActionableStyle.Triggered) ||
             actionableStyle.Equals(ActionableStyle.TriggeredRepeat))
@@ -94,10 +94,10 @@ public class SpikesController : ActionableObject
     /// </summary>
     public override void TriggerActionEvent()
     {
-        if (actionableStyle.Equals(ActionableStyle.TriggeredRepeat) && !IsActive)
+        if (actionableStyle.Equals(ActionableStyle.TriggeredRepeat) && !isActive)
         {
             _animator.SetTrigger(ActionTrigger);
-            IsActive = true;
+            isActive = true;
         }
     }
 

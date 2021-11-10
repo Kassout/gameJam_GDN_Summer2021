@@ -5,6 +5,8 @@ using UnityEngine;
 /// </summary>
 public class CameraController : MonoBehaviour
 {
+    #region Fields / Properties
+
     /// <summary>
     /// Instance variable <c>cameraStyle</c> represents the camera style of the game.
     /// </summary>
@@ -43,7 +45,11 @@ public class CameraController : MonoBehaviour
         Following,
         SmoothFollowing
     };
-    
+
+    #endregion
+
+    #region MonoBehaviour
+
     /// <summary>
     /// This method is called once when the script instance is being loaded.
     /// </summary>
@@ -68,4 +74,6 @@ public class CameraController : MonoBehaviour
             transform.position = Vector3.SmoothDamp(transform.position, desiredPosition, ref _velocity, smoothSpeed);
         }
     }
+
+    #endregion
 }

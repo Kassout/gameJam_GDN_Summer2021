@@ -134,10 +134,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca713ad81298e434fa10b273e898e58d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TilemapCollisionPoint: {fileID: 5083199124340493667}
-  groundTileMap: {fileID: 0}
-  collisionTileMap: {fileID: 0}
-  pitfallTileMap: {fileID: 0}
+  tilemapCollisionPoint: {fileID: 5083199124340493667}
   isBouncing: 0
 --- !u!1 &7580586329701835392
 GameObject:

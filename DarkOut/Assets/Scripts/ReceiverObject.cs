@@ -7,33 +7,45 @@ using UnityEngine;
 public interface IReceiverObject
 {
     /// <summary>
-    /// This method is used when the actionable object get out of triggering conditions.
+    /// This method is used when the actionable objects reunite the triggering conditions.
     /// </summary>
     void OnReceiverTriggersActivated();
+    
+    /// <summary>
+    /// This method is used when the actionable objects get out of triggering conditions.
+    /// </summary>
+    void OnReceiverTriggersDeactivated();
 }
 
 /// <summary>
-/// TODO: comment
+/// Class <c>ReceiverObject</c> is a Unity component script used to manage the different player behaviours.
 /// </summary>
-public abstract class ReceiverObject : MonoBehaviour
+public abstract class ReceiverObject : MonoBehaviour, IReceiverObject
 {
+    #region Fields / Properties
+    
     /// <summary>
-    /// TODO: comments
+    /// Instance variable <c>triggeringObjects</c> represents the list of objects to trigger to activate.
     /// </summary>
-    [SerializeField] private List<TriggeringObject> triggeringObjects;
+    [SerializeField] 
+    private List<TriggeringObject> triggeringObjects;
 
     /// <summary>
-    /// TODO: comments
+    /// Instance variable <c>_triggerCount</c> represents the current number of triggered actionable game object.
     /// </summary>
-    private int _triggerCount = 0;
+    private int _triggerCount;
 
     /// <summary>
-    /// TODO: comments
+    /// Instance variable <c>_activatedTriggeringObjects</c> represents the list of current triggered actionable game object.
     /// </summary>
     private List<TriggeringObject> _activatedTriggeringObjects;
+    
+    #endregion
+
+    #region MonoBehaviour
 
     /// <summary>
-    /// This method is called on the frame when a script is enabled
+    /// This method is called on the frame when a script is enabled.
     /// </summary>
     private void Start()
     {
@@ -41,15 +53,19 @@ public abstract class ReceiverObject : MonoBehaviour
     }
 
     /// <summary>
-    /// This method is called once per frame
+    /// This method is called once per frame.
     /// </summary>
     private void Update()
     {
         UpdateReceiverStatus();
     }
 
+    #endregion
+
+    #region Private
+
     /// <summary>
-    /// TODO: comments
+    /// This method is called to update the receiver game object activation status.
     /// </summary>
     private void UpdateReceiverStatus()
     {
@@ -76,16 +92,21 @@ public abstract class ReceiverObject : MonoBehaviour
                 }
             }
         }
-        
     }
 
-    /// <summary>
-    /// TODO: comments
-    /// </summary>
-    protected abstract void OnReceiverTriggersActivated();
+    #endregion
+
+    #region Public
 
     /// <summary>
-    /// TODO: comments
+    /// This method is used when the actionable objects reunite the triggering conditions.
     /// </summary>
-    protected abstract void OnReceiverTriggersDeactivated();
+    public abstract void OnReceiverTriggersActivated();
+
+    /// <summary>
+    /// This method is used when the actionable objects get out of triggering conditions.
+    /// </summary>
+    public abstract void OnReceiverTriggersDeactivated();
+
+    #endregion
 }

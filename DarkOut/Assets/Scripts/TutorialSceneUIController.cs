@@ -2,29 +2,46 @@ using System.Collections;
 using UnityEngine;
 
 /// <summary>
-/// TODO: comments
+/// Class <c>TutorialSceneUIController</c> is a Unity component script used to manage the game tutorial behaviour.
 /// </summary>
 public class TutorialSceneUIController : MonoBehaviour
 {
-    /// <summary>
-    /// TODO: comments
-    /// </summary>
-    [SerializeField] private GameObject[] slideList;
+    #region Fields / Properties
 
     /// <summary>
-    /// TODO: comments
+    /// Instance variable <c>slideList</c> represents the list of tutorial slide game object to display on screen.
     /// </summary>
-    private int _currentIndex = 0;
+    [SerializeField] 
+    private GameObject[] slideList;
+
+    /// <summary>
+    /// Instance variable <c>_currentIndex</c> represents the current tutorial slide index displayed on screen.
+    /// </summary>
+    private int _currentIndex;
     
     /// <summary>
-    /// TODO: comments
+    /// Instance variable <c>_isLoading</c> represents the current screen loading status.
     /// </summary>
-    private bool _isLoading = false;
+    private bool _isLoading;
     
     /// <summary>
-    /// TODO: comments
+    /// Instance variable <c>_endTutorial</c> represents the finished tutorial status.
     /// </summary>
-    private bool _endTutorial = false;
+    private bool _endTutorial;
+
+    /// <summary>
+    /// Static variable <c>IsLoading</c> represents the string message to send to the game object animator to change the state of the "isLoading" variable.
+    /// </summary>
+    private static readonly int IsLoading = Animator.StringToHash("isLoading");
+    
+    /// <summary>
+    /// Static variable <c>IsLoadingOver</c> represents the string message to send to the game object animator to change the state of the "isLoadingOver" variable.
+    /// </summary>
+    private static readonly int IsLoadingOver = Animator.StringToHash("isLoadingOver");
+
+    #endregion
+
+    #region MonoBehaviour
 
     /// <summary>
     /// This method is called once when the script instance is being loaded.
@@ -57,14 +74,18 @@ public class TutorialSceneUIController : MonoBehaviour
         }
     }
 
+    #endregion
+
+    #region Private
+
     /// <summary>
-    /// TODO: comments
+    /// This method is responsible for unloading the current slide and load the next one.
     /// </summary>
-    /// <returns>TODO: comments</returns>
+    /// <returns>A <c>IEnumerator</c> object representing a list of controls.</returns>
     private IEnumerator ChangeSlide()
     {
         _isLoading = true;
-        GameManager.Instance.gameManagerAnimator.SetTrigger("isLoading");
+        GameManager.Instance.gameManagerAnimator.SetTrigger(IsLoading);
         
         yield return new WaitForSeconds(1f);
         
@@ -72,9 +93,11 @@ public class TutorialSceneUIController : MonoBehaviour
         _currentIndex++;
         slideList[_currentIndex].SetActive(true);
         
-        GameManager.Instance.gameManagerAnimator.SetTrigger("isLoadingOver");
+        GameManager.Instance.gameManagerAnimator.SetTrigger(IsLoadingOver);
         
         yield return new WaitForSeconds(1f);
         _isLoading = false;
     }
+
+    #endregion
 }

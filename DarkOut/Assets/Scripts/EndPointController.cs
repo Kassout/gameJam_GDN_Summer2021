@@ -1,7 +1,7 @@
 using UnityEngine;
 
 /// <summary>
-/// TODO: comments
+/// Class <c>EndPointController</c> is a Unity component script used to manage the end level point behaviour.
 /// </summary>
 public class EndPointController : MonoBehaviour
 {

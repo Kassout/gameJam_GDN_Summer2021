@@ -2,10 +2,18 @@ using UnityEngine;
 using UnityEngine.Tilemaps;
 
 /// <summary>
-/// TODO: comments
+/// Class <c>BoxController</c> is a Unity component script used to manage the box game objects behaviour.
 /// </summary>
 public class BoxController : MonoBehaviour
 {
+    #region Fields / Properties
+    
+    /// <summary>
+    /// Instance variable <c>boxPushedSound</c> represents the <c>AudioSource</c> Unity component triggering box being pushed sound.
+    /// </summary>
+    [SerializeField]
+    private AudioSource boxPushedSound;
+    
     /// <summary>
     /// Instance variable <c>groundTileMap</c> represents the ground tile map on which box will stay on.
     /// </summary>
@@ -25,40 +33,38 @@ public class BoxController : MonoBehaviour
     private Tilemap pitfallTileMap;
 
     /// <summary>
-    /// Instance variable <c>rigidBody</c> represents the box's rigidbody.
-    /// </summary>
-    private Rigidbody2D _rigidbody;
-    
-    /// <summary>
-    /// Instance variable <c>boxPushedSound</c> represents the <c>AudioSource</c> Unity component triggering box being pushed sound.
-    /// </summary>
-    [SerializeField]
-    private AudioSource boxPushedSound;
-
-    /// <summary>
     /// Instance variable <c>_startingPosition</c> represents the 3D coordinate value of the starting point of the game object.
     /// </summary>
     private Vector2 _startPosition;
 
     /// <summary>
-    /// TODO: comments
+    /// Instance variable <c>_bouncing</c> represents the bouncing status of the box.
     /// </summary>
     private bool _bouncing;
 
     /// <summary>
-    /// TODO: comments
+    /// Instance variable <c>_bounceDistance</c> represents the bouncing distance value of the box.
     /// </summary>
     private float _bounceDistance;
     
     /// <summary>
-    /// TODO: comments
+    /// Instance variable <c>_bounceSpeed</c> represents the bouncing speed amplitude of the box.
     /// </summary>
-    private float bounceSpeed = 10.0f;
+    private readonly float _bounceSpeed = 10.0f;
     
     /// <summary>
-    /// TODO: comments
+    /// Instance variable <c>_bounceDirection</c> represents the bouncing direction of the box.
     /// </summary>
     private Vector2 _bounceDirection;
+
+    /// <summary>
+    /// Instance variable <c>rigidBody</c> represents the box's rigidbody.
+    /// </summary>
+    private Rigidbody2D _rigidbody;
+
+    #endregion
+
+    #region MonoBehaviour
 
     /// <summary>
     /// This method is called on the frame when a script is enabled.
@@ -100,11 +106,14 @@ public class BoxController : MonoBehaviour
     /// <summary>
     /// This method is called when a collider on another object stops touching this object's collider.
     /// </summary>
-    /// <param name="other">A <c>Collision2D</c> Unity component data associated with this collision.</param>
-    private void OnCollisionExit2D(Collision2D other)
+    private void OnCollisionExit2D()
     {
         boxPushedSound.Pause();
     }
+
+    #endregion
+
+    #region Private
 
     /// <summary>
     /// This method is used to check for potential collision with walls and pit tile.
@@ -126,11 +135,15 @@ public class BoxController : MonoBehaviour
         _rigidbody.velocity = Vector2.zero;
         _rigidbody.position = _startPosition;
     }
+    
+    #endregion
+
+    #region Public
 
     /// <summary>
-    /// TODO: comments
+    /// This method is called to bounce a box in a given direction.
     /// </summary>
-    /// <param name="direction">TODO: comments</param>
+    /// <param name="direction">A <c>Vector2</c> Unity component representing the direction of bouncing.</param>
     public void SpringBounce(Vector2 direction) {
         _bouncing = true;
         _bounceDistance = 0.0f;
@@ -138,15 +151,17 @@ public class BoxController : MonoBehaviour
     }
 
     /// <summary>
-    /// TODO: comments
+    /// This method is called to apply the bouncing force to the box.
     /// </summary>
     public void ContinueSpring() {
         if (_bounceDistance < 5.0f) {
-            Vector2 move = _rigidbody.position + _bounceDirection * bounceSpeed * Time.deltaTime;
-            _bounceDistance += bounceSpeed * Time.deltaTime;
+            Vector2 move = _rigidbody.position + _bounceDirection * _bounceSpeed * Time.deltaTime;
+            _bounceDistance += _bounceSpeed * Time.deltaTime;
             _rigidbody.MovePosition(move);
         } else {
             _bouncing = false;
         }
     }
+
+    #endregion
 }

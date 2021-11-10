@@ -8,12 +8,12 @@ public interface IActionableObject
     /// <summary>
     /// This method is used when the actionable object get triggered.
     /// </summary>
-    void TriggerActionEvent();
+    public void TriggerActionEvent();
 
     /// <summary>
     /// This method is used when the actionable object get out of triggering conditions.
     /// </summary>
-    void KillTriggers();
+    public void KillTriggers();
 }
 
 /// <summary>
@@ -21,16 +21,18 @@ public interface IActionableObject
 /// </summary>
 public abstract class ActionableObject : MonoBehaviour, IActionableObject
 {
-    /// <summary>
-    /// Instance variable <c>IsActive</c> represents the state of activity of the actionable object.
-    /// </summary>
-    protected bool IsActive { get; set; }
-
+    #region Fields / Properties
+    
     /// <summary>
     /// Instance variable <c>IsTriggeredFromInteraction</c> represents the state of interaction triggered source of the actionable object.
     /// </summary>
     public bool isTriggeredFromInteraction;
 
+    /// <summary>
+    /// Instance variable <c>isActive</c> represents the state of activity of the actionable object.
+    /// </summary>
+    protected bool isActive;
+    
     /// <summary>
     /// Instance variable <c>actionableStyle</c> represents the triggering style of the actionable object.
     /// </summary>
@@ -48,6 +50,10 @@ public abstract class ActionableObject : MonoBehaviour, IActionableObject
         AutoWhenTriggered
     }
 
+    #endregion
+
+    #region Public
+
     /// <summary>
     /// This method is used when the actionable object get triggered.
     /// </summary>
@@ -57,4 +63,6 @@ public abstract class ActionableObject : MonoBehaviour, IActionableObject
     /// This method is used when the actionable object get out of triggering conditions.
     /// </summary>
     public abstract void KillTriggers();
+
+    #endregion
 }
