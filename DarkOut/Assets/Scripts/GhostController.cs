@@ -165,15 +165,19 @@ public class GhostController : MonoBehaviour
     /// </summary>
     private void ReplayCommands()
     {
-        if (_commandCount < s_playerOldCommands.Count) {
-            //Move the box with the current command
-            if (s_playerOldCommands[_commandCount].GetType() == typeof(PlayerInteract))
-            {
-                Interact();
-            }
-            else if (!_isDisabled)
-            {
-                s_playerOldCommands[_commandCount].Move(_rigidBody, s_playerOldDirections[_commandCount]);
+        if (!_isDisabled && !GameManager.Instance.blockPlayer)
+        {
+            if (_commandCount < s_playerOldCommands.Count) {
+                //Move the box with the current command
+                if (s_playerOldCommands[_commandCount].GetType() == typeof(PlayerInteract))
+                {
+                    Interact();
+                }
+                else if (!_isDisabled)
+                {
+                    s_playerOldCommands[_commandCount].Move(_rigidBody, s_playerOldDirections[_commandCount]);
+                   
+                }
             }
             _commandCount += 1;
         }
