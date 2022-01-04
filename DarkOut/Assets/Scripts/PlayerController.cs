@@ -169,8 +169,9 @@ public class PlayerController : MonoBehaviour
         // Input
         if (!_isDisabled && !GameManager.Instance.blockPlayer)
         {
-            _movement.x = Input.GetAxisRaw("Horizontal");
-            _movement.y = Input.GetAxisRaw("Vertical");
+            _movement = InputHandler.movementInput;
+            /*_movement.x = Input.GetAxisRaw("Horizontal");
+            _movement.y = Input.GetAxisRaw("Vertical");*/
 
             characterSprite.flipX = _movement.x < 0;
         
@@ -273,7 +274,7 @@ public class PlayerController : MonoBehaviour
     /// </summary>
     private void Interact()
     {
-        if (Input.GetKeyDown(KeyCode.E) && _currentInteractionObj && _currentInteractionObj.GetComponent<TriggeringObject>())
+        if (InputHandler.interactionInput && _currentInteractionObj && _currentInteractionObj.GetComponent<TriggeringObject>())
         {
             _buttonInteract.Execute(_rigidBody, _movement, _buttonInteract);
             IEnumerator coroutine = _currentInteractionObj.GetComponent<TriggeringObject>().PushSequenceOnInteraction();
@@ -290,7 +291,7 @@ public class PlayerController : MonoBehaviour
     /// </summary>
     private void Replay()
     {
-        if (Input.GetKeyDown(KeyCode.Y))
+        if (InputHandler.replayInput)
         {
             GameManager.Instance.PlayerReplay();
         }

@@ -4,7 +4,7 @@ using UnityEngine.EventSystems;
 /// <summary>
 /// Class <c>LogoText</c> is a Unity component script used to manage the hover button behaviour.
 /// </summary>
-public class LogoText : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
+public class LogoText : MonoBehaviour, ISelectHandler, IDeselectHandler
 {
     #region Fields / Properties
 
@@ -35,31 +35,22 @@ public class LogoText : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
     #endregion
 
-    #region PointerHandler
+    #region SelectHandler
 
     /// <summary>
-    /// This method is called to evaluate current state and transition to appropriate state.
+    /// This method is called to evaluate current selected state and transition to appropriate state.
     /// </summary>
     /// <param name="eventData">The EventData usually sent by the EventSystem.</param>
-    public void OnPointerEnter(PointerEventData eventData)
+    public void OnSelect(BaseEventData eventData)
     {
         logoText.SetActive(true);
     }
-
+    
     /// <summary>
-    /// This method is called to evaluate current state and transition to normal state.
+    /// This method is called to evaluate current Deselected state and transition to appropriate state.
     /// </summary>
     /// <param name="eventData">The EventData usually sent by the EventSystem.</param>
-    public void OnPointerExit(PointerEventData eventData)
-    {
-        logoText.SetActive(false);
-    }
-
-    /// <summary>
-    /// This method is called to registered IPointerClickHandler callback.
-    /// </summary>
-    /// <param name="eventData">The EventData usually sent by the EventSystem.</param>
-    public void OnPointerClick(PointerEventData eventData)
+    public void OnDeselect(BaseEventData eventData)
     {
         logoText.SetActive(false);
     }
