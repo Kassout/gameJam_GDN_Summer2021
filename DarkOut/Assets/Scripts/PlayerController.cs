@@ -170,9 +170,11 @@ public class PlayerController : MonoBehaviour
         if (!_isDisabled && !GameManager.Instance.blockPlayer)
         {
             _movement = InputHandler.movementInput;
-            /*_movement.x = Input.GetAxisRaw("Horizontal");
-            _movement.y = Input.GetAxisRaw("Vertical");*/
-
+            
+#if UNITY_WEBGL
+            _movement.x = -_movement.x;
+#endif
+            
             characterSprite.flipX = _movement.x < 0;
         
             if (_movement.x != 0 || _movement.y != 0)
