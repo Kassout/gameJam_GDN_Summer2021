@@ -1,5 +1,8 @@
 using System.Collections;
+using System.Linq;
 using UnityEngine;
+using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.Controls;
 
 /// <summary>
 /// Class <c>TutorialSceneUIController</c> is a Unity component script used to manage the game tutorial behaviour.
@@ -61,7 +64,7 @@ public class TutorialSceneUIController : MonoBehaviour
             _endTutorial = true;
         }
         
-        if (Input.anyKeyDown && !_isLoading && !_endTutorial)
+        if ((Keyboard.current.anyKey.wasPressedThisFrame || Gamepad.current.allControls.Any(x => x is ButtonControl button && x.IsPressed() && !x.synthetic)) && !_isLoading && !_endTutorial)
         {
             StartCoroutine(ChangeSlide());
         }

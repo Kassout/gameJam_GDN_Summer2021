@@ -4,6 +4,7 @@ using UnityEditor;
 
 using System.IO;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 // Sets the script to be executed later than all default scripts
@@ -48,6 +49,22 @@ public class MainMenuUIHandler : MonoBehaviour
     /// </summary>
     [SerializeField]
     private int gameSceneToLoad = 2;
+    
+    
+    /// <summary>
+    /// Instance variable <c>mainStartFirstButton</c> is a Unity <c>GameObject</c> object representing the button to first select on start main menu set active.
+    /// </summary>
+    [SerializeField] private GameObject mainStartFirstButton;
+    
+    /// <summary>
+    /// Instance variable <c>mainContinueFirstButton</c> is a Unity <c>GameObject</c> object representing the button to first select on continue main menu set active.
+    /// </summary>
+    [SerializeField] private GameObject mainContinueFirstButton;
+    
+    /// <summary>
+    /// Instance variable <c>settingsFirstButton</c> is a Unity <c>GameObject</c> object representing the button to first select on settings menu set active.
+    /// </summary>
+    [SerializeField] private GameObject settingsFirstButton;
 
     #endregion
 
@@ -60,7 +77,7 @@ public class MainMenuUIHandler : MonoBehaviour
     {
         PlayMainMenuTheme();
         OpenMainMenu();
-        volumeSlider.value = PlayerPrefs.GetFloat("volume");
+        volumeSlider.value = PlayerPrefs.GetFloat("volume", 1.0f);
     }
     
     #endregion
@@ -109,6 +126,11 @@ public class MainMenuUIHandler : MonoBehaviour
             mainMenuWithSave.SetActive(false);
         }
         settingsMenu.SetActive(true);
+        
+        // clear selected object
+        EventSystem.current.SetSelectedGameObject(null);
+        // set a new selected object
+        EventSystem.current.SetSelectedGameObject(settingsFirstButton);
     }
 
     /// <summary>
@@ -121,10 +143,20 @@ public class MainMenuUIHandler : MonoBehaviour
         if (File.Exists(path))
         {
             mainMenuWithSave.SetActive(true);
+            
+            // clear selected object
+            EventSystem.current.SetSelectedGameObject(null);
+            // set a new selected object
+            EventSystem.current.SetSelectedGameObject(mainContinueFirstButton);
         }
         else
         {
             mainMenu.SetActive(true);
+            
+            // clear selected object
+            EventSystem.current.SetSelectedGameObject(null);
+            // set a new selected object
+            EventSystem.current.SetSelectedGameObject(mainStartFirstButton);
         }
     }
 

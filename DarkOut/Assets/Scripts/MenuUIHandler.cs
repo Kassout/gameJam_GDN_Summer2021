@@ -1,5 +1,6 @@
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 // Sets the script to be executed later than all default scripts
@@ -20,7 +21,17 @@ public class MenuUIHandler : MonoBehaviour
     /// </summary>
     [SerializeField]
     private GameObject settingsMenu;
+
+    /// <summary>
+    /// Instance variable <c>pauseFirstButton</c> is a Unity <c>GameObject</c> object representing the button to first select on pause menu set active.
+    /// </summary>
+    [SerializeField] private GameObject pauseFirstButton;
     
+    /// <summary>
+    /// Instance variable <c>settingsFirstButton</c> is a Unity <c>GameObject</c> object representing the button to first select on settings menu set active.
+    /// </summary>
+    [SerializeField] private GameObject settingsFirstButton;
+
     /// <summary>
     /// Instance variable <c>volumeSlider</c> represents a <c>Slider</c> Unity UI component used to change the global volume of the game.
     /// </summary>
@@ -43,7 +54,7 @@ public class MenuUIHandler : MonoBehaviour
     {
         pauseMenu.SetActive(false);
         settingsMenu.SetActive(false);
-        volumeSlider.value = PlayerPrefs.GetFloat("volume");
+        volumeSlider.value = PlayerPrefs.GetFloat("volume", 1.0f);
     }
 
     /// <summary>
@@ -51,25 +62,9 @@ public class MenuUIHandler : MonoBehaviour
     /// </summary>
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (InputHandler.pauseInput)
         {
-            if (!settingsMenu.activeSelf)
-            {
-                _isPaused = !_isPaused;
-                if (_isPaused)
-                {
-                    OpenPauseMenu();
-                }
-                else
-                {
-                    ResumeGame();
-                }
-            }
-            else
-            {
-                CloseSettings();
-            }
-
+            PauseUnpause();
         }
         Time.timeScale = 1 * (_isPaused ? 0 : 1);
     }
@@ -79,11 +74,39 @@ public class MenuUIHandler : MonoBehaviour
     #region Private
 
     /// <summary>
+    /// This function is responsible for displaying or exiting the pause menu.
+    /// </summary>
+    private void PauseUnpause()
+    {
+        if (!settingsMenu.activeSelf)
+        {
+            _isPaused = !_isPaused;
+            if (_isPaused)
+            {
+                OpenPauseMenu();
+            }
+            else
+            {
+                ResumeGame();
+            }
+        }
+        else
+        {
+            CloseSettings();
+        }
+    }
+
+    /// <summary>
     /// This method is called to open the pause UI menu.
     /// </summary>
     private void OpenPauseMenu()
     {
         pauseMenu.SetActive(true);
+        
+        // clear selected object
+        EventSystem.current.SetSelectedGameObject(null);
+        // set a new selected object
+        EventSystem.current.SetSelectedGameObject(pauseFirstButton);
     }
 
     #endregion
@@ -111,6 +134,11 @@ public class MenuUIHandler : MonoBehaviour
     {
         pauseMenu.SetActive(false);
         settingsMenu.SetActive(true);
+        
+        // clear selected object
+        EventSystem.current.SetSelectedGameObject(null);
+        // set a new selected object
+        EventSystem.current.SetSelectedGameObject(settingsFirstButton);
     }
 
     /// <summary>
@@ -139,6 +167,11 @@ public class MenuUIHandler : MonoBehaviour
     {
         settingsMenu.SetActive(false);
         pauseMenu.SetActive(true);
+        
+        // clear selected object
+        EventSystem.current.SetSelectedGameObject(null);
+        // set a new selected object
+        EventSystem.current.SetSelectedGameObject(pauseFirstButton);
     }
 
     #endregion

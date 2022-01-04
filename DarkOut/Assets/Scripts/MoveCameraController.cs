@@ -10,6 +10,7 @@ public class MoveCameraController : MonoBehaviour
     /// </summary>
     private void Update()
     {
-        transform.localPosition = new Vector3(Input.GetAxis("ArrowHorizontal") * 3.0f, Input.GetAxis("ArrowVertical") * 3.0f, 0);
+        Vector3 cameraMovement = new Vector3(InputHandler.lookAround.x * 3.0f, InputHandler.lookAround.y * 3.0f, 0);
+        transform.localPosition = Vector3.Lerp(transform.localPosition, cameraMovement, Time.deltaTime * 5.0f);
     }
 }

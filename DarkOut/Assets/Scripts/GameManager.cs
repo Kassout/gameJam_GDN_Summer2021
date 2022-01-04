@@ -262,7 +262,7 @@ public class GameManager : MonoBehaviour
     {
         StartCoroutine(OnLoadScene(sceneIndex, isRecall));
         _currentScene = sceneIndex;
-        AudioListener.volume = PlayerPrefs.GetFloat("volume");
+        AudioListener.volume = PlayerPrefs.GetFloat("volume", 1.0f);
         if (!sceneIndex.Equals(MAIN_MENU_SCENE) && !sceneIndex.Equals(PRELOAD_SCENE))
         {
             SaveLevelData();
