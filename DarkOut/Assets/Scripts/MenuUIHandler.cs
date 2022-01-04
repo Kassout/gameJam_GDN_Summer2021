@@ -54,7 +54,7 @@ public class MenuUIHandler : MonoBehaviour
     {
         pauseMenu.SetActive(false);
         settingsMenu.SetActive(false);
-        volumeSlider.value = PlayerPrefs.GetFloat("volume");
+        volumeSlider.value = PlayerPrefs.GetFloat("volume", 1.0f);
     }
 
     /// <summary>

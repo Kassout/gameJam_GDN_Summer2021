@@ -77,7 +77,7 @@ public class MainMenuUIHandler : MonoBehaviour
     {
         PlayMainMenuTheme();
         OpenMainMenu();
-        volumeSlider.value = PlayerPrefs.GetFloat("volume");
+        volumeSlider.value = PlayerPrefs.GetFloat("volume", 1.0f);
     }
     
     #endregion

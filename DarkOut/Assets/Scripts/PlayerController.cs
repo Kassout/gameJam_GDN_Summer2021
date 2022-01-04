@@ -172,7 +172,7 @@ public class PlayerController : MonoBehaviour
             _movement = InputHandler.movementInput;
             
 #if UNITY_WEBGL
-            _movement.x = -_movement.x;
+            _movement.y = -_movement.y;
 #endif
             
             characterSprite.flipX = _movement.x < 0;
