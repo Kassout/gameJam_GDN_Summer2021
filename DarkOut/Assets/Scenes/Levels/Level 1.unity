@@ -2703,9 +2703,25 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1889385035}
     m_Modifications:
+    - target: {fileID: 543332311688055535, guid: 88264a348876b3441a934776d09470aa, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5801861573134109158, guid: 88264a348876b3441a934776d09470aa, type: 3}
       propertyPath: m_SortingOrder
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6919733809704517770, guid: 88264a348876b3441a934776d09470aa, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6919733810267286057, guid: 88264a348876b3441a934776d09470aa, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8379988797761358824, guid: 88264a348876b3441a934776d09470aa, type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8379988797761358825, guid: 88264a348876b3441a934776d09470aa, type: 3}
       propertyPath: m_RootOrder
@@ -2754,6 +2770,10 @@ PrefabInstance:
     - target: {fileID: 8379988797761358827, guid: 88264a348876b3441a934776d09470aa, type: 3}
       propertyPath: m_Name
       value: EndDoor
+      objectReference: {fileID: 0}
+    - target: {fileID: 8379988797761358827, guid: 88264a348876b3441a934776d09470aa, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8698536936134035139, guid: 88264a348876b3441a934776d09470aa, type: 3}
       propertyPath: triggeringObjects.Array.size

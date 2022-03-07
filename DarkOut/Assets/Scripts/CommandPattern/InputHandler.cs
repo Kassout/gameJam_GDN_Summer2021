@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 /// <summary>
 /// Class <c>InputHandler</c> is a Unity component script used to manage the inputs behaviour.
@@ -69,6 +70,12 @@ public class InputHandler : MonoBehaviour
         if (_inputController == null)
         {
             _inputController = new InputController();
+            
+            #if UNITY_WEBGL
+                InputBinding moveBinding = _inputController.Player.Move.bindings[5];
+                moveBinding.overrideProcessors = "InvertVector2(invertX=false)";
+                _inputController.Player.Move.ApplyBindingOverride(5, moveBinding);
+            #endif
             
             _inputController.Player.Move.performed += _ => movementInput = _.ReadValue<Vector2>();
             _inputController.Player.LookAround.performed += _ => lookAround = _.ReadValue<Vector2>();

@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.Tilemaps;
 
 /// <summary>
@@ -170,11 +172,7 @@ public class PlayerController : MonoBehaviour
         if (!_isDisabled && !GameManager.Instance.blockPlayer)
         {
             _movement = InputHandler.movementInput;
-            
-#if UNITY_WEBGL
-            _movement.y = -_movement.y;
-#endif
-            
+
             characterSprite.flipX = _movement.x < 0;
         
             if (_movement.x != 0 || _movement.y != 0)
